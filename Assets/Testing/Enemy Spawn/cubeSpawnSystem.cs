@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 
 [BurstCompile]
@@ -33,7 +34,9 @@ public partial struct cubeSpawnSystem : ISystem
 
         for (var i = 0; i < cubeAsp.numberCubeSpawn; i++)
         {
-            ecb.Instantiate(cubeAsp.cubePrefab);
+            var newCube = ecb.Instantiate(cubeAsp.cubePrefab);
+            var newCubeTransform = cubeAsp.GetRandomCubeTransform();
+            ecb.SetComponent<LocalTransform>(newCube, newCubeTransform);
         }
 
         ecb.Playback(state.EntityManager);
