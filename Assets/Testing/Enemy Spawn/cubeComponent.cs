@@ -7,6 +7,6 @@ using UnityEngine;
 public struct cubeComponent : IComponentData
 {
     public float2 FieldDimensions;
-    public int NumberCubeSpaawn;
+    public int NumberCubeSpawn;
     public Entity CubePrefab;
 }
