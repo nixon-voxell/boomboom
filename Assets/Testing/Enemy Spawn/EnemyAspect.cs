@@ -31,14 +31,14 @@ public readonly partial struct CubeAspect : IAspect
     {
         float3 randomPosition;
 
-        randomPosition = m_EnemyRandom.ValueRW.Value.NextFloat3(minCorner, maxCorner);
+        randomPosition = m_EnemyRandom.ValueRW.Value.NextFloat3(m_MinCorner, m_MaxCorner);
 
         return randomPosition;
     }
     
-    private float3 minCorner => m_Local.ValueRW.Position - HalfDimensions;
-    private float3 maxCorner => m_Local.ValueRW.Position + HalfDimensions;
-    private float3 HalfDimensions => new()
+    private float3 m_MinCorner => m_Local.ValueRW.Position - m_HalfDimensions;
+    private float3 m_MaxCorner => m_Local.ValueRW.Position + m_HalfDimensions;
+    private float3 m_HalfDimensions => new()
     {
         x = m_EnemyComponent.ValueRO.FieldDimensions.x * 0.5f,
         y = 0f,

@@ -9,7 +9,7 @@ using UnityEngine;
 
 [BurstCompile]
 [UpdateInGroup(typeof(InitializationSystemGroup))]
-public partial struct CubeSpawnSystem : ISystem
+public partial struct EnemySpawnSystem : ISystem
 {
     [BurstCompile]
     public void OnCreate(ref SystemState state)
@@ -27,15 +27,15 @@ public partial struct CubeSpawnSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         state.Enabled = false;
-        var cubeEntity = SystemAPI.GetSingletonEntity<EnemyComponent>();
-        var cubeAsp = SystemAPI.GetAspect<CubeAspect>(cubeEntity);
+        var enemyEntity = SystemAPI.GetSingletonEntity<EnemyComponent>();
+        var enemyAsp = SystemAPI.GetAspect<CubeAspect>(enemyEntity);
 
         var ecb = new EntityCommandBuffer(Allocator.Temp);
 
-        for (var i = 0; i < cubeAsp.NumberEnemySpawn; i++)
+        for (var i = 0; i < enemyAsp.NumberEnemySpawn; i++)
         {
-            var newCube = ecb.Instantiate(cubeAsp.EnemyPrefab);
-            var newCubeTransform = cubeAsp.GetRandomEnemyTransform();
+            var newCube = ecb.Instantiate(enemyAsp.EnemyPrefab);
+            var newCubeTransform = enemyAsp.GetRandomEnemyTransform();
             ecb.SetComponent<LocalTransform>(newCube, newCubeTransform);
         }
 

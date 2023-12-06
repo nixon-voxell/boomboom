@@ -170,7 +170,7 @@ MonoBehaviour:
   FieldDimensions:
     x: 50
     y: 50
-  NumberEnemySpawn: 2000
+  NumberEnemySpawn: 5000
   EnemyPrefab: {fileID: 8381328553984811717, guid: f69fe12422aff4f4ca2aa783a9d8791b,
     type: 3}
   RandomSeed: 1000
