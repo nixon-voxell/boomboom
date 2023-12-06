@@ -1,11 +1,12 @@
 using UnityEngine;
 using Unity.Collections;
+using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
-using Unity.Jobs;
 
-public partial struct TnTBehavior : ISystem
+public partial struct TnTExplosionSystem : ISystem
 {
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         bool countExplode = Input.GetMouseButtonDown(0);
