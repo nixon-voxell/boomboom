@@ -6,28 +6,28 @@ using Unity.Mathematics;
 using UnityEngine;
 
 //these components can only be seen in non-runtime inspector
-public class cubeMono : MonoBehaviour
+public class EnemyMono : MonoBehaviour
 {
     public float2 FieldDimensions;
-    public int NumberCubeSpawn;
-    public GameObject CubePrefab;
+    public int NumberEnemySpawn;
+    public GameObject EnemyPrefab;
     public uint RandomSeed;
 }
 
 //to let above components can also be seen in runtime inspector, we use baker
-public class cubeBaker : Baker<cubeMono>
+public class EnemyBaker : Baker<EnemyMono>
 {
     [System.Obsolete]
-    public override void Bake(cubeMono authoring)   //values above will be assigned into reference components (scripts) added below
+    public override void Bake(EnemyMono authoring)   //values above will be assigned into reference components (scripts) added below
     {
-        AddComponent(new cubeComponent
+        AddComponent(new EnemyComponent
         {
             FieldDimensions = authoring.FieldDimensions,
-            NumberCubeSpawn = authoring.NumberCubeSpawn,
-            CubePrefab = GetEntity(authoring.CubePrefab)
+            NumberEnemySpawn = authoring.NumberEnemySpawn,
+            EnemyPrefab = GetEntity(authoring.EnemyPrefab)
         });
 
-        AddComponent(new cubeRandom
+        AddComponent(new EnemyRandom
         {
             Value = Unity.Mathematics.Random.CreateFromIndex(authoring.RandomSeed)
         });

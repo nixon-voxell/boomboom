@@ -5,7 +5,7 @@ using Unity.Entities;
 using UnityEngine;
 using Unity.Mathematics;
 
-public struct cubeRandom : IComponentData
+public struct EnemyRandom : IComponentData
 {
     public Unity.Mathematics.Random Value;
 }

@@ -4,9 +4,9 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-public struct cubeComponent : IComponentData
+public struct EnemyComponent : IComponentData
 {
     public float2 FieldDimensions;
-    public int NumberCubeSpawn;
-    public Entity CubePrefab;
+    public int NumberEnemySpawn;
+    public Entity EnemyPrefab;
 }
