@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2159.1555, g: 2263.639, b: 3287.313, a: 1}
+  m_IndirectSpecularColor: {r: 2163.803, g: 2268.5686, b: 3292.4224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -159,7 +159,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -211,13 +211,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157207112}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalRotation: {x: 0.14644748, y: -0.85355276, z: 0.35355318, w: 0.35355467}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: -135, z: 0}
 --- !u!114 &157207115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_ShapeHeight: 0.5
   m_AspectRatio: 1
   m_ShapeRadius: 0.025
-  m_SoftnessScale: 1
+  m_SoftnessScale: 0.5
   m_UseCustomSpotLightShadowCone: 0
   m_CustomSpotLightShadowCone: 30
   m_MaxSmoothness: 0.99
@@ -291,8 +291,8 @@ MonoBehaviour:
   m_MaxDepthBias: 0.001
   m_ShadowResolution:
     m_Override: 512
-    m_UseOverride: 1
-    m_Level: 0
+    m_UseOverride: 0
+    m_Level: 1
   m_ShadowDimmer: 1
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
@@ -303,8 +303,8 @@ MonoBehaviour:
   m_RayTracedContactShadow: 0
   m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
   m_PenumbraTint: 0
-  m_NormalBias: 0.75
-  m_SlopeBias: 0.5
+  m_NormalBias: 5
+  m_SlopeBias: 0
   m_ShadowUpdateMode: 0
   m_AlwaysDrawDynamicShadows: 0
   m_UpdateShadowOnLightMovement: 0
@@ -475,13 +475,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1823688468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,7 +501,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 2
+  antialiasing: 3
   SMAAQuality: 2
   dithering: 1
   stopNaNs: 0
@@ -611,6 +611,59 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!1 &1923210492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1923210494}
+  - component: {fileID: 1923210493}
+  m_Layer: 0
+  m_Name: GameWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1923210493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923210492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a335734b1572644a6a5d09d87adc65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _SceneAsset: {fileID: 102900000, guid: 03e6b3f50b1272c47b5a6f1a684b51d4, type: 3}
+  _HierarchyColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  AutoLoadScene: 1
+  _SceneGUID:
+    Value:
+      x: 1597730352
+      y: 1277632944
+      z: 2717296055
+      w: 1293268102
+--- !u!4 &1923210494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923210492}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1
@@ -667,3 +720,4 @@ SceneRoots:
   - {fileID: 157207114}
   - {fileID: 432432461}
   - {fileID: 2013410475}
+  - {fileID: 1923210494}

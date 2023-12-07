@@ -1,4 +1,3 @@
-using UnityEngine;
 using Unity.Collections;
 using Unity.Burst;
 using Unity.Entities;
@@ -9,7 +8,7 @@ public partial struct TnTExplosionSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        bool countExplode = Input.GetMouseButtonDown(0);
+        bool countExplode = false;
 
         if (countExplode == false)
         {
