@@ -317,6 +317,15 @@
       },
       "url": "https://packages.unity.com"
     },
+    "voxell.util": {
+      "version": "file:UnityUtil",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.mathematics": "1.2.6",
+        "com.unity.collections": "2.1.4"
+      }
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
