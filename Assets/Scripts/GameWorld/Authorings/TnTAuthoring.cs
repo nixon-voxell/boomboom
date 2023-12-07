@@ -12,7 +12,7 @@ class TnTBaker : Baker<TnTAuthoring>
 {
     public override void Bake(TnTAuthoring authoring)
     {
-        var entity = GetEntity(TransformUsageFlags.Dynamic);
+        Entity entity = GetEntity(TransformUsageFlags.Dynamic);
         AddComponent(entity, new TnTCountDown
         {
             CountDown = authoring.CountDown,
