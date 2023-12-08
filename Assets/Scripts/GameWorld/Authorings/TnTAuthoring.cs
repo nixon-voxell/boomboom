@@ -16,6 +16,7 @@ class TnTBaker : Baker<TnTAuthoring>
         AddComponent(entity, new TnTCountDown
         {
             CountDown = authoring.CountDown,
+            CountDownTimer = authoring.CountDown,
         });
 
     }
