@@ -678,7 +678,7 @@ MonoBehaviour:
   m_MotionType: 0
   m_Smoothing: 1
   m_Mass: 1
-  m_LinearDamping: 0.01
+  m_LinearDamping: 10
   m_AngularDamping: 0.05
   m_InitialLinearVelocity:
     x: 0
@@ -870,6 +870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 10
+  Dash: 20
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

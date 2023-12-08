@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Build",
+                    "name": "Dash",
                     "type": "Button",
                     "id": "64b573cf-d724-4098-8d1f-f6c2725e643a",
                     "expectedControlType": "Button",
@@ -83,11 +83,11 @@
                 {
                     "name": "",
                     "id": "a8777c8d-b831-4fad-a00a-66519ffb5df2",
-                    "path": "<Keyboard>/b",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Build",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

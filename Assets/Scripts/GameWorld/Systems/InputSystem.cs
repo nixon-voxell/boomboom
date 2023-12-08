@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Collections;
 using Unity.Entities;
 
+[UpdateInGroup(typeof(LateSimulationSystemGroup))]
 public partial class InputSystem : SystemBase
 {
     private Controls m_Input = null;
@@ -32,6 +33,7 @@ public partial class InputSystem : SystemBase
         UserInputSingleton input = SystemAPI.GetSingleton<UserInputSingleton>();
 
         input.MoveAxis = this.m_Input.Player.Move.ReadValue<Vector2>();
+        input.Dash = this.m_Input.Player.Dash.WasPressedThisFrame();
 
         SystemAPI.SetSingleton<UserInputSingleton>(input);
     }
