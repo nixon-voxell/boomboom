@@ -4,6 +4,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Physics;
 
+[UpdateAfter(typeof(InputSystem))]
 public partial struct PlayerMovementSystem : ISystem
 {
     [BurstCompile]

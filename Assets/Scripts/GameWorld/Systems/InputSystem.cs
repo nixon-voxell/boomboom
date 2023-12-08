@@ -2,7 +2,6 @@ using UnityEngine;
 using Unity.Collections;
 using Unity.Entities;
 
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
 public partial class InputSystem : SystemBase
 {
     private Controls m_Input = null;
@@ -36,5 +35,10 @@ public partial class InputSystem : SystemBase
         input.Dash = this.m_Input.Player.Dash.WasPressedThisFrame();
 
         SystemAPI.SetSingleton<UserInputSingleton>(input);
+    }
+
+    protected override void OnDestroy()
+    {
+        this.m_Input.Dispose();
     }
 }
