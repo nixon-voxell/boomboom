@@ -620,7 +620,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923210492}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1923210495
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -676,7 +676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MotionType: 0
-  m_Smoothing: 0
+  m_Smoothing: 1
   m_Mass: 1
   m_LinearDamping: 0.01
   m_AngularDamping: 0.05
@@ -726,7 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 0
+  m_ShapeType: 2
   m_PrimitiveCenter:
     x: 0
     y: 0
@@ -869,7 +869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e9acaa8684a4a49823fb443677dff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
+  Speed: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

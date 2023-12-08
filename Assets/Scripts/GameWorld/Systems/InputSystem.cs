@@ -32,7 +32,6 @@ public partial class InputSystem : SystemBase
         UserInputSingleton input = SystemAPI.GetSingleton<UserInputSingleton>();
 
         input.MoveAxis = this.m_Input.Player.Move.ReadValue<Vector2>();
-        Debug.Log(this.m_Input.Player.Build.ReadValue<float>());
 
         SystemAPI.SetSingleton<UserInputSingleton>(input);
     }
