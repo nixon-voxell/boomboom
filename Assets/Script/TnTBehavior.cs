@@ -4,8 +4,10 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Jobs;
 
+
 public partial struct TnTBehavior : ISystem
 {
+
     public void OnUpdate(ref SystemState state)
     {
         bool countExplode = Input.GetMouseButtonDown(0);
@@ -27,6 +29,7 @@ public partial struct TnTBehavior : ISystem
 
         commands.Playback(state.EntityManager);
     }
+
 }
 
 

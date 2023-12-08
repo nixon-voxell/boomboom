@@ -5,8 +5,8 @@ using Unity.Entities;
 
 public class TnTAuthoring : MonoBehaviour
 {
-    public float countDown = 3f;
- 
+    public int countDown = 3;
+
     public class TnTBaker : Baker<TnTAuthoring> 
     {
         public override void Bake(TnTAuthoring authoring)
