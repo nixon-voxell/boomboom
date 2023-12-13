@@ -1,6 +1,5 @@
 using Unity.Mathematics;
 using Unity.Burst;
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Physics;
 
@@ -13,13 +12,13 @@ public partial struct PlayerMovementSystem : ISystem
         state.RequireForUpdate<UserInputSingleton>();
 
         // Player with Speed component attached to it
-        EntityQueryBuilder queryBuilder =
-            new EntityQueryBuilder(Allocator.Temp)
+        EntityQuery query = SystemAPI.QueryBuilder()
                 .WithAll<Tag_Player, PhysicsDamping, Speed>()
                 .WithAllRW<PhysicsVelocity>()
-                .WithAllRW<SecondaryVelocity, Dash>();
+                .WithAllRW<SecondaryVelocity, Dash>()
+                .Build();
 
-        state.RequireForUpdate(queryBuilder.Build(ref state));
+        state.RequireForUpdate(query);
     }
 
     [BurstCompile]
