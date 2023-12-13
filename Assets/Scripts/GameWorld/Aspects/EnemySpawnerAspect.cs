@@ -10,6 +10,7 @@ public readonly partial struct EnemySpawnerAspect : IAspect
 
     public int NumberEnemySpawn => m_EnemyComponent.ValueRO.NumberEnemySpawn;
     public Entity EnemyPrefab => m_EnemyComponent.ValueRO.EnemyPrefab;
+    public float SpawnInterval => m_EnemyComponent.ValueRW.SpawnInterval;
 
     public LocalTransform GetRandomEnemyTransform()
     {

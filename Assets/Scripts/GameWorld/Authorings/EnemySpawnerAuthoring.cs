@@ -10,6 +10,7 @@ class EnemySpawner : MonoBehaviour
     public int NumberEnemySpawn;
     public GameObject EnemyPrefab;
     public uint RandomSeed;
+    public float spawnInterval;
 }
 
 class EnemySpawnerBaker : Baker<EnemySpawner>
@@ -25,6 +26,8 @@ class EnemySpawnerBaker : Baker<EnemySpawner>
             NumberEnemySpawn = authoring.NumberEnemySpawn,
             EnemyPrefab = enemyPrefab,
             Randomizer = Random.CreateFromIndex(authoring.RandomSeed),
+            SpawnInterval = authoring.spawnInterval,
+
         });
     }
 }

@@ -22,6 +22,8 @@ public partial struct EnemySpawnSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        return;
+
         state.Enabled = false;
 
         Entity enemyEntity = SystemAPI.GetSingletonEntity<EnemySpawnerSingleton>();
@@ -39,3 +41,5 @@ public partial struct EnemySpawnSystem : ISystem
         commands.Playback(state.EntityManager);
     }
 }
+
+
