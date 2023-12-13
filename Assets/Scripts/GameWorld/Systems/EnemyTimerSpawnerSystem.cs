@@ -36,13 +36,15 @@ public partial struct EnemyTimerSpawnerSystem : ISystem
 
         if (m_CurrentEnemyCount < enemyAsp.NumberEnemySpawn)
         {
+            m_SpawnInterval = enemyAsp.SpawnInterval;
             m_SpawnTimer -= Time.deltaTime;
 
             if (m_SpawnTimer < 0)
             {
                 EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
-                int numEnemiesToSpawn = Mathf.Min(5, enemyAsp.NumberEnemySpawn - m_CurrentEnemyCount);
+                int maxEnemiesToSpawn = Mathf.Min(5, enemyAsp.NumberEnemySpawn - m_CurrentEnemyCount);
+                int numEnemiesToSpawn = Random.Range(1, maxEnemiesToSpawn + 1);
 
                 for (int i = 0; i < numEnemiesToSpawn; i++)
                 {
