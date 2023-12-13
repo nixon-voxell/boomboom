@@ -44,7 +44,10 @@ public partial struct EnemyTimerSpawnerSystem : ISystem
             {
                 EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
-                int enemiesToSpawn = Mathf.Min(m_CurrentEnemyCount + 1, enemyAsp.NumberEnemySpawn - m_CurrentEnemyCount);
+                int maxSpawnIncrement = 5; // Define the maximum range for random spawn increment
+                int spawnIncrement = Random.Range(1, maxSpawnIncrement + 1); // Generate a random increment value
+
+                int enemiesToSpawn = Mathf.Min(m_CurrentEnemyCount + spawnIncrement, enemyAsp.NumberEnemySpawn - m_CurrentEnemyCount);
 
                 for (int i = 0; i < enemiesToSpawn; i++)
                 {
@@ -58,10 +61,10 @@ public partial struct EnemyTimerSpawnerSystem : ISystem
                 commands.Dispose();
 
                 m_SpawnTimer = m_SpawnInterval;
+
+                Debug.Log("Enemies spawned: " + enemiesToSpawn.ToString());
             }
         }
-
-
     }
 }
 
