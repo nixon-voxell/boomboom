@@ -20,6 +20,7 @@ public partial struct EnemyTimerSpawnerSystem : ISystem
     {
         state.RequireForUpdate<EnemySpawnerSingleton>();
 
+        m_CurrentEnemyCount = 0;
     }
 
     [BurstCompile]
@@ -43,10 +44,9 @@ public partial struct EnemyTimerSpawnerSystem : ISystem
             {
                 EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
-                int maxEnemiesToSpawn = Mathf.Min(5, enemyAsp.NumberEnemySpawn - m_CurrentEnemyCount);
-                int numEnemiesToSpawn = Random.Range(1, maxEnemiesToSpawn + 1);
+                int enemiesToSpawn = Mathf.Min(m_CurrentEnemyCount + 1, enemyAsp.NumberEnemySpawn - m_CurrentEnemyCount);
 
-                for (int i = 0; i < numEnemiesToSpawn; i++)
+                for (int i = 0; i < enemiesToSpawn; i++)
                 {
                     Entity newEnemy = commands.Instantiate(enemyAsp.EnemyPrefab);
                     LocalTransform newEnemyTransform = enemyAsp.GetRandomEnemyTransform();
