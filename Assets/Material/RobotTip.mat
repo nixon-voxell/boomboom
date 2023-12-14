@@ -77,7 +77,9 @@ Material:
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
     - _ExcludeFromTUAndAA: 0
-    - _Luminosity: 1000
+    - _Luminosity: 25000
+    - _NoiseSpeed: 1
+    - _NoiseStrength: 0.3
     - _OpaqueCullMode: 2
     - _RayTracing: 0
     - _ReceivesSSR: 1
@@ -85,7 +87,7 @@ Material:
     - _RefractionModel: 0
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
-    - _Rotation: -0.628
+    - _Rotation: 0
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 8
@@ -117,6 +119,6 @@ Material:
     - _Center: {r: 0, g: 0.5, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RotationAxis: {r: 1, g: 0, b: 0, a: 0}
-    - _TipColor: {r: 2.792452, g: 14.776718, b: 16, a: 1}
+    - _RotationAxis: {r: 0, g: 0, b: 0, a: 0}
+    - _TipColor: {r: 0.1372549, g: 0.83648854, b: 1, a: 1}
   m_BuildTextureStacks: []
