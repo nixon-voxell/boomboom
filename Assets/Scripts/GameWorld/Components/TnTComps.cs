@@ -4,4 +4,6 @@ public struct TnTCountDown : IComponentData
 {
     public float CountDown;
     public float CountDownTimer;
+    public float TNTRadius;
+    
 }

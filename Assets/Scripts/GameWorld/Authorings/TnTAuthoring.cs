@@ -6,6 +6,7 @@ using Unity.Entities;
 class TnTAuthoring : MonoBehaviour
 {
     public float CountDown = 3f;
+    public float TnTRadius = 10f;
 }
 
 class TnTBaker : Baker<TnTAuthoring>
@@ -17,6 +18,7 @@ class TnTBaker : Baker<TnTAuthoring>
         {
             CountDown = authoring.CountDown,
             CountDownTimer = authoring.CountDown,
+            TNTRadius = authoring.TnTRadius,
         });
 
     }
