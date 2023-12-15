@@ -1,5 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Blender.meta
 guid: d2771ec0caefb794e8a82d57e6ca5bbe
+|||||||| 539244e:Assets/Testing/Enemy Spawn.meta
+guid: ddbe1f8f480a0384fb552afd5c2cac3f
+========
+guid: 727e5e09c11125f44a3873d884fda441
+>>>>>>>> develop:Assets/Material/Colors.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
