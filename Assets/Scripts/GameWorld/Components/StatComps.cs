@@ -1,16 +1,6 @@
 using Unity.Mathematics;
 using Unity.Entities;
 
-public struct Health : IComponentData
-{
-    public float Value;
-}
-
-public struct Damage : IComponentData
-{
-    public float Value;
-}
-
 public struct SecondaryVelocity : IComponentData
 {
     public float3 Value;
