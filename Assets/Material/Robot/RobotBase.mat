@@ -110,7 +110,7 @@ Material:
     - _Eye0Size: {r: 0.1, g: 0.15, b: 0, a: 0}
     - _Eye1Center: {r: 0.6, g: 0.15, b: 0, a: 0}
     - _Eye1Size: {r: 0.1, g: 0.15, b: 0, a: 0}
-    - _EyeColor: {r: 0.13725436, g: 0.8352941, b: 1, a: 1}
+    - _EyeColor: {r: 0.1372537, g: 0.8352941, b: 1, a: 1}
     - _FaceColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1275072160067813176

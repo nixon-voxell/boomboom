@@ -39,6 +39,8 @@ public partial struct RobotEyeSystem : ISystem, ISystemStartStop
                 LeftEye = eyes.LeftEye,
                 RightEye = eyes.RightEye,
             });
+
+            commands.AddComponent<RobotCleanup>(entity);
         }
 
         commands.Playback(state.EntityManager);
@@ -46,6 +48,7 @@ public partial struct RobotEyeSystem : ISystem, ISystemStartStop
 
     public void OnUpdate(ref SystemState state)
     {
+        // Update material
         foreach (
             var (robotBase, eyes) in
             SystemAPI.Query<RobotBase, RefRO<RobotEyes>>()
@@ -62,6 +65,7 @@ public partial struct RobotEyeSystem : ISystem, ISystemStartStop
             material.SetVector(ShaderID._Eye1Size, (Vector2)eyes.ValueRO.RightEye.Size);
         }
 
+        // Update value to target value
         foreach (
             var (eyes, eyesTarget, speed) in
             SystemAPI.Query<RefRW<RobotEyes>, RefRO<RobotEyesTarget>, RefRO<RobotEyeSpeed>>()
@@ -72,6 +76,8 @@ public partial struct RobotEyeSystem : ISystem, ISystemStartStop
             eyes.ValueRW.LeftEye = RobotEye.Lerp(eyes.ValueRO.LeftEye, eyesTarget.ValueRO.LeftEye, lerpTime);
             eyes.ValueRW.RightEye = RobotEye.Lerp(eyes.ValueRO.RightEye, eyesTarget.ValueRO.RightEye, lerpTime);
         }
+
+        // Blinking
     }
 
     public void OnStopRunning(ref SystemState state)

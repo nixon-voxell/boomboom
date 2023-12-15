@@ -54,3 +54,13 @@ public struct RobotEye
         };
     }
 }
+
+public struct RobotEyeBlink : IComponentData
+{
+    public float IntervalMin;
+    public float IntervalMax;
+
+    public float TimeElapsed;
+}
+
+public struct RobotCleanup : ICleanupComponentData { }

@@ -8,9 +8,15 @@ class RobotEyeAuthoring : MonoBehaviour
 
     public float Speed = 1.0f;
 
-    public float BlinkingDuration;
+    [Header("Blink")]
     public float BlinkingIntervalMin;
     public float BlinkingIntervalMax;
+
+    [Header("Mood")]
+    [ColorUsage(false, true)]
+    public Color Neutral;
+    [ColorUsage(false, true)]
+    public Color Angry;
 }
 
 class RobotEyeBaker : Baker<RobotEyeAuthoring>
