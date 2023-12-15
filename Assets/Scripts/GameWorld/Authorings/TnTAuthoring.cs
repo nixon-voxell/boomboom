@@ -8,7 +8,7 @@ class TnTAuthoring : MonoBehaviour
 {
     public float CountDown = 3f;
     public float CountDownTimer;
-    public float3 TnTPos = new float3(0,0,0);
+    public float Radius;
 }
 
 class TnTBaker : Baker<TnTAuthoring>
@@ -16,11 +16,11 @@ class TnTBaker : Baker<TnTAuthoring>
     public override void Bake(TnTAuthoring authoring)
     {
         Entity entity = GetEntity(TransformUsageFlags.Dynamic);
-        AddComponent(entity, new TnTCountDown
+        AddComponent(entity, new TnT
         {
             CountDown = authoring.CountDown,
             CountDownTimer = authoring.CountDown,
-            TnTPosition = authoring.TnTPos,
+            Radius = authoring.Radius,
         });
 
     }

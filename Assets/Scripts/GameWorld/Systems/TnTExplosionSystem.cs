@@ -14,21 +14,24 @@ public partial struct TnTExplosionSystem : ISystem
         PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
 
         foreach (
-            var (tntCountDown, entity) in
-            SystemAPI.Query<RefRW<TnTCountDown>>().WithAll<LocalTransform>().WithEntityAccess()
+            var (tnt, transform, entity) in
+            SystemAPI.Query<
+                RefRW<TnT>, 
+                RefRO<LocalTransform>
+                >().WithEntityAccess()
         )
         { 
-            if (tntCountDown.ValueRO.CountDownTimer <=0)
+            if (tnt.ValueRO.CountDownTimer <=0)
             {
                 commands.DestroyEntity(entity);
                 NativeList<DistanceHit> distances = new NativeList<DistanceHit>(Allocator.Temp);
-                physicsWorld.OverlapSphere(0.0f, 5.0f, ref distances, CollisionFilter.Default);
+                physicsWorld.OverlapSphere(transform.ValueRO.Position, tnt.ValueRO.Radius, ref distances, CollisionFilter.Default);
                 foreach (DistanceHit hit in distances)
                 {
                     commands.SetEnabled(hit.Entity, false);
                 }
             }
-            tntCountDown.ValueRW.CountDownTimer -= SystemAPI.Time.DeltaTime;
+            tnt.ValueRW.CountDownTimer -= SystemAPI.Time.DeltaTime;
         }
         
         commands.Playback(state.EntityManager);

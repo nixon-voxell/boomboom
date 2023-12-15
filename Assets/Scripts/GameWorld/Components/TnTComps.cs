@@ -1,9 +1,9 @@
 using Unity.Entities;
 using Unity.Mathematics;
 
-public struct TnTCountDown : IComponentData
+public struct TnT : IComponentData
 {
     public float CountDown;
     public float CountDownTimer;
-    public float3 TnTPosition;
+    public float Radius;
 }
