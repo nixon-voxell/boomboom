@@ -88,6 +88,7 @@ Material:
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
     - _Rotation: 0
+    - _SkinMatrixIndex: 0
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 8
@@ -99,7 +100,7 @@ Material:
     - _StencilWriteMaskDistortionVec: 4
     - _StencilWriteMaskGBuffer: 15
     - _StencilWriteMaskMV: 41
-    - _Stiffness: 1.5
+    - _Stiffness: 2
     - _SupportDecals: 1
     - _SurfaceType: 0
     - _TransparentBackfaceEnable: 0
@@ -116,7 +117,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.47843137, g: 0.77254903, b: 0.8980392, a: 1}
-    - _Center: {r: 0, g: 0.5, b: 0, a: 0}
+    - _Center: {r: 0, g: -0.5, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RotationAxis: {r: 0, g: 0, b: 0, a: 0}

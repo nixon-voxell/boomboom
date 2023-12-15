@@ -3,7 +3,17 @@ guid: 3a3c72ee3822d284da33c4fd2befdb6b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RobotBase
+    second: {fileID: 2100000, guid: c16feb594c7dc34408fecfce00d3f8cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RobotTip
+    second: {fileID: 2100000, guid: a872f8f297c21744aa354cef18fb6a8c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
