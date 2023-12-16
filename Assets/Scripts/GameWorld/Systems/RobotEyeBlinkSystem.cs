@@ -1,13 +1,16 @@
+using Unity.Burst;
 using Unity.Entities;
 
 public partial struct RobotEyeBlinkSystem : ISystem
 {
+    [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<RobotEyeBlink>();
         state.RequireForUpdate<RobotEyes>();
     }
 
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         foreach (

@@ -10,6 +10,10 @@ class RobotEyeAuthoring : MonoBehaviour
 
     public float Speed = 1.0f;
 
+    [Header("Eye Default Configs")]
+    public RobotEye LeftEye;
+    public RobotEye RightEye;
+
     [Header("Blink")]
     public float BlinkIntervalMin;
     public float BlinkIntervalMax;
@@ -34,16 +38,35 @@ class RobotEyeBaker : Baker<RobotEyeAuthoring>
 
         Material material = authoring.Material;
 
+        // Robot material
         this.AddComponentObject<RobotBase>(entity, new RobotBase
         {
             Material = authoring.Material,
         });
 
+        // Robot eyes
+        RobotEyes eyes = new RobotEyes
+        {
+            Color = ManagedUtil.ColorToFloat4(authoring.Neutral),
+            LeftEye = authoring.LeftEye,
+            RightEye = authoring.RightEye,
+        }.CopyCurrentDataToOrigin();
+
+        this.AddComponent<RobotEyes>(entity, eyes);
+        this.AddComponent<RobotEyesTarget>(entity, new RobotEyesTarget
+        {
+            Color = eyes.Color,
+            LeftEye = eyes.LeftEye,
+            RightEye = eyes.RightEye,
+        });
+
+        // Eye speed
         this.AddComponent<RobotEyeSpeed>(entity, new RobotEyeSpeed
         {
             Value = authoring.Speed
         });
 
+        // Eye blink
         Random Random = Random.CreateFromIndex((uint)authoring.GetInstanceID());
 
         this.AddComponent<RobotEyeBlink>(entity, new RobotEyeBlink

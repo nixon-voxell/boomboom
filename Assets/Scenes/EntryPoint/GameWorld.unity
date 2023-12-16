@@ -143,10 +143,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Material: {fileID: 2100000, guid: c16feb594c7dc34408fecfce00d3f8cb, type: 2}
   Speed: 6
+  LeftEye:
+    Center:
+      x: 0.4
+      y: 0.15
+    Size:
+      x: 0.1
+      y: 0.15
+  RightEye:
+    Center:
+      x: 0.6
+      y: 0.15
+    Size:
+      x: 0.1
+      y: 0.15
   BlinkIntervalMin: 3
   BlinkIntervalMax: 5
-  Neutral: {r: 0, g: 0, b: 0, a: 0}
-  Angry: {r: 0, g: 0, b: 0, a: 0}
+  Neutral: {r: 0.13725491, g: 0.8352941, b: 1, a: 0}
+  Angry: {r: 1, g: 0.1372549, b: 0.1372549, a: 0}
 --- !u!1001 &617098788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -714,7 +728,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 10
-  Dash: 100
+  Dash: 50
+  LookSpeed: 10
 --- !u!114 &1520702398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -883,7 +898,7 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  m_GravityFactor: 1
+  m_GravityFactor: 0
   m_OverrideDefaultMassDistribution: 0
   m_CenterOfMass:
     x: 0

@@ -42,6 +42,7 @@ public struct RobotEyeSpeed : IComponentData
     public float Value;
 }
 
+[System.Serializable]
 public struct RobotEye
 {
     public float2 Center;
@@ -64,5 +65,3 @@ public struct RobotEyeBlink : IComponentData
     public float TimeElapsed;
     public Random Random;
 }
-
-public struct RobotCleanup : ICleanupComponentData { }

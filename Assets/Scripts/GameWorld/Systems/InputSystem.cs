@@ -32,6 +32,7 @@ public partial class InputSystem : SystemBase
         UserInputSingleton input = SystemAPI.GetSingleton<UserInputSingleton>();
 
         input.MoveAxis = this.m_Input.Player.Move.ReadValue<Vector2>();
+        input.IsMoving = this.m_Input.Player.Move.IsPressed();
         input.Dash = this.m_Input.Player.Dash.WasPressedThisFrame();
 
         SystemAPI.SetSingleton<UserInputSingleton>(input);
