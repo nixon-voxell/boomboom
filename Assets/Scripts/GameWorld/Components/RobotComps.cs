@@ -2,6 +2,8 @@ using UnityEngine;
 using Unity.Mathematics;
 using Unity.Entities;
 
+using Random = Unity.Mathematics.Random;
+
 public class RobotBase : IComponentData
 {
     public Material Material;
@@ -59,8 +61,8 @@ public struct RobotEyeBlink : IComponentData
 {
     public float IntervalMin;
     public float IntervalMax;
-
     public float TimeElapsed;
+    public Random Random;
 }
 
 public struct RobotCleanup : ICleanupComponentData { }

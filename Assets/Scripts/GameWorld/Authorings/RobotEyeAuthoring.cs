@@ -1,6 +1,8 @@
 using UnityEngine;
 using Unity.Entities;
 
+using Random = Unity.Mathematics.Random;
+
 [AddComponentMenu("Entities/GameWorld/Robot Eye")]
 class RobotEyeAuthoring : MonoBehaviour
 {
@@ -9,8 +11,8 @@ class RobotEyeAuthoring : MonoBehaviour
     public float Speed = 1.0f;
 
     [Header("Blink")]
-    public float BlinkingIntervalMin;
-    public float BlinkingIntervalMax;
+    public float BlinkIntervalMin;
+    public float BlinkIntervalMax;
 
     [Header("Mood")]
     [ColorUsage(false, true)]
@@ -40,6 +42,18 @@ class RobotEyeBaker : Baker<RobotEyeAuthoring>
         this.AddComponent<RobotEyeSpeed>(entity, new RobotEyeSpeed
         {
             Value = authoring.Speed
+        });
+
+        Random Random = Random.CreateFromIndex((uint)authoring.GetInstanceID());
+
+        this.AddComponent<RobotEyeBlink>(entity, new RobotEyeBlink
+        {
+            IntervalMin = authoring.BlinkIntervalMin,
+            IntervalMax = authoring.BlinkIntervalMax,
+            TimeElapsed = Random.NextFloat(
+                authoring.BlinkIntervalMin, authoring.BlinkIntervalMax
+            ),
+            Random = Random,
         });
     }
 }

@@ -76,8 +76,6 @@ public partial struct RobotEyeSystem : ISystem, ISystemStartStop
             eyes.ValueRW.LeftEye = RobotEye.Lerp(eyes.ValueRO.LeftEye, eyesTarget.ValueRO.LeftEye, lerpTime);
             eyes.ValueRW.RightEye = RobotEye.Lerp(eyes.ValueRO.RightEye, eyesTarget.ValueRO.RightEye, lerpTime);
         }
-
-        // Blinking
     }
 
     public void OnStopRunning(ref SystemState state)
