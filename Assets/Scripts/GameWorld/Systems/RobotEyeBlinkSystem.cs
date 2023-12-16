@@ -2,6 +2,12 @@ using Unity.Entities;
 
 public partial struct RobotEyeBlinkSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<RobotEyeBlink>();
+        state.RequireForUpdate<RobotEyes>();
+    }
+
     public void OnUpdate(ref SystemState state)
     {
         foreach (
