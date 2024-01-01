@@ -8,7 +8,7 @@ using Unity.Transforms;
 using UnityEngine;
 
 [BurstCompile]
-[UpdateInGroup(typeof(InitializationSystemGroup))]
+[UpdateInGroup(typeof(InitializationSystemGroup))]  //system runs at first and only once
 public partial struct EnemyTimerSpawnerSystem : ISystem
 {
     private float m_SpawnInterval;
@@ -22,12 +22,6 @@ public partial struct EnemyTimerSpawnerSystem : ISystem
         //system will always execute again everytime this ecs component value(s) is modified
 
         m_CurrentEnemyCount = 0;
-    }
-
-    [BurstCompile]
-    public void OnDestroy(ref SystemState state)
-    {
-
     }
 
     [BurstCompile]

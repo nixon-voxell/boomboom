@@ -10,41 +10,32 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 [BurstCompile]
-//[UpdateInGroup(typeof(InitializationSystemGroup))]
-[UpdateInGroup(typeof(SimulationSystemGroup))]
+[UpdateInGroup(typeof(SimulationSystemGroup))]  //system runs on every frame
 public partial struct EnemyDisableSystem : ISystem
 {
     private EntityManager entityManager;
     private EntityQuery enemyQuery;
+    private DynamicBuffer<Entity> enemyBuffer;
 
-    public void Initialize()
+    public void Initialize(ref SystemState state)
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         enemyQuery = entityManager.CreateEntityQuery(typeof(EnemySpawnerSingleton));
+        enemyBuffer = new DynamicBuffer<Entity>();
     }
 
-    public void Update()
+    public void Update(ref SystemState state)
     {
-        // Check if the enemy spawning is complete
-        bool enemySpawningComplete = enemyQuery.CalculateEntityCount() == 0;
+        // Count the number of entities with EnemySpawnerSingleton component
+        int entityCount = entityManager.CreateEntityQuery(typeof(EnemySpawnerSingleton)).CalculateEntityCount();
 
-        if (enemySpawningComplete)
-        {
-            // Disable all enemy entities
-            EntityCommandBuffer commandBuffer = new EntityCommandBuffer(Allocator.Temp);
+        // Debug the entity count
+        Debug.Log("Number of entities with EnemySpawnerSingleton: " + entityCount);
+    }
 
-            NativeArray<Entity> enemyEntities = entityManager.CreateEntityQuery(typeof(Prefab)).ToEntityArray(Allocator.TempJob);
-
-            for (int i = 0; i < enemyEntities.Length; i++)
-            {
-                commandBuffer.SetEnabled(enemyEntities[i], false);
-            }
-
-            commandBuffer.Playback(entityManager);
-            commandBuffer.Dispose();
-
-            enemyEntities.Dispose();
-        }
+    public void OnDestroy(ref SystemState state)
+    {
+        
     }
 }
 
