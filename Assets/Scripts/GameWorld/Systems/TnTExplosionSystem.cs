@@ -4,12 +4,15 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Physics;
 using System.Diagnostics;
+using UnityEngine;
 
 public partial struct TnTExplosionSystem : ISystem
 {
     //[BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        
+        bool countExplode = Input.GetMouseButtonDown(0);
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
         PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
 
@@ -20,8 +23,10 @@ public partial struct TnTExplosionSystem : ISystem
                 RefRO<LocalTransform>
                 >().WithEntityAccess()
         )
-        { 
-            if (tnt.ValueRO.CountDownTimer <=0)
+        {
+            
+
+            if (tnt.ValueRO.CountDownTimer <=0 & countExplode == true)
             {
                 commands.DestroyEntity(entity);
                 NativeList<DistanceHit> distances = new NativeList<DistanceHit>(Allocator.Temp);
