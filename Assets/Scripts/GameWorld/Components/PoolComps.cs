@@ -1,11 +1,10 @@
-using UnityEngine;
 using Unity.Burst;
 using Unity.Entities;
 
 [BurstCompile]
 public static partial class Pool
 {
-    public struct PoolCount : IComponentData
+    public struct Count : IComponentData
     {
         public int Value;
     }
@@ -22,7 +21,7 @@ public static partial class Pool
 
     public readonly partial struct Aspect : IAspect
     {
-        public readonly RefRO<PoolCount> PoolCount;
+        public readonly RefRO<Count> PoolCount;
         public readonly RefRW<CurrentIndex> CurrentIndex;
         public readonly DynamicBuffer<Element> Entities;
 

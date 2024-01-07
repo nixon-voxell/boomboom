@@ -13,7 +13,7 @@ class ExplosionPoolBaker : Baker<ExplosionPoolAuthoring>
         Entity entity = this.GetEntity(TransformUsageFlags.Dynamic);
 
         this.AddComponent<ExplosionPoolSingleton>(entity);
-        this.AddComponent<Pool.PoolCount>(entity, new Pool.PoolCount
+        this.AddComponent<Pool.Count>(entity, new Pool.Count
         {
             Value = authoring.Count,
         });
@@ -24,8 +24,9 @@ class ExplosionPoolBaker : Baker<ExplosionPoolAuthoring>
         {
             // Create and disable explosion entity
             Entity poolEntity = this.CreateAdditionalEntity(TransformUsageFlags.Dynamic, entityName: "ExplosionElement");
-            this.AddComponent<Explosion>(poolEntity);
             this.AddComponent<Disabled>(poolEntity);
+            this.AddComponent<Explosion>(poolEntity);
+            this.AddComponent<Damage>(poolEntity);
 
             elementBuffer.Add(new Pool.Element
             {
