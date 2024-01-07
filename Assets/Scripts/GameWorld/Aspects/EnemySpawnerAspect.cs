@@ -6,10 +6,13 @@ public readonly partial struct EnemySpawnerAspect : IAspect
 {
     public readonly Entity Entity;
     private readonly RefRO<LocalTransform> m_Local;
-    private readonly RefRW<EnemySpawnerSingleton> m_EnemyComponent;
+    private readonly RefRW<EnemySpawnerSingleton> m_EnemyComponent; //ecs component 
 
+    // create new variables to assign ecs component values
+    // RO means we can only read this value; RW means we will first get this value and can change it
     public int NumberEnemySpawn => m_EnemyComponent.ValueRO.NumberEnemySpawn;
     public Entity EnemyPrefab => m_EnemyComponent.ValueRO.EnemyPrefab;
+    public float SpawnInterval => m_EnemyComponent.ValueRW.SpawnInterval;
 
     public LocalTransform GetRandomEnemyTransform()
     {
@@ -23,10 +26,13 @@ public readonly partial struct EnemySpawnerAspect : IAspect
 
     private float3 GetRandomPosition()
     {
-        float3 randomPosition;
-        ref EnemySpawnerSingleton enemyComponent = ref this.m_EnemyComponent.ValueRW;
+        ref EnemySpawnerSingleton enemyComponent = ref this.m_EnemyComponent.ValueRW;   
+        /* EXPLANATION
+         * ref: means you take this ecs component directly instead of make a copy of it,
+         * so, if you edit ref ecs component, means you are editing original ecs component.
+         */
 
-        randomPosition = enemyComponent.Randomizer.NextFloat3(m_MinCorner, m_MaxCorner);
+        float3 randomPosition = enemyComponent.Randomizer.NextFloat3(m_MinCorner, m_MaxCorner);
 
         return randomPosition;
     }

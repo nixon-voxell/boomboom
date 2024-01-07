@@ -7,4 +7,6 @@ public struct EnemySpawnerSingleton : IComponentData
     public int NumberEnemySpawn;
     public Entity EnemyPrefab;
     public Random Randomizer;
+
+    public float SpawnInterval;
 }
