@@ -4,9 +4,9 @@ using Unity.Entities;
 using Unity.Physics;
 using Unity.Transforms;
 
-public partial struct ExplosionSystem : ISystem, ISystemStartStop
+public partial struct ExplosionSystem : ISystem
 {
-    public void OnStartRunning(ref SystemState state)
+    public void OnCreate(ref SystemState state)
     {
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
@@ -58,6 +58,4 @@ public partial struct ExplosionSystem : ISystem, ISystemStartStop
 
         commands.Playback(state.EntityManager);
     }
-
-    public void OnStopRunning(ref SystemState state) { }
 }
