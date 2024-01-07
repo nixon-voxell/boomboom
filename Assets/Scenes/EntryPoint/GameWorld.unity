@@ -1314,12 +1314,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1520702395}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52e9acaa8684a4a49823fb443677dff2, type: 3}
+  m_Script: {fileID: 11500000, guid: 080d1a95987ebf146bd633f2cccb0d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 10
   Dash: 50
-  LookSpeed: 10
+  LookSpeed: 20
 --- !u!114 &1520702398
 MonoBehaviour:
   m_ObjectHideFlags: 0

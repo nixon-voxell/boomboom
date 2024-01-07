@@ -50,8 +50,8 @@ public partial struct ExplosionSystem : ISystem
                         LocalTransform hitTransform = SystemAPI.GetComponent<LocalTransform>(hit.Entity);
                         RefRW<PhysicsVelocity> velocity = SystemAPI.GetComponentRW<PhysicsVelocity>(hit.Entity);
 
-                        float3 direction = math.normalize(hitTransform.Position - transform.Position);
-                        float3 angularDirection = -math.normalize(math.cross(direction, math.up()));
+                        float3 direction = math.normalizesafe(hitTransform.Position - transform.Position);
+                        float3 angularDirection = -math.normalizesafe(math.cross(direction, math.up()));
 
                         velocity.ValueRW.Linear += direction * explosion.ImpulseForce;
                         velocity.ValueRW.Angular += angularDirection * explosion.ImpulseForce;

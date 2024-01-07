@@ -4,7 +4,6 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Physics;
 
-[UpdateBefore(typeof(FixedStepSimulationSystemGroup))]
 public partial struct PlayerMovementSystem : ISystem
 {
     [BurstCompile]
@@ -38,7 +37,7 @@ public partial struct PlayerMovementSystem : ISystem
             if (userInput.IsMoving)
             {
                 // Overwrite velocity with the user's MoveAxis input
-                velocity.ValueRW.Linear = forward * speed.ValueRO.Value;
+                velocity.ValueRW.Linear = new float3(userInput.MoveAxis.x, 0.0f, userInput.MoveAxis.y) * speed.ValueRO.Value;
             }
 
             float3 v = secondaryVelocity.ValueRW.Value;
