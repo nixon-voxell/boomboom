@@ -10,6 +10,11 @@ public partial struct ExplosionSystem : ISystem
     {
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
+        Entity poolEntity = commands.CreateEntity();
+
+        commands.AddComponent<ExplosionPoolSingleton>(poolEntity);
+        // DynamicBuffer<ExplosionPoolData> poolBuffer = commands.AddBuffer<ExplosionPoolData>(poolEntity);
+
         Entity entity = commands.CreateEntity();
         commands.AddComponent<Explosion>(entity, new Explosion
         {
@@ -46,9 +51,10 @@ public partial struct ExplosionSystem : ISystem
                         RefRW<PhysicsVelocity> velocity = SystemAPI.GetComponentRW<PhysicsVelocity>(hit.Entity);
 
                         float3 direction = math.normalize(hitTransform.Position - transform.Position);
-                        float3 force = direction * explosion.ImpulseForce;
+                        float3 angularDirection = -math.normalize(math.cross(direction, math.up()));
 
-                        velocity.ValueRW.Linear += force;
+                        velocity.ValueRW.Linear += direction * explosion.ImpulseForce;
+                        velocity.ValueRW.Angular += angularDirection * explosion.ImpulseForce;
                     }
                 }
             }
