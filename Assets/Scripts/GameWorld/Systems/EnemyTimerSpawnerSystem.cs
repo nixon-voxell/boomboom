@@ -18,7 +18,7 @@ public partial struct EnemyTimerSpawnerSystem : ISystem
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
-        state.RequireForUpdate<EnemySpawnerSingleton>();    
+        state.RequireForUpdate<EnemySpawnerSingleton>();
         //system will always execute again everytime this ecs component value(s) is modified
 
         m_CurrentEnemyCount = 0;

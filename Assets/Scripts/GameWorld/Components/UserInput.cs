@@ -6,6 +6,7 @@ public struct UserInputSingleton : IComponentData
     public float2 MoveAxis;
     public bool IsMoving;
     public bool Dash;
+    public bool Bomb;
 
     public static readonly UserInputSingleton Default = new UserInputSingleton
     {
