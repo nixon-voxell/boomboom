@@ -55,12 +55,18 @@ public partial struct EnemyTimerSpawnerSystem : ISystem
 
                 for (int i = 0; i < enemiesToSpawn; i++)
                 {
-                    Entity newEnemy = commands.Instantiate(enemyAsp.EnemyPrefab);
+                    //Entity newEnemy = commands.Instantiate(enemyAsp.EnemyPrefab);
+
+                    Pool.Aspect enemyAspect =  SystemAPI.GetAspect<Pool.Aspect>(enemyEntity);
+
+                    Entity newEnemyEnt;
+                    Pool.GetNextEntity(ref enemyAspect, out newEnemyEnt);
+
                     LocalTransform newEnemyTransform = enemyAsp.GetRandomEnemyTransform();  //get random transform
-                    commands.SetComponent<LocalTransform>(newEnemy, newEnemyTransform);
+                    commands.SetComponent<LocalTransform>(newEnemyEnt, newEnemyTransform);
                     m_CurrentEnemyCount++;
 
-                    //commands.SetEnabled(newEnemy, false); //(HERE WORKED)
+                    commands.SetEnabled(newEnemyEnt, true); 
                 }
 
                 commands.Playback(state.EntityManager);

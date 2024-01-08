@@ -4,36 +4,45 @@ using Unity.Mathematics;
 
 using Random = Unity.Mathematics.Random;
 
-class EnemySpawner : MonoBehaviour  //here we simply call it mono 
+class EnemySpawner : MonoBehaviour  
 {
-    public int PoolCount;
-    public float2 FieldDimensions;  //here we simply call these mono data
+    // values assigned to EnemySpawnerSingleton (ess) comp
+    public float2 FieldDimensions;  
     public int NumberEnemySpawn;
     public GameObject EnemyPrefab;
     public uint RandomSeed;
     public float spawnInterval;
+
+    public int PoolCount;
 }
 
 class EnemySpawnerBaker : Baker<EnemySpawner>   //basically is to bring mono data above into ecs components
 {
-    public override void Bake(EnemySpawner authoring)   //authoring here = mono above
+    public override void Bake(EnemySpawner authoring)   
     {
-        Entity entity = this.GetEntity(TransformUsageFlags.Dynamic);
-        Entity enemyPrefab = this.GetEntity(authoring.EnemyPrefab, TransformUsageFlags.Dynamic);
+        Entity enemyEnt = GetEntity(TransformUsageFlags.Dynamic);
 
-        /* EXPLANATION
-         * entity: a newly created empty entity, and its tranformation is editable during runtime. Remember, this entity is EMPTY for now.
-         * enemyPrefab: game object EnemyPrefab from mono above is converted into entity form, and being stored in this newly created entity.
-        */
-
-        this.AddComponent<EnemySpawnerSingleton>(entity, new EnemySpawnerSingleton
-        //entity: this EMPTY entity will NOW be added with ecs component EnemySpawnerSingleton
-        {
-            FieldDimensions = authoring.FieldDimensions,    //this entity added ecs component values = mono above values
+        EnemySpawnerSingleton essComp = new EnemySpawnerSingleton 
+        { 
+            FieldDimensions = authoring.FieldDimensions,
             NumberEnemySpawn = authoring.NumberEnemySpawn,
-            EnemyPrefab = enemyPrefab,
-            Randomizer = Random.CreateFromIndex(authoring.RandomSeed),
             SpawnInterval = authoring.spawnInterval,
-        });
+            Randomizer = Random.CreateFromIndex(authoring.RandomSeed),
+            //EnemyPrefab, value not yet assigned.
+        };
+
+        AddComponent<EnemySpawnerSingleton>(enemyEnt, essComp);
+        AddComponent<Pool.CurrentIndex>(enemyEnt);
+
+
+        DynamicBuffer<Pool.Element> enemiesBuffer = AddBuffer<Pool.Element>(enemyEnt);
+
+        for (int e = 0; e < authoring.PoolCount; e++)   //e: current enemyEnt count
+        {
+            Entity enemyPrefab = this.CreateAdditionalEntity(TransformUsageFlags.Dynamic);    //create empty entity
+
+            Pool.Element element = new Pool.Element { Entity = enemyPrefab };
+            enemiesBuffer.Add(element);
+        }
     }
 }

@@ -175,6 +175,7 @@ MonoBehaviour:
     type: 3}
   RandomSeed: 1000
   spawnInterval: 0.5
+  PoolCount: 100
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
