@@ -256,74 +256,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &299952043
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 49e0b6f1027308a4fb2a11981c66e2c4,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.8264055
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49e0b6f1027308a4fb2a11981c66e2c4,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49e0b6f1027308a4fb2a11981c66e2c4,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.6175928
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49e0b6f1027308a4fb2a11981c66e2c4,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071067
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49e0b6f1027308a4fb2a11981c66e2c4,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49e0b6f1027308a4fb2a11981c66e2c4,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49e0b6f1027308a4fb2a11981c66e2c4,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49e0b6f1027308a4fb2a11981c66e2c4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49e0b6f1027308a4fb2a11981c66e2c4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49e0b6f1027308a4fb2a11981c66e2c4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 49e0b6f1027308a4fb2a11981c66e2c4,
-        type: 3}
-      propertyPath: m_Name
-      value: Landmine
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 49e0b6f1027308a4fb2a11981c66e2c4, type: 3}
 --- !u!1 &457966346
 GameObject:
   m_ObjectHideFlags: 0
@@ -2207,6 +2139,52 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1956875011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1956875012}
+  - component: {fileID: 1956875013}
+  m_Layer: 0
+  m_Name: LandminePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1956875012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956875011}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1956875013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956875011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec42bbe49fab0954bbd9acf2ae133c08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoolCount: 10
+  Prefab: {fileID: 7193159613407556335, guid: 86859b91c11bece4a825ed841216657e, type: 3}
 --- !u!1001 &8843901521784102497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2270,6 +2248,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7747178073474981620, guid: bb55aacec914ddf48bed32eec5119c23,
+        type: 3}
+      propertyPath: Speed
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2283,5 +2266,5 @@ SceneRoots:
   - {fileID: 685496938}
   - {fileID: 998779661}
   - {fileID: 1708108660}
-  - {fileID: 299952043}
   - {fileID: 8843901521784102497}
+  - {fileID: 1956875012}

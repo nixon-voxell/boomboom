@@ -5,19 +5,21 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Physics;
 
-public partial struct ExplosionSystem : ISystem, ISystemStartStop
+public partial struct ExplosionSetupSystem : ISystem, ISystemStartStop
 {
     [BurstCompile]
     public void OnStartRunning(ref SystemState state)
     {
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
-        Entity poolEntity = SystemAPI.GetSingletonEntity<ExplosionPoolSingleton>();
-        Pool.Aspect poolAspect = SystemAPI.GetAspect<Pool.Aspect>(poolEntity);
+        // Add components to explosion pool
+        Pool.Aspect explosionAspect = SystemAPI.GetAspect<Pool.Aspect>(
+            SystemAPI.GetSingletonEntity<ExplosionPoolSingleton>()
+        );
 
-        for (int e = 0; e < poolAspect.Entities.Length; e++)
+        for (int e = 0; e < explosionAspect.Entities.Length; e++)
         {
-            Entity entity = poolAspect.Entities[e].Entity;
+            Entity entity = explosionAspect.Entities[e].Entity;
 
             commands.AddComponent<ExplosionForce>(entity);
             commands.AddComponent<ExplosionRadius>(entity);
@@ -33,10 +35,25 @@ public partial struct ExplosionSystem : ISystem, ISystemStartStop
         }
 
         commands.Playback(state.EntityManager);
+
+        // Instantiate landmine pool
+        LandminePoolSingleton landmineSingleton = SystemAPI.GetSingleton<LandminePoolSingleton>();
+        Pool.Aspect landmineAspect = SystemAPI.GetAspect<Pool.Aspect>(
+            SystemAPI.GetSingletonEntity<LandminePoolSingleton>()
+        );
+
+        for (int e = 0; e < landmineSingleton.PoolCount; e++)
+        {
+            Entity entity = state.EntityManager.Instantiate(landmineSingleton.Prefab);
+            landmineAspect.Entities.Add(new Pool.Element { Entity = entity });
+        }
     }
 
     public void OnStopRunning(ref SystemState state) { }
+}
 
+public partial struct ExplosionForceSystem : ISystem
+{
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
@@ -49,7 +66,6 @@ public partial struct ExplosionSystem : ISystem, ISystemStartStop
             .WithEntityAccess()
         )
         {
-            UnityEngine.Debug.Log("Explode");
             PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
             CollisionWorld collisionWorld = physicsWorld.PhysicsWorld.CollisionWorld;
 

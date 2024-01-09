@@ -47,3 +47,9 @@ public readonly partial struct ExplosionAspect : IAspect
     public ref float RadiusRW => ref this.Radius.ValueRW.Value;
     public ref float DamageRW => ref this.Damage.ValueRW.Value;
 }
+
+public struct LandminePoolSingleton : IComponentData
+{
+    public Entity Prefab;
+    public int PoolCount;
+}
