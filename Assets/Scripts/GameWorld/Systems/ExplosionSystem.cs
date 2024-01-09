@@ -5,8 +5,35 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Physics;
 
-public partial struct ExplosionSystem : ISystem
+public partial struct ExplosionSystem : ISystem, ISystemStartStop
 {
+    public void OnStartRunning(ref SystemState state)
+    {
+        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
+        Entity poolEntity = SystemAPI.GetSingletonEntity<ExplosionPoolSingleton>();
+        Pool.Aspect poolAspect = SystemAPI.GetAspect<Pool.Aspect>(poolEntity);
+
+        for (int e = 0; e < poolAspect.Entities.Length; e++)
+        {
+            Entity entity = poolAspect.Entities[e].Entity;
+
+            commands.AddComponent<Disabled>(entity);
+            commands.AddComponent<ExplosionForce>(entity);
+            commands.AddComponent<ExplosionRadius>(entity);
+            commands.AddComponent<ExplosionTimer>(entity);
+
+            commands.AddComponent<Explode>(entity);
+            commands.SetComponentEnabled<Explode>(entity, false);
+
+            commands.AddComponent<Damage>(entity);
+        }
+
+        commands.Playback(state.EntityManager);
+    }
+
+    public void OnStopRunning(ref SystemState state) { }
+
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
@@ -19,6 +46,7 @@ public partial struct ExplosionSystem : ISystem
             .WithEntityAccess()
         )
         {
+            UnityEngine.Debug.Log("Explode");
             PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
             CollisionWorld collisionWorld = physicsWorld.PhysicsWorld.CollisionWorld;
 
@@ -75,6 +103,11 @@ public partial struct ExplosionTimerSystem : ISystem
 
 public partial struct ExplosionPlacementSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<ExplosionPoolSingleton>();
+    }
+
     // [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
@@ -85,8 +118,6 @@ public partial struct ExplosionPlacementSystem : ISystem
         {
             return;
         }
-
-        UnityEngine.Debug.Log("Bomb!");
 
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
@@ -100,6 +131,8 @@ public partial struct ExplosionPlacementSystem : ISystem
         {
             Entity explosionEntity;
             Pool.GetNextEntity(ref poolAspect, out explosionEntity);
+
+            UnityEngine.Debug.Log("Bomb!");
 
             commands.SetEnabled(explosionEntity, true);
             // Set bomb transform
