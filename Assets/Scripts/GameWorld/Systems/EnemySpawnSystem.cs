@@ -31,13 +31,14 @@ public partial struct EnemySpawnSystem : ISystem
 
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
-        for (int i = 0; i < enemyAsp.NumberEnemySpawn; i++)
+        /*
+        for (int i = 0; i < enemyAsp.NumberEnemySpawnRO; i++)
         {
-            Entity newCube = commands.Instantiate(enemyAsp.EnemyPrefab);
+            Entity newCube = commands.Instantiate(enemyAsp.EnemyPrefabRO);
             LocalTransform newCubeTransform = enemyAsp.GetRandomEnemyTransform();
             commands.SetComponent<LocalTransform>(newCube, newCubeTransform);
         }
-
+        */
         commands.Playback(state.EntityManager);
     }
 }

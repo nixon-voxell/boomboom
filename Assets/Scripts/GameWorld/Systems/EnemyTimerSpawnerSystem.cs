@@ -18,23 +18,48 @@ public partial struct EnemyTimerSpawnerSystem : ISystem
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
+        //system will always execute again everytime EnemySpawnerSingleton comp value(s) is modified
         state.RequireForUpdate<EnemySpawnerSingleton>();
-        //system will always execute again everytime this ecs component value(s) is modified
-
+       
         m_CurrentEnemyCount = 0;
+    }
+
+    [BurstCompile]
+    public void OnStartRunning(ref SystemState state)
+    {
+        Entity spawnerEnt = SystemAPI.GetSingletonEntity<EnemySpawnerSingleton>();
+        EnemySpawnerAspect spawnerAsp = SystemAPI.GetAspect<EnemySpawnerAspect>(spawnerEnt);
+
+        Pool.Aspect poolAsp = SystemAPI.GetAspect<Pool.Aspect>(spawnerEnt);
+        DynamicBuffer<Pool.Element> spawnerBuffer = poolAsp.Entities;
+
+        //DynamicBuffer<Pool.Element> spawnerBuffer = SystemAPI.GetBuffer<Pool.Element>(spawnerEnt);
+
+        for (int e = 0; e < spawnerAsp.MaxEnemySpawnCountRW; e++)   //Q1!!!! prefab no instantiate and also added into the spawnerBuffer
+        {
+            EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
+            Entity enemyPrefabEnt = spawnerAsp.EnemyPrefabRO;
+            commands.Instantiate(enemyPrefabEnt);
+            commands.SetEnabled(enemyPrefabEnt, false);
+
+            Pool.Element element = new Pool.Element { Entity = enemyPrefabEnt };
+            spawnerBuffer.Add(element);
+        }
     }
 
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        //return;
+        Entity spawnerEnt = SystemAPI.GetSingletonEntity<EnemySpawnerSingleton>();
+        EnemySpawnerAspect spawnerAsp = SystemAPI.GetAspect<EnemySpawnerAspect>(spawnerEnt);
 
-        Entity enemyEntity = SystemAPI.GetSingletonEntity<EnemySpawnerSingleton>(); //get entity which contains this ecs component
-        EnemySpawnerAspect enemyAsp = SystemAPI.GetAspect<EnemySpawnerAspect>(enemyEntity);
+        Pool.Aspect poolAsp = SystemAPI.GetAspect<Pool.Aspect>(spawnerEnt);
+        DynamicBuffer<Pool.Element> spawnerBuffer = poolAsp.Entities;
 
-        if (m_CurrentEnemyCount < enemyAsp.NumberEnemySpawn)    //NumberEnemySpawn: max count of enemy spawned in the game
+        if (m_CurrentEnemyCount < spawnerAsp.MaxEnemySpawnCountRW)
         {
-            m_SpawnInterval = enemyAsp.SpawnInterval;
+            m_SpawnInterval = spawnerAsp.SpawnIntervalRW;
             m_SpawnTimer -= Time.deltaTime;
             //(1) 1st spawn time will be instantaneous, but start at 2nd spawn time and after, always m_SpawnTimer = m_SpawnInterval
 
@@ -45,39 +70,37 @@ public partial struct EnemyTimerSpawnerSystem : ISystem
                 int maxSpawnIncrement = 5; // max spawn wave
                 int spawnIncrement = Random.Range(1, maxSpawnIncrement + 1); // Generate a random increment value
 
-                int enemiesToSpawn = Mathf.Min(m_CurrentEnemyCount + spawnIncrement, enemyAsp.NumberEnemySpawn - m_CurrentEnemyCount);
-                /* EXPLANATION
+                int enemiesToSpawn = Mathf.Min(m_CurrentEnemyCount + spawnIncrement, spawnerAsp.MaxEnemySpawnCountRW - m_CurrentEnemyCount);
+                /* EXPLAIN
                  * enemiesToSpawn: enemy spawn count on every wave
+                 * 
                  * m_CurrentEnemyCount + spawnIncrement (A), enemyAsp.NumberEnemySpawn - m_CurrentEnemyCount (B)
                  * (A): everytime new wave must have more enemy count than before wave, and no fix enemy count increment 
                  * (B): that wave enemy max count spawn left
                 */
 
-                for (int i = 0; i < enemiesToSpawn; i++)
+                for (int i = 0; i < enemiesToSpawn; i++)    //Q2!!!!!! here how take entity from buffer and set them enable each
                 {
-                    //Entity newEnemy = commands.Instantiate(enemyAsp.EnemyPrefab);
+                    Entity enemyEnt;
+                    Pool.GetNextEntity(ref poolAsp, out enemyEnt);
 
-                    Pool.Aspect enemyAspect =  SystemAPI.GetAspect<Pool.Aspect>(enemyEntity);
+                    commands.SetEnabled(enemyEnt, true);
 
-                    Entity newEnemyEnt;
-                    Pool.GetNextEntity(ref enemyAspect, out newEnemyEnt);
-
-                    LocalTransform newEnemyTransform = enemyAsp.GetRandomEnemyTransform();  //get random transform
-                    commands.SetComponent<LocalTransform>(newEnemyEnt, newEnemyTransform);
+                    LocalTransform enemyTransform = spawnerAsp.GetRandomEnemyTransform();  //get random transform
+                    commands.SetComponent<LocalTransform>(enemyEnt, enemyTransform);
                     m_CurrentEnemyCount++;
 
-                    commands.SetEnabled(newEnemyEnt, true); 
+                    //commands.Instantiate(enemyEnt);
                 }
 
                 commands.Playback(state.EntityManager);
                 commands.Dispose();
 
                 m_SpawnTimer = m_SpawnInterval; //(1) HERE, start from 2nd time
-
-                Debug.Log("Enemies spawned: " + m_CurrentEnemyCount.ToString());
             }
         }
     }
+
 }
 
 
