@@ -116,7 +116,7 @@ public partial struct ExplosionPlacementSystem : ISystem
     {
         UserInputSingleton userInput = SystemAPI.GetSingleton<UserInputSingleton>();
 
-        // Perform onlt when player presses the bomb button.
+        // Perform only when player presses the bomb button.
         if (userInput.Bomb == false)
         {
             return;
