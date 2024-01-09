@@ -10,7 +10,7 @@ class ExplosionPoolBaker : Baker<ExplosionPoolAuthoring>
 {
     public override void Bake(ExplosionPoolAuthoring authoring)
     {
-        Entity entity = this.GetEntity(TransformUsageFlags.Dynamic);
+        Entity entity = this.GetEntity(TransformUsageFlags.None);
 
         this.AddComponent<ExplosionPoolSingleton>(entity);
         this.AddComponent<Pool.CurrentIndex>(entity);

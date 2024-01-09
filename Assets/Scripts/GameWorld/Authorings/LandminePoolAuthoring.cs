@@ -11,7 +11,7 @@ class LandminePoolBaker : Baker<LandminePoolAuthoring>
 {
     public override void Bake(LandminePoolAuthoring authoring)
     {
-        Entity entity = this.GetEntity(TransformUsageFlags.Dynamic);
+        Entity entity = this.GetEntity(TransformUsageFlags.None);
 
         this.AddComponent<LandminePoolSingleton>(entity, new LandminePoolSingleton
         {
