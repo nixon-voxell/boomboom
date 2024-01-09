@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Material: {fileID: 2100000, guid: c16feb594c7dc34408fecfce00d3f8cb, type: 2}
-  Speed: 1
+  Speed: 4
   LeftEye:
     Center:
       x: 0.4

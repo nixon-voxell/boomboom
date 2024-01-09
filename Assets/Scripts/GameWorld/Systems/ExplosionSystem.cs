@@ -60,9 +60,8 @@ public partial struct ExplosionForceSystem : ISystem
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
         foreach (
-            var (explosion, transform, entity) in
-            SystemAPI.Query<ExplosionAspect, LocalTransform>()
-            .WithAll<Explode>() // Explode component must be true
+            var (explosion, explode, transform, entity) in
+            SystemAPI.Query<ExplosionAspect, Explode, LocalTransform>()
             .WithEntityAccess()
         )
         {
@@ -79,6 +78,7 @@ public partial struct ExplosionForceSystem : ISystem
             {
                 foreach (var hit in hits)
                 {
+                    // Perform explosion on enemies
                     if (SystemAPI.HasComponent<PhysicsVelocity>(hit.Entity))
                     {
                         LocalTransform hitTransform = SystemAPI.GetComponent<LocalTransform>(hit.Entity);
@@ -94,6 +94,9 @@ public partial struct ExplosionForceSystem : ISystem
             }
 
             commands.SetEnabled(entity, false);
+
+            // Disable landmine
+            commands.SetEnabled(explode.LandmineEntity, false);
         }
 
         commands.Playback(state.EntityManager);
@@ -127,7 +130,7 @@ public partial struct ExplosionPlacementSystem : ISystem
         state.RequireForUpdate<ExplosionPoolSingleton>();
     }
 
-    // [BurstCompile]
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         UserInputSingleton userInput = SystemAPI.GetSingleton<UserInputSingleton>();
@@ -140,18 +143,27 @@ public partial struct ExplosionPlacementSystem : ISystem
 
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
-        Entity poolEntity = SystemAPI.GetSingletonEntity<ExplosionPoolSingleton>();
-        Pool.Aspect poolAspect = SystemAPI.GetAspect<Pool.Aspect>(poolEntity);
+        Entity explosionPoolEntity = SystemAPI.GetSingletonEntity<ExplosionPoolSingleton>();
+        Entity landminePoolEntity = SystemAPI.GetSingletonEntity<LandminePoolSingleton>();
+
+        Pool.Aspect explosionAspect = SystemAPI.GetAspect<Pool.Aspect>(explosionPoolEntity);
+        Pool.Aspect landmineAspect = SystemAPI.GetAspect<Pool.Aspect>(landminePoolEntity);
 
         foreach (
             LocalTransform transform in
             SystemAPI.Query<LocalTransform>().WithAll<Tag_Player>()
         )
         {
-            Entity explosionEntity;
-            Pool.GetNextEntity(ref poolAspect, out explosionEntity);
+            // Create a landmine at the player's position
+            Entity landmineEntity;
+            Pool.GetNextEntity(ref landmineAspect, out landmineEntity);
 
-            UnityEngine.Debug.Log("Bomb!");
+            SystemAPI.SetComponent<LocalTransform>(landmineEntity, transform);
+            commands.SetEnabled(landmineEntity, true);
+
+            // Create an explosion at the player's position
+            Entity explosionEntity;
+            Pool.GetNextEntity(ref explosionAspect, out explosionEntity);
 
             commands.SetEnabled(explosionEntity, true);
             // Set bomb transform
@@ -164,6 +176,10 @@ public partial struct ExplosionPlacementSystem : ISystem
             SystemAPI.SetComponent<ExplosionRadius>(explosionEntity, new ExplosionRadius
             {
                 Value = 2.0f,
+            });
+            SystemAPI.SetComponent<Explode>(explosionEntity, new Explode
+            {
+                LandmineEntity = landmineEntity,
             });
             SystemAPI.SetComponentEnabled<Explode>(explosionEntity, false);
 

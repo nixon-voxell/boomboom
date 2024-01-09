@@ -2,7 +2,10 @@ using Unity.Entities;
 
 public struct ExplosionPoolSingleton : IComponentData { }
 
-public struct Explode : IComponentData, IEnableableComponent { }
+public struct Explode : IComponentData, IEnableableComponent
+{
+    public Entity LandmineEntity;
+}
 
 public struct ExplosionForce : IComponentData
 {
