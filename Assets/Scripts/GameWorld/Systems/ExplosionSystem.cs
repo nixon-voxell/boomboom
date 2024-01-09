@@ -7,6 +7,7 @@ using Unity.Physics;
 
 public partial struct ExplosionSystem : ISystem, ISystemStartStop
 {
+    [BurstCompile]
     public void OnStartRunning(ref SystemState state)
     {
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
@@ -18,7 +19,6 @@ public partial struct ExplosionSystem : ISystem, ISystemStartStop
         {
             Entity entity = poolAspect.Entities[e].Entity;
 
-            commands.AddComponent<Disabled>(entity);
             commands.AddComponent<ExplosionForce>(entity);
             commands.AddComponent<ExplosionRadius>(entity);
             commands.AddComponent<ExplosionTimer>(entity);
@@ -26,7 +26,10 @@ public partial struct ExplosionSystem : ISystem, ISystemStartStop
             commands.AddComponent<Explode>(entity);
             commands.SetComponentEnabled<Explode>(entity, false);
 
+            // TODO: Remove this?
             commands.AddComponent<Damage>(entity);
+
+            commands.SetEnabled(entity, false);
         }
 
         commands.Playback(state.EntityManager);
@@ -42,7 +45,7 @@ public partial struct ExplosionSystem : ISystem, ISystemStartStop
         foreach (
             var (explosion, transform, entity) in
             SystemAPI.Query<ExplosionAspect, LocalTransform>()
-            .WithAll<Explode>() // Explosion component must be true
+            .WithAll<Explode>() // Explode component must be true
             .WithEntityAccess()
         )
         {
@@ -146,6 +149,7 @@ public partial struct ExplosionPlacementSystem : ISystem
             {
                 Value = 2.0f,
             });
+            SystemAPI.SetComponentEnabled<Explode>(explosionEntity, false);
 
             // Set bomb timer
             RefRW<ExplosionTimer> timer = SystemAPI.GetComponentRW<ExplosionTimer>(explosionEntity);
