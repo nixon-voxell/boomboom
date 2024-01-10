@@ -10,7 +10,7 @@ public readonly partial struct EnemySpawnerAspect : IAspect
     private readonly RefRW<EnemySpawnerSingleton> m_SpawnerCompRW; 
     public Entity EnemyPrefabRO => m_SpawnerCompRW.ValueRO.EnemyPrefab;
     public float SpawnIntervalRW => m_SpawnerCompRW.ValueRW.SpawnInterval;
-    public int MaxEnemySpawnCountRW => m_SpawnerCompRW.ValueRW.MaxEnemySpawnCount;
+    public int MaxEnemySpawnCountRO => m_SpawnerCompRW.ValueRO.MaxEnemySpawnCount; 
 
     #region Enemy Transform
     public LocalTransform GetRandomEnemyTransform()

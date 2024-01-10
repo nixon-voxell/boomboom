@@ -7,6 +7,13 @@ using Unity.Physics;
 
 public partial struct ExplosionSetupSystem : ISystem, ISystemStartStop
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<ExplosionPoolSingleton>();
+        state.RequireForUpdate<LandminePoolSingleton>();
+        state.RequireForUpdate<ExplosionVfxPoolSingleton>();
+    }
+
     [BurstCompile]
     public void OnStartRunning(ref SystemState state)
     {
