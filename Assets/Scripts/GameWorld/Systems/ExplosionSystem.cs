@@ -42,14 +42,53 @@ public partial struct ExplosionSetupSystem : ISystem, ISystemStartStop
             SystemAPI.GetSingletonEntity<LandminePoolSingleton>()
         );
 
-        for (int e = 0; e < landmineSingleton.PoolCount; e++)
-        {
-            Entity entity = state.EntityManager.Instantiate(landmineSingleton.Prefab);
-            landmineAspect.Entities.Add(new Pool.Element { Entity = entity });
-        }
+        EntityManager manager = state.EntityManager;
+        Pool.InstantiatePrefabs(
+            ref manager,
+            ref landmineAspect,
+            in landmineSingleton.Prefab,
+            in landmineSingleton.PoolCount
+        );
+
+        // Instantiate explosion vfx pool
+        ExplosionVfxPoolSingleton explosionVfxSingleton = SystemAPI.GetSingleton<ExplosionVfxPoolSingleton>();
+        Pool.Aspect explosionVfxAspect = SystemAPI.GetAspect<Pool.Aspect>(
+            SystemAPI.GetSingletonEntity<ExplosionVfxPoolSingleton>()
+        );
+
+        Pool.InstantiatePrefabs(
+            ref manager,
+            ref explosionVfxAspect,
+            in explosionVfxSingleton.Prefab,
+            in explosionVfxSingleton.PoolCount
+        );
     }
 
     public void OnStopRunning(ref SystemState state) { }
+}
+
+[UpdateBefore(typeof(ExplosionForceSystem))]
+public partial struct ExplosionVfxSystem : ISystem
+{
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<ExplosionVfxPoolSingleton>();
+    }
+
+    public void OnUpdate(ref SystemState state)
+    {
+        Pool.Aspect vfxAspect = SystemAPI.GetAspect<Pool.Aspect>(
+            SystemAPI.GetSingletonEntity<ExplosionVfxPoolSingleton>()
+        );
+
+        foreach (
+            LocalTransform transform in
+            SystemAPI.Query<LocalTransform>()
+            .WithAll<Explode>()
+        )
+        {
+        }
+    }
 }
 
 public partial struct ExplosionForceSystem : ISystem

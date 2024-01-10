@@ -24,11 +24,33 @@ public static partial class Pool
         public int CurrentIndexRO => this.CurrentIndex.ValueRO.Value;
     }
 
-    [BurstCompile]
     /// <summary>Move an inactive entity to the active entity buffer and set it as active.</summary>
+    [BurstCompile]
     public static void GetNextEntity(ref Aspect aspect, out Entity entity)
     {
         entity = aspect.Entities[aspect.CurrentIndexRO].Entity;
         aspect.CurrentIndexRW = (aspect.CurrentIndexRO + 1) % aspect.PoolCountRO;
+    }
+
+    /// <summary>Instantiate prefabs and add it to the pool.</summary>
+    [BurstCompile]
+    public static void InstantiatePrefabs(
+        ref EntityManager manager,
+        ref Aspect aspect,
+        in Entity prefab,
+        in int count
+    )
+    {
+        // Make sure that the pool is empty first
+        aspect.Entities.Clear();
+        aspect.CurrentIndexRW = 0;
+
+        for (int e = 0; e < count; e++)
+        {
+            aspect.Entities.Add(new Element
+            {
+                Entity = manager.Instantiate(prefab)
+            });
+        }
     }
 }
