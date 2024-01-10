@@ -772,12 +772,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FieldDimensions:
-    x: 100
-    y: 100
+    x: 10
+    y: 10
   EnemyPrefab: {fileID: 2220557661821601698, guid: f69fe12422aff4f4ca2aa783a9d8791b,
     type: 3}
   RandomSeed: 349
-  spawnInterval: 1
+  SpawnInterval: 3
   PoolCount: 100
 --- !u!1 &685496937
 GameObject:

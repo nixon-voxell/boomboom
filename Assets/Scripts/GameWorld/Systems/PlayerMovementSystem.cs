@@ -108,8 +108,6 @@ public partial struct LookRotationSystem : ISystem
                 new float3(userInput.MoveAxis.x, 0.0f, userInput.MoveAxis.y), math.up()
             );
 
-            UnityEngine.Debug.Log(targetRotation.value);
-
             transform.ValueRW.Rotation = math.slerp(
                 transform.ValueRO.Rotation, targetRotation,
                 SystemAPI.Time.DeltaTime * speed.ValueRO.Value
@@ -120,6 +118,7 @@ public partial struct LookRotationSystem : ISystem
 
 public partial struct FixPlayerXZRotation : ISystem
 {
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         foreach (

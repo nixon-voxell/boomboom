@@ -5,16 +5,17 @@ using Unity.Transforms;
 public struct EnemySpawnerSingleton : IComponentData
 {
     public float2 FieldDimensions;
-    public float SpawnInterval;
     public Random Randomizer;
+    public int ActiveEnemyCount;
 }
 
 public readonly partial struct EnemySpawnerAspect : IAspect
 {
-    private readonly RefRO<LocalTransform> m_SpawnerLocalRO;
-    // EnemySpawnerSingleton comp
-    private readonly RefRW<EnemySpawnerSingleton> m_SpawnerCompRW;
-    public float SpawnIntervalRW => m_SpawnerCompRW.ValueRW.SpawnInterval;
+    public readonly RefRO<LocalTransform> Transform;
+    public readonly RefRW<EnemySpawnerSingleton> Spawner;
+
+    public int ActiveEnemyCountRO => this.Spawner.ValueRO.ActiveEnemyCount;
+    public ref int ActiveEnemyCountRW => ref this.Spawner.ValueRW.ActiveEnemyCount;
 
     #region Enemy Transform
     public LocalTransform GetRandomEnemyTransform()
@@ -29,7 +30,7 @@ public readonly partial struct EnemySpawnerAspect : IAspect
 
     private float3 GetRandomPosition()
     {
-        ref EnemySpawnerSingleton essComp = ref m_SpawnerCompRW.ValueRW;
+        ref EnemySpawnerSingleton essComp = ref Spawner.ValueRW;
 
         float3 randomPosition = essComp.Randomizer.NextFloat3(m_MinCorner, m_MaxCorner);
 
@@ -38,14 +39,14 @@ public readonly partial struct EnemySpawnerAspect : IAspect
 
 
     #region Calculation
-    private float3 m_MinCorner => m_SpawnerLocalRO.ValueRO.Position - m_HalfDimensions;
-    private float3 m_MaxCorner => m_SpawnerLocalRO.ValueRO.Position + m_HalfDimensions;
+    private float3 m_MinCorner => Transform.ValueRO.Position - m_HalfDimensions;
+    private float3 m_MaxCorner => Transform.ValueRO.Position + m_HalfDimensions;
 
     private float3 m_HalfDimensions => new()
     {
-        x = m_SpawnerCompRW.ValueRO.FieldDimensions.x * 0.5f,
+        x = Spawner.ValueRO.FieldDimensions.x * 0.5f,
         y = 0f,
-        z = m_SpawnerCompRW.ValueRO.FieldDimensions.y * 0.5f,
+        z = Spawner.ValueRO.FieldDimensions.y * 0.5f,
     };
 
     #endregion

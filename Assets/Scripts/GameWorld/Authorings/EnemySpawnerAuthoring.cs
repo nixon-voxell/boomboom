@@ -10,12 +10,13 @@ class EnemySpawner : MonoBehaviour
     public float2 FieldDimensions;
     public GameObject EnemyPrefab;
     public uint RandomSeed;
-    public float spawnInterval;
+    public float SpawnInterval;
 
     public int PoolCount;
 }
 
-class EnemySpawnerBaker : Baker<EnemySpawner>   //bake mono values above to component values
+// bake mono values above to component values
+class EnemySpawnerBaker : Baker<EnemySpawner>
 {
     public override void Bake(EnemySpawner authoring)
     {
@@ -26,10 +27,7 @@ class EnemySpawnerBaker : Baker<EnemySpawner>   //bake mono values above to comp
         this.AddComponent<EnemySpawnerSingleton>(entity, new EnemySpawnerSingleton
         {
             FieldDimensions = authoring.FieldDimensions,
-            SpawnInterval = authoring.spawnInterval,
             Randomizer = Random.CreateFromIndex(authoring.RandomSeed),
-            // MaxEnemySpawnCount = authoring.PoolCount,
-            // EnemyPrefab = prefabEnt,
         });
 
         // Add pool singleton that consists of the pool count and the entity prefab
@@ -41,5 +39,11 @@ class EnemySpawnerBaker : Baker<EnemySpawner>   //bake mono values above to comp
 
         this.AddComponent<Pool.CurrentIndex>(entity);
         DynamicBuffer<Pool.Element> spawnerBuffer = this.AddBuffer<Pool.Element>(entity);
+
+        this.AddComponent<Timer>(entity, new Timer
+        {
+            TotalTime = authoring.SpawnInterval,
+            ElapsedTime = 0.0f,
+        });
     }
 }
