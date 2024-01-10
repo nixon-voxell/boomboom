@@ -4,6 +4,22 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Physics;
 
+public partial class PlayerTargetSystem : SystemBase
+{
+    protected override void OnCreate()
+    {
+        this.RequireForUpdate<Tag_Player>();
+    }
+
+    protected override void OnUpdate()
+    {
+        Entity playerEntity = SystemAPI.GetSingletonEntity<Tag_Player>();
+
+        LocalTransform transform = SystemAPI.GetComponent<LocalTransform>(playerEntity);
+        PlayerTargetMono.TargetPosition = transform.Position;
+    }
+}
+
 public partial struct PlayerMovementSystem : ISystem
 {
     [BurstCompile]
