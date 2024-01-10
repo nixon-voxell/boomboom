@@ -30,7 +30,7 @@ public partial struct ExplosionSetupSystem : ISystem, ISystemStartStop
 
             commands.AddComponent<ExplosionForce>(entity);
             commands.AddComponent<ExplosionRadius>(entity);
-            commands.AddComponent<ExplosionTimer>(entity);
+            commands.AddComponent<Timer>(entity);
 
             commands.AddComponent<Explode>(entity);
             commands.SetComponentEnabled<Explode>(entity, false);
@@ -94,6 +94,7 @@ public partial struct ExplosionVfxSystem : ISystem
             .WithAll<Explode>()
         )
         {
+            // Perform explosion at the given position
         }
     }
 }
@@ -155,7 +156,7 @@ public partial struct ExplosionTimerSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         foreach (
-            var (timer, entity) in SystemAPI.Query<RefRW<ExplosionTimer>>()
+            var (timer, entity) in SystemAPI.Query<RefRW<Timer>>()
             .WithDisabled<Explode>()
             .WithEntityAccess()
         )
@@ -169,10 +170,13 @@ public partial struct ExplosionTimerSystem : ISystem
     }
 }
 
+[UpdateBefore(typeof(TransformSystemGroup))]
 public partial struct ExplosionPlacementSystem : ISystem
 {
+    [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
+        state.RequireForUpdate<UserInputSingleton>();
         state.RequireForUpdate<ExplosionPoolSingleton>();
     }
 
@@ -230,7 +234,7 @@ public partial struct ExplosionPlacementSystem : ISystem
             SystemAPI.SetComponentEnabled<Explode>(explosionEntity, false);
 
             // Set bomb timer
-            RefRW<ExplosionTimer> timer = SystemAPI.GetComponentRW<ExplosionTimer>(explosionEntity);
+            RefRW<Timer> timer = SystemAPI.GetComponentRW<Timer>(explosionEntity);
             timer.ValueRW.Set(5.0f);
         }
 

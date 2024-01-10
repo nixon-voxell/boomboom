@@ -17,29 +17,6 @@ public struct ExplosionRadius : IComponentData
     public float Value;
 }
 
-public struct ExplosionTimer : IComponentData
-{
-    public float TotalTime;
-    public float ElapsedTime;
-
-    public void Set(float totalTime)
-    {
-        this.TotalTime = totalTime;
-        this.ElapsedTime = 0.0f;
-    }
-
-    public bool Update(float deltaTime)
-    {
-        if (this.ElapsedTime > this.TotalTime)
-        {
-            return true;
-        }
-
-        this.ElapsedTime += deltaTime;
-        return false;
-    }
-}
-
 public readonly partial struct ExplosionAspect : IAspect
 {
     public readonly RefRW<ExplosionForce> Force;

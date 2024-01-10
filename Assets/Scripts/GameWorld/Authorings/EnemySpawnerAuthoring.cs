@@ -4,50 +4,42 @@ using Unity.Mathematics;
 
 using Random = Unity.Mathematics.Random;
 
-class EnemySpawner : MonoBehaviour  
+class EnemySpawner : MonoBehaviour
 {
     // values assigned to EnemySpawnerSingleton (ess) comp
-    public float2 FieldDimensions;  
+    public float2 FieldDimensions;
     public GameObject EnemyPrefab;
     public uint RandomSeed;
     public float spawnInterval;
 
-    public int MaxEnemySpawnCount;
+    public int PoolCount;
 }
 
 class EnemySpawnerBaker : Baker<EnemySpawner>   //bake mono values above to component values
 {
-    public override void Bake(EnemySpawner authoring)   
+    public override void Bake(EnemySpawner authoring)
     {
-        Entity spawnerEnt = GetEntity(TransformUsageFlags.Dynamic);
-        Entity prefabEnt = GetEntity(authoring.EnemyPrefab, TransformUsageFlags.Dynamic);
+        Entity entity = this.GetEntity(TransformUsageFlags.Dynamic);
+        Entity prefabEnt = this.GetEntity(authoring.EnemyPrefab, TransformUsageFlags.Dynamic);
 
-        EnemySpawnerSingleton essComp = new EnemySpawnerSingleton
+        // Add spawner singleton with the spawn configs
+        this.AddComponent<EnemySpawnerSingleton>(entity, new EnemySpawnerSingleton
         {
-            EnemyPrefab = prefabEnt,
             FieldDimensions = authoring.FieldDimensions,
             SpawnInterval = authoring.spawnInterval,
-            Randomizer = Random.CreateFromIndex(authoring.RandomSeed),  
-            MaxEnemySpawnCount = authoring.MaxEnemySpawnCount,
-        };
+            Randomizer = Random.CreateFromIndex(authoring.RandomSeed),
+            // MaxEnemySpawnCount = authoring.PoolCount,
+            // EnemyPrefab = prefabEnt,
+        });
 
-        AddComponent<EnemySpawnerSingleton>(spawnerEnt, essComp);
-        AddComponent<Pool.CurrentIndex>(spawnerEnt);
-
-        DynamicBuffer<Pool.Element> spawnerBuffer = AddBuffer<Pool.Element>(spawnerEnt);  
-
-
-
-        /*
-        for (int e = 0; e < authoring.MaxEnemySpawnCount; e++)   //e: current enemyEnt count
+        // Add pool singleton that consists of the pool count and the entity prefab
+        this.AddComponent<EnemyPoolSingleton>(entity, new EnemyPoolSingleton
         {
-            Entity enemyEnt = CreateAdditionalEntity(TransformUsageFlags.Dynamic, entityName: "Enemy");    //create empty entity
-            AddComponent<Disabled>(enemyEnt);
-            
-            Pool.Element element = new Pool.Element { Entity = enemyEnt };   //create new element & assign
+            PoolCount = authoring.PoolCount,
+            Prefab = this.GetEntity(authoring.EnemyPrefab, TransformUsageFlags.Dynamic),
+        });
 
-            spawnerBuffer.Add(element);
-        }
-        */
+        this.AddComponent<Pool.CurrentIndex>(entity);
+        DynamicBuffer<Pool.Element> spawnerBuffer = this.AddBuffer<Pool.Element>(entity);
     }
 }

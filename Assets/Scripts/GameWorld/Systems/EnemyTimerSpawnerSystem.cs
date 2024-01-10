@@ -1,16 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
-[BurstCompile]
-//[UpdateInGroup(typeof(InitializationSystemGroup))]  //system runs at first and only once
-//means update before baker authoring
-public partial struct EnemyTimerSpawnerSystem : ISystem, ISystemStartStop//for onstartrunning & stoprunning
+public partial struct EnemySetupSystem : ISystem, ISystemStartStop //for onstartrunning & stoprunning
+{
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<EnemyPoolSingleton>();
+    }
+
+    [BurstCompile]
+    public void OnStartRunning(ref SystemState state)
+    {
+        UnityEngine.Debug.Log("EnemySetupSystem");
+        Entity entity = SystemAPI.GetSingletonEntity<EnemyPoolSingleton>();
+
+        EnemyPoolSingleton poolSingleton = SystemAPI.GetSingleton<EnemyPoolSingleton>();
+        Pool.Aspect poolAspect = SystemAPI.GetAspect<Pool.Aspect>(entity);
+
+        // Instantiate all the enemy prefab and fill in the enemy pool
+        EntityManager manager = state.EntityManager;
+        Pool.InstantiatePrefabs(
+            ref manager,
+            ref poolAspect,
+            poolSingleton.Prefab,
+            poolSingleton.PoolCount
+        );
+    }
+
+
+    public void OnStopRunning(ref SystemState state) { }
+}
+
+[UpdateAfter(typeof(EnemySetupSystem)), UpdateBefore(typeof(TransformSystemGroup))]
+public partial struct EnemyTimerSpawnerSystem : ISystem
 {
     private float m_SpawnInterval;
     private float m_SpawnTimer;
@@ -21,41 +47,26 @@ public partial struct EnemyTimerSpawnerSystem : ISystem, ISystemStartStop//for o
     {
         //system will always execute again everytime EnemySpawnerSingleton comp value(s) is modified
         state.RequireForUpdate<EnemySpawnerSingleton>();
-       
+        state.RequireForUpdate<EnemyPoolSingleton>();
+
         m_CurrentEnemyCount = 0;
-    }
-
-    [BurstCompile]
-    public void OnStartRunning(ref SystemState state)
-    {
-        Entity spawnerEnt = SystemAPI.GetSingletonEntity<EnemySpawnerSingleton>();
-        EnemySpawnerAspect spawnerAsp = SystemAPI.GetAspect<EnemySpawnerAspect>(spawnerEnt);
-
-        Pool.Aspect poolAsp = SystemAPI.GetAspect<Pool.Aspect>(spawnerEnt);
-        //DynamicBuffer<Pool.Element> spawnerBuffer = poolAsp.Entities;
-
-        //DynamicBuffer<Pool.Element> spawnerBuffer = SystemAPI.GetBuffer<Pool.Element>(spawnerEnt);
-        EntityManager manager = state.EntityManager;
-        Pool.InstantiatePrefabs(ref manager, ref poolAsp, spawnerAsp.EnemyPrefabRO, spawnerAsp.MaxEnemySpawnCountRO);
-    }
-
-    public void OnStopRunning(ref SystemState state)
-    {
-        
     }
 
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        Entity spawnerEnt = SystemAPI.GetSingletonEntity<EnemySpawnerSingleton>();
-        EnemySpawnerAspect spawnerAsp = SystemAPI.GetAspect<EnemySpawnerAspect>(spawnerEnt);
+        UnityEngine.Debug.Log("Update");
+        Entity spawnerEntity = SystemAPI.GetSingletonEntity<EnemySpawnerSingleton>();
 
-        Pool.Aspect poolAsp = SystemAPI.GetAspect<Pool.Aspect>(spawnerEnt);
-        DynamicBuffer<Pool.Element> spawnerBuffer = poolAsp.Entities;
+        EnemySpawnerAspect spawnerAspect = SystemAPI.GetAspect<EnemySpawnerAspect>(spawnerEntity);
+        EnemyPoolSingleton poolSingleton = SystemAPI.GetSingleton<EnemyPoolSingleton>();
 
-        if (m_CurrentEnemyCount < spawnerAsp.MaxEnemySpawnCountRO)
+        Pool.Aspect poolAspect = SystemAPI.GetAspect<Pool.Aspect>(spawnerEntity);
+        DynamicBuffer<Pool.Element> spawnerBuffer = poolAspect.Entities;
+
+        if (m_CurrentEnemyCount < poolSingleton.PoolCount)
         {
-            m_SpawnInterval = spawnerAsp.SpawnIntervalRW;
+            m_SpawnInterval = spawnerAspect.SpawnIntervalRW;
             m_SpawnTimer -= Time.deltaTime;
             //(1) 1st spawn time will be instantaneous, but start at 2nd spawn time and after, always m_SpawnTimer = m_SpawnInterval
 
@@ -66,7 +77,7 @@ public partial struct EnemyTimerSpawnerSystem : ISystem, ISystemStartStop//for o
                 int maxSpawnIncrement = 5; // max spawn wave
                 int spawnIncrement = Random.Range(1, maxSpawnIncrement + 1); // Generate a random increment value
 
-                int enemiesToSpawn = Mathf.Min(m_CurrentEnemyCount + spawnIncrement, spawnerAsp.MaxEnemySpawnCountRO - m_CurrentEnemyCount);
+                int enemiesToSpawn = Mathf.Min(m_CurrentEnemyCount + spawnIncrement, poolSingleton.PoolCount - m_CurrentEnemyCount);
                 /* EXPLAIN
                  * enemiesToSpawn: enemy spawn count on every wave
                  * 
@@ -77,14 +88,14 @@ public partial struct EnemyTimerSpawnerSystem : ISystem, ISystemStartStop//for o
 
                 for (int i = 0; i < enemiesToSpawn; i++)    //Q2!!!!!! here how take entity from buffer and set them enable each
                 {
-                    Entity enemyEnt;
-                    Pool.GetNextEntity(ref poolAsp, out enemyEnt);
+                    Entity enemyEntity;
+                    Pool.GetNextEntity(ref poolAspect, out enemyEntity);
 
-                    LocalTransform enemyTransform = spawnerAsp.GetRandomEnemyTransform();  //get random transform
-                    commands.SetComponent<LocalTransform>(enemyEnt, enemyTransform);
+                    LocalTransform enemyTransform = spawnerAspect.GetRandomEnemyTransform();  //get random transform
+                    commands.SetComponent<LocalTransform>(enemyEntity, enemyTransform);
                     m_CurrentEnemyCount++;
 
-                    commands.SetEnabled(enemyEnt, true);
+                    commands.SetEnabled(enemyEntity, true);
 
                     //commands.Instantiate(enemyEnt);
                 }

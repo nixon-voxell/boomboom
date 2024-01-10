@@ -47,13 +47,15 @@ public partial struct PlayerMovementSystem : ISystem
         {
             float3 forward = transform.ValueRO.Forward();
 
-            velocity.ValueRW.Linear = 0.0f;
+            float3 linearVelocity = velocity.ValueRO.Linear;
+            velocity.ValueRW.Linear = new float3(0.0f, linearVelocity.y, 0.0f);
             velocity.ValueRW.Angular = 0.0f;
 
             if (userInput.IsMoving)
             {
                 // Overwrite velocity with the user's MoveAxis input
-                velocity.ValueRW.Linear = new float3(userInput.MoveAxis.x, 0.0f, userInput.MoveAxis.y) * speed.ValueRO.Value;
+                velocity.ValueRW.Linear.x = userInput.MoveAxis.x * speed.ValueRO.Value;
+                velocity.ValueRW.Linear.z = userInput.MoveAxis.y * speed.ValueRO.Value;
             }
 
             float3 v = secondaryVelocity.ValueRW.Value;
@@ -87,6 +89,7 @@ public partial struct LookRotationSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        // only allow y rotation
         UserInputSingleton userInput = SystemAPI.GetSingleton<UserInputSingleton>();
 
         // Only update the direcion if the user is moving
@@ -98,16 +101,35 @@ public partial struct LookRotationSystem : ISystem
         foreach (
             var (speed, transform) in
             SystemAPI.Query<RefRO<LookSpeed>, RefRW<LocalTransform>>()
+            .WithAll<Tag_Player>()
         )
         {
             quaternion targetRotation = quaternion.LookRotation(
                 new float3(userInput.MoveAxis.x, 0.0f, userInput.MoveAxis.y), math.up()
             );
 
+            UnityEngine.Debug.Log(targetRotation.value);
+
             transform.ValueRW.Rotation = math.slerp(
                 transform.ValueRO.Rotation, targetRotation,
                 SystemAPI.Time.DeltaTime * speed.ValueRO.Value
             );
+        }
+    }
+}
+
+public partial struct FixPlayerXZRotation : ISystem
+{
+    public void OnUpdate(ref SystemState state)
+    {
+        foreach (
+            RefRW<LocalTransform> transform in
+            SystemAPI.Query<RefRW<LocalTransform>>()
+            .WithAll<Tag_Player>()
+        )
+        {
+            transform.ValueRW.Rotation.value.x = 0.0f;
+            transform.ValueRW.Rotation.value.z = 0.0f;
         }
     }
 }
