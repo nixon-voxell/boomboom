@@ -135,7 +135,7 @@ public partial struct ExplosionForceSystem : ISystem
                         float3 angularDirection = -math.normalizesafe(math.cross(direction, math.up()));
 
                         velocity.ValueRW.Linear += direction * explosion.ForceRW;
-                        velocity.ValueRW.Angular += angularDirection * explosion.ForceRW;
+                        velocity.ValueRW.Angular += angularDirection * explosion.ForceRW * 1.5f;
                     }
                 }
             }

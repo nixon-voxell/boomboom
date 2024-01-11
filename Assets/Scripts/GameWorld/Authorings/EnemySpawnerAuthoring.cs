@@ -1,21 +1,19 @@
 using UnityEngine;
 using Unity.Entities;
-using Unity.Mathematics;
 
 using Random = Unity.Mathematics.Random;
 
 class EnemySpawner : MonoBehaviour
 {
-    // values assigned to EnemySpawnerSingleton (ess) comp
-    public float2 FieldDimensions;
-    public GameObject EnemyPrefab;
-    public uint RandomSeed;
-    public float SpawnInterval;
-
+    [Tooltip("Enemies will spawn outside this radius.")]
+    public float SpawnRadius = 40.0f;
+    [Tooltip("Time between each round. New enemies will be spawned after the end of a round.")]
+    public float RoundInterval;
     public int PoolCount;
+    public GameObject EnemyPrefab;
 }
 
-// bake mono values above to component values
+// Bake mono values above to component values
 class EnemySpawnerBaker : Baker<EnemySpawner>
 {
     public override void Bake(EnemySpawner authoring)
@@ -26,24 +24,19 @@ class EnemySpawnerBaker : Baker<EnemySpawner>
         // Add spawner singleton with the spawn configs
         this.AddComponent<EnemySpawnerSingleton>(entity, new EnemySpawnerSingleton
         {
-            FieldDimensions = authoring.FieldDimensions,
-            Randomizer = Random.CreateFromIndex(authoring.RandomSeed),
-        });
-
-        // Add pool singleton that consists of the pool count and the entity prefab
-        this.AddComponent<EnemyPoolSingleton>(entity, new EnemyPoolSingleton
-        {
+            Radius = authoring.SpawnRadius,
+            Randomizer = Random.CreateFromIndex(1),
             PoolCount = authoring.PoolCount,
             Prefab = this.GetEntity(authoring.EnemyPrefab, TransformUsageFlags.Dynamic),
         });
 
-        this.AddComponent<Pool.CurrentIndex>(entity);
-        DynamicBuffer<Pool.Element> spawnerBuffer = this.AddBuffer<Pool.Element>(entity);
+        this.AddBuffer<DisabledEnemy>(entity);
 
         this.AddComponent<Timer>(entity, new Timer
         {
-            TotalTime = authoring.SpawnInterval,
-            ElapsedTime = 0.0f,
+            TotalTime = authoring.RoundInterval,
+            // Make sure to have enemies spawned in the first round.
+            ElapsedTime = authoring.RoundInterval + 1.0f,
         });
     }
 }
