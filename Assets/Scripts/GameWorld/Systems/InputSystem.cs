@@ -11,10 +11,7 @@ public partial class InputSystem : SystemBase
         // Initialize Controls
         this.m_Input = new Controls();
         this.m_Input.Enable();
-    }
 
-    protected override void OnStartRunning()
-    {
         this.RequireForUpdate<UserInputSingleton>();
 
         // Add required UserInputSingleton
@@ -32,7 +29,9 @@ public partial class InputSystem : SystemBase
         UserInputSingleton input = SystemAPI.GetSingleton<UserInputSingleton>();
 
         input.MoveAxis = this.m_Input.Player.Move.ReadValue<Vector2>();
+        input.IsMoving = this.m_Input.Player.Move.IsPressed();
         input.Dash = this.m_Input.Player.Dash.WasPressedThisFrame();
+        input.Bomb = this.m_Input.Player.Bomb.WasPressedThisFrame();
 
         SystemAPI.SetSingleton<UserInputSingleton>(input);
     }

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/GameWorld/Mono.meta
+guid: 12417cd000b34664ea51b9db13d562ba
+|||||||| merged common ancestors:Assets/Script.meta
+guid: 8330bb693cefbd54eb6921674cbf2a3f
+========
+guid: 5c0834c37a87dcd40b7ace9bead030c8
+>>>>>>>> feature/bomb:Assets/VFX.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

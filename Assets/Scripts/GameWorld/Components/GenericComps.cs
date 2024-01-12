@@ -1,11 +1,24 @@
 using Unity.Entities;
 
-public struct Health : IComponentData
+public struct Timer : IComponentData
 {
-    public float Value;
-}
+    public float TotalTime;
+    public float ElapsedTime;
 
-public struct Damage : IComponentData
-{
-    public float Value;
+    public void Set(float totalTime)
+    {
+        this.TotalTime = totalTime;
+        this.ElapsedTime = 0.0f;
+    }
+
+    public bool Update(float deltaTime)
+    {
+        if (this.ElapsedTime > this.TotalTime)
+        {
+            return true;
+        }
+
+        this.ElapsedTime += deltaTime;
+        return false;
+    }
 }

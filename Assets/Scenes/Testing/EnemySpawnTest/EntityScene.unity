@@ -170,10 +170,11 @@ MonoBehaviour:
   FieldDimensions:
     x: 50
     y: 50
-  NumberEnemySpawn: 100
   EnemyPrefab: {fileID: 8381328553984811717, guid: f69fe12422aff4f4ca2aa783a9d8791b,
     type: 3}
   RandomSeed: 1000
+  spawnInterval: 0.5
+  MaxEnemySpawnCount: 100
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
