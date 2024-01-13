@@ -5,9 +5,8 @@ public struct Timer : IComponentData
     public float TotalTime;
     public float ElapsedTime;
 
-    public void Set(float totalTime)
+    public void Reset()
     {
-        this.TotalTime = totalTime;
         this.ElapsedTime = 0.0f;
     }
 

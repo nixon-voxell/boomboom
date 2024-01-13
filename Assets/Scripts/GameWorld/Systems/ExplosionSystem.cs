@@ -41,16 +41,7 @@ public partial struct ExplosionSetupSystem : ISystem, ISystemStartStop
         {
             Entity entity = explosionAspect.Entities[e].Entity;
 
-            commands.AddComponent<ExplosionForce>(entity);
-            commands.AddComponent<ExplosionRadius>(entity);
-            commands.AddComponent<Timer>(entity);
-
-            commands.AddComponent<Explode>(entity);
             commands.SetComponentEnabled<Explode>(entity, false);
-
-            // TODO: Remove this?
-            commands.AddComponent<Damage>(entity);
-
             commands.SetEnabled(entity, false);
         }
 
@@ -173,7 +164,7 @@ public partial struct ExplosionPlacementSystem : ISystem
 
             // Set bomb timer
             RefRW<Timer> timer = SystemAPI.GetComponentRW<Timer>(explosionEntity);
-            timer.ValueRW.Set(5.0f);
+            timer.ValueRW.Reset();
         }
 
         commands.Playback(state.EntityManager);
@@ -233,17 +224,16 @@ public partial struct ExplosionCamShakeSystem : ISystem
     }
 }
 
-// =============================================
-// Complete
-// =============================================
-
-[UpdateInGroup(typeof(ExplosionCompleteSystemGroup))]
+[UpdateInGroup(typeof(ExplosionProgressSystemGroup))]
 public partial struct ExplosionForceSystem : ISystem
 {
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+        PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
+        CollisionWorld collisionWorld = physicsWorld.PhysicsWorld.CollisionWorld;
+
+        NativeList<DistanceHit> hits = new NativeList<DistanceHit>(Allocator.Temp);
 
         foreach (
             var (explosion, explode, transform, entity) in
@@ -251,11 +241,7 @@ public partial struct ExplosionForceSystem : ISystem
             .WithEntityAccess()
         )
         {
-            PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
-            CollisionWorld collisionWorld = physicsWorld.PhysicsWorld.CollisionWorld;
-
-            NativeList<DistanceHit> hits = new NativeList<DistanceHit>(Allocator.Temp);
-
+            hits.Clear();
             bool hasHits = physicsWorld.OverlapSphere(
                 transform.Position, explosion.Radius.ValueRO.Value, ref hits, CollisionFilter.Default
             );
@@ -278,7 +264,28 @@ public partial struct ExplosionForceSystem : ISystem
                     }
                 }
             }
+        }
+    }
+}
 
+// =============================================
+// Complete
+// =============================================
+
+[UpdateInGroup(typeof(ExplosionCompleteSystemGroup))]
+public partial struct ExplosionCompleteSystem : ISystem
+{
+    [BurstCompile]
+    public void OnUpdate(ref SystemState state)
+    {
+        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
+        foreach (
+            var (explosion, explode, transform, entity) in
+            SystemAPI.Query<ExplosionAspect, Explode, LocalTransform>()
+            .WithEntityAccess()
+        )
+        {
             commands.SetEnabled(entity, false);
 
             // Disable landmine

@@ -63,7 +63,7 @@ public partial struct EnemySpawnerSystem : ISystem
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
         // Reset timer
-        timer.ValueRW.ElapsedTime = 0.0f;
+        timer.ValueRW.Reset();
 
         // Spawn enemies
         spawnerAspect.Spawn(ref commands, 10.0f);
