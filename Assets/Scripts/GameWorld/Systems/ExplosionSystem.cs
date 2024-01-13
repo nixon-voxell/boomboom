@@ -5,11 +5,24 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Physics;
 
+public partial class ExplosionPreparationSystemGroup : ComponentSystemGroup { }
+
+[UpdateBefore(typeof(TransformSystemGroup)), UpdateAfter(typeof(ExplosionPreparationSystemGroup))]
+public partial class ExplosionProgressSystemGroup : ComponentSystemGroup { }
+
+[UpdateAfter(typeof(ExplosionPreparationSystemGroup))]
+public partial class ExplosionCompleteSystemGroup : ComponentSystemGroup { }
+
+// =============================================
+// Preparation
+// =============================================
+
+[UpdateInGroup(typeof(ExplosionPreparationSystemGroup))]
 public partial struct ExplosionSetupSystem : ISystem, ISystemStartStop
 {
     public void OnCreate(ref SystemState state)
     {
-        state.RequireForUpdate<ExplosionPoolSingleton>();
+        state.RequireForUpdate<ExplosionSingleton>();
         state.RequireForUpdate<LandminePoolSingleton>();
         state.RequireForUpdate<ExplosionVfxPoolSingleton>();
     }
@@ -21,7 +34,7 @@ public partial struct ExplosionSetupSystem : ISystem, ISystemStartStop
 
         // Add components to explosion pool
         Pool.Aspect explosionAspect = SystemAPI.GetAspect<Pool.Aspect>(
-            SystemAPI.GetSingletonEntity<ExplosionPoolSingleton>()
+            SystemAPI.GetSingletonEntity<ExplosionSingleton>()
         );
 
         for (int e = 0; e < explosionAspect.Entities.Length; e++)
@@ -74,7 +87,104 @@ public partial struct ExplosionSetupSystem : ISystem, ISystemStartStop
     public void OnStopRunning(ref SystemState state) { }
 }
 
-[UpdateBefore(typeof(ExplosionForceSystem))]
+[UpdateInGroup(typeof(ExplosionPreparationSystemGroup))]
+public partial struct ExplosionTimerSystem : ISystem
+{
+    [BurstCompile]
+    public void OnUpdate(ref SystemState state)
+    {
+        foreach (
+            var (timer, entity) in SystemAPI.Query<RefRW<Timer>>()
+            .WithDisabled<Explode>()
+            .WithEntityAccess()
+        )
+        {
+            if (timer.ValueRW.Update(SystemAPI.Time.DeltaTime))
+            {
+                // Perform explosion
+                SystemAPI.SetComponentEnabled<Explode>(entity, true);
+            }
+        }
+    }
+}
+
+[UpdateInGroup(typeof(ExplosionPreparationSystemGroup))]
+public partial struct ExplosionPlacementSystem : ISystem
+{
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<UserInputSingleton>();
+        state.RequireForUpdate<ExplosionSingleton>();
+    }
+
+    [BurstCompile]
+    public void OnUpdate(ref SystemState state)
+    {
+        UserInputSingleton userInput = SystemAPI.GetSingleton<UserInputSingleton>();
+
+        // Perform only when player presses the bomb button.
+        if (userInput.Bomb == false)
+        {
+            return;
+        }
+
+        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
+        Entity explosionPoolEntity = SystemAPI.GetSingletonEntity<ExplosionSingleton>();
+        Entity landminePoolEntity = SystemAPI.GetSingletonEntity<LandminePoolSingleton>();
+
+        Pool.Aspect explosionAspect = SystemAPI.GetAspect<Pool.Aspect>(explosionPoolEntity);
+        Pool.Aspect landmineAspect = SystemAPI.GetAspect<Pool.Aspect>(landminePoolEntity);
+
+        foreach (
+            LocalTransform transform in
+            SystemAPI.Query<LocalTransform>().WithAll<Tag_Player>()
+        )
+        {
+            // Create a landmine at the player's position
+            Entity landmineEntity;
+            Pool.GetNextEntity(ref landmineAspect, out landmineEntity);
+
+            SystemAPI.SetComponent<LocalTransform>(landmineEntity, transform);
+            commands.SetEnabled(landmineEntity, true);
+
+            // Create an explosion at the player's position
+            Entity explosionEntity;
+            Pool.GetNextEntity(ref explosionAspect, out explosionEntity);
+
+            commands.SetEnabled(explosionEntity, true);
+            // Set bomb transform
+            SystemAPI.SetComponent<LocalTransform>(explosionEntity, transform);
+            // Set bomb explosion data
+            SystemAPI.SetComponent<ExplosionForce>(explosionEntity, new ExplosionForce
+            {
+                Value = 10.0f,
+            });
+            SystemAPI.SetComponent<ExplosionRadius>(explosionEntity, new ExplosionRadius
+            {
+                Value = 2.0f,
+            });
+            SystemAPI.SetComponent<Explode>(explosionEntity, new Explode
+            {
+                LandmineEntity = landmineEntity,
+            });
+            SystemAPI.SetComponentEnabled<Explode>(explosionEntity, false);
+
+            // Set bomb timer
+            RefRW<Timer> timer = SystemAPI.GetComponentRW<Timer>(explosionEntity);
+            timer.ValueRW.Set(5.0f);
+        }
+
+        commands.Playback(state.EntityManager);
+    }
+}
+
+// =============================================
+// Progress
+// =============================================
+
+[UpdateInGroup(typeof(ExplosionProgressSystemGroup))]
 public partial struct ExplosionVfxSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
@@ -99,6 +209,35 @@ public partial struct ExplosionVfxSystem : ISystem
     }
 }
 
+[UpdateInGroup(typeof(ExplosionProgressSystemGroup))]
+public partial struct ExplosionCamShakeSystem : ISystem
+{
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<ExplosionSingleton>();
+    }
+
+    public void OnUpdate(ref SystemState state)
+    {
+        ExplosionSingleton explosionSingleton = SystemAPI.GetSingleton<ExplosionSingleton>();
+
+        foreach (
+            RefRO<Explode> _ in
+            SystemAPI.Query<RefRO<Explode>>()
+        )
+        {
+            VirtualCameraMono.Instance.AddNoiseAmplitude(explosionSingleton.ShakeAmplitude);
+            VirtualCameraMono.Instance.AddNoiseFrequency(explosionSingleton.ShakeFrequency);
+        }
+    }
+}
+
+// =============================================
+// Complete
+// =============================================
+
+[UpdateInGroup(typeof(ExplosionCompleteSystemGroup))]
 public partial struct ExplosionForceSystem : ISystem
 {
     [BurstCompile]
@@ -144,98 +283,6 @@ public partial struct ExplosionForceSystem : ISystem
 
             // Disable landmine
             commands.SetEnabled(explode.LandmineEntity, false);
-        }
-
-        commands.Playback(state.EntityManager);
-    }
-}
-
-public partial struct ExplosionTimerSystem : ISystem
-{
-    [BurstCompile]
-    public void OnUpdate(ref SystemState state)
-    {
-        foreach (
-            var (timer, entity) in SystemAPI.Query<RefRW<Timer>>()
-            .WithDisabled<Explode>()
-            .WithEntityAccess()
-        )
-        {
-            if (timer.ValueRW.Update(SystemAPI.Time.DeltaTime))
-            {
-                // Perform explosion
-                SystemAPI.SetComponentEnabled<Explode>(entity, true);
-            }
-        }
-    }
-}
-
-[UpdateBefore(typeof(TransformSystemGroup))]
-public partial struct ExplosionPlacementSystem : ISystem
-{
-    [BurstCompile]
-    public void OnCreate(ref SystemState state)
-    {
-        state.RequireForUpdate<UserInputSingleton>();
-        state.RequireForUpdate<ExplosionPoolSingleton>();
-    }
-
-    [BurstCompile]
-    public void OnUpdate(ref SystemState state)
-    {
-        UserInputSingleton userInput = SystemAPI.GetSingleton<UserInputSingleton>();
-
-        // Perform only when player presses the bomb button.
-        if (userInput.Bomb == false)
-        {
-            return;
-        }
-
-        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
-
-        Entity explosionPoolEntity = SystemAPI.GetSingletonEntity<ExplosionPoolSingleton>();
-        Entity landminePoolEntity = SystemAPI.GetSingletonEntity<LandminePoolSingleton>();
-
-        Pool.Aspect explosionAspect = SystemAPI.GetAspect<Pool.Aspect>(explosionPoolEntity);
-        Pool.Aspect landmineAspect = SystemAPI.GetAspect<Pool.Aspect>(landminePoolEntity);
-
-        foreach (
-            LocalTransform transform in
-            SystemAPI.Query<LocalTransform>().WithAll<Tag_Player>()
-        )
-        {
-            // Create a landmine at the player's position
-            Entity landmineEntity;
-            Pool.GetNextEntity(ref landmineAspect, out landmineEntity);
-
-            SystemAPI.SetComponent<LocalTransform>(landmineEntity, transform);
-            commands.SetEnabled(landmineEntity, true);
-
-            // Create an explosion at the player's position
-            Entity explosionEntity;
-            Pool.GetNextEntity(ref explosionAspect, out explosionEntity);
-
-            commands.SetEnabled(explosionEntity, true);
-            // Set bomb transform
-            SystemAPI.SetComponent<LocalTransform>(explosionEntity, transform);
-            // Set bomb explosion data
-            SystemAPI.SetComponent<ExplosionForce>(explosionEntity, new ExplosionForce
-            {
-                Value = 10.0f,
-            });
-            SystemAPI.SetComponent<ExplosionRadius>(explosionEntity, new ExplosionRadius
-            {
-                Value = 2.0f,
-            });
-            SystemAPI.SetComponent<Explode>(explosionEntity, new Explode
-            {
-                LandmineEntity = landmineEntity,
-            });
-            SystemAPI.SetComponentEnabled<Explode>(explosionEntity, false);
-
-            // Set bomb timer
-            RefRW<Timer> timer = SystemAPI.GetComponentRW<Timer>(explosionEntity);
-            timer.ValueRW.Set(5.0f);
         }
 
         commands.Playback(state.EntityManager);

@@ -1,6 +1,10 @@
 using Unity.Entities;
 
-public struct ExplosionPoolSingleton : IComponentData { }
+public struct ExplosionSingleton : IComponentData
+{
+    public float ShakeAmplitude;
+    public float ShakeFrequency;
+}
 
 public struct Explode : IComponentData, IEnableableComponent
 {

@@ -4,6 +4,8 @@ using Unity.Entities;
 class ExplosionPoolAuthoring : MonoBehaviour
 {
     public int Count;
+    public float ShakeAmplitude = 1.0f;
+    public float ShakeFrequency = 1.0f;
 }
 
 class ExplosionPoolBaker : Baker<ExplosionPoolAuthoring>
@@ -12,7 +14,11 @@ class ExplosionPoolBaker : Baker<ExplosionPoolAuthoring>
     {
         Entity entity = this.GetEntity(TransformUsageFlags.None);
 
-        this.AddComponent<ExplosionPoolSingleton>(entity);
+        this.AddComponent<ExplosionSingleton>(entity, new ExplosionSingleton
+        {
+            ShakeAmplitude = authoring.ShakeAmplitude,
+            ShakeFrequency = authoring.ShakeFrequency,
+        });
         this.AddComponent<Pool.CurrentIndex>(entity);
         DynamicBuffer<Pool.Element> elementBuffer = this.AddBuffer<Pool.Element>(entity);
 
