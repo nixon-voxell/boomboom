@@ -178,25 +178,50 @@ public partial struct ExplosionPlacementSystem : ISystem
 [UpdateInGroup(typeof(ExplosionProgressSystemGroup))]
 public partial struct ExplosionVfxSystem : ISystem
 {
+    [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<ExplosionVfxPoolSingleton>();
     }
 
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         Pool.Aspect vfxAspect = SystemAPI.GetAspect<Pool.Aspect>(
             SystemAPI.GetSingletonEntity<ExplosionVfxPoolSingleton>()
         );
 
+        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
         foreach (
-            LocalTransform transform in
-            SystemAPI.Query<LocalTransform>()
+            RefRO<LocalTransform> transform in
+            SystemAPI.Query<RefRO<LocalTransform>>()
             .WithAll<Explode>()
         )
         {
             // Perform explosion at the given position
+            Entity vfxEntity;
+            Pool.GetNextEntity(ref vfxAspect, out vfxEntity);
+
+            SystemAPI.SetComponent<LocalTransform>(vfxEntity, transform.ValueRO);
+            commands.SetEnabled(vfxEntity, true);
+            SystemAPI.GetComponentRW<Timer>(vfxEntity).ValueRW.Reset();
         }
+
+        foreach (
+            var (timer, vfxEntity) in
+            SystemAPI.Query<RefRW<Timer>>()
+            .WithEntityAccess()
+            .WithAll<Tag_ExplosionVfx>()
+        )
+        {
+            if (timer.ValueRW.Update(SystemAPI.Time.DeltaTime))
+            {
+                commands.SetEnabled(vfxEntity, false);
+            }
+        }
+
+        commands.Playback(state.EntityManager);
     }
 }
 
