@@ -75,9 +75,14 @@ public partial struct EnemySpawnerSystem : ISystem
 
 public partial struct EnemyChaseSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<Tag_PlayerSingleton>();
+    }
+
     public void OnUpdate(ref SystemState state)
     {
-        LocalTransform playerTransform = SystemAPI.GetComponent<LocalTransform>(SystemAPI.GetSingletonEntity<Tag_Player>());
+        LocalTransform playerTransform = SystemAPI.GetComponent<LocalTransform>(SystemAPI.GetSingletonEntity<Tag_PlayerSingleton>());
 
         foreach (
             var (transform, physics) in

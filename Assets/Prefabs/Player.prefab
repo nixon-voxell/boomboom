@@ -346,7 +346,7 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  m_GravityFactor: 0
+  m_GravityFactor: 5
   m_OverrideDefaultMassDistribution: 0
   m_CenterOfMass:
     x: 0
@@ -524,7 +524,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3893946882508198309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 080d1a95987ebf146bd633f2cccb0d00, type: 3}
+  m_Script: {fileID: 11500000, guid: 52e9acaa8684a4a49823fb443677dff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 10

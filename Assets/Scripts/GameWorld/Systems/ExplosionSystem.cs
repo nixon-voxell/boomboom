@@ -130,7 +130,7 @@ public partial struct ExplosionPlacementSystem : ISystem
 
         foreach (
             LocalTransform transform in
-            SystemAPI.Query<LocalTransform>().WithAll<Tag_Player>()
+            SystemAPI.Query<LocalTransform>().WithAll<Tag_PlayerSingleton>()
         )
         {
             // Create a landmine at the player's position
