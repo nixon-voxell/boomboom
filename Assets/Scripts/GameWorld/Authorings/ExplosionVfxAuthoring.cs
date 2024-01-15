@@ -4,6 +4,7 @@ using Unity.Entities;
 class ExplosionVfxAuthoring : MonoBehaviour
 {
     public float VfxDuration;
+    public float LightBrightness;
 }
 
 class ExplosionVfxBaker : Baker<ExplosionVfxAuthoring>
@@ -18,6 +19,9 @@ class ExplosionVfxBaker : Baker<ExplosionVfxAuthoring>
             ElapsedTime = 0.0f,
         });
 
-        this.AddComponent<Tag_ExplosionVfx>(entity);
+        this.AddComponent<ExplosionVfx>(entity, new ExplosionVfx
+        {
+            LightBrightness = authoring.LightBrightness,
+        });
     }
 }

@@ -36,6 +36,11 @@ public struct ExplosionVfxPoolSingleton : IComponentData
     public int PoolCount;
 }
 
+public struct ExplosionVfx : IComponentData
+{
+    public float LightBrightness;
+}
+
 public struct LandminePoolSingleton : IComponentData
 {
     public Entity Prefab;

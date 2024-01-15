@@ -148,14 +148,14 @@ public partial struct ExplosionPlacementSystem : ISystem
             // Set bomb transform
             SystemAPI.SetComponent<LocalTransform>(explosionEntity, transform);
             // Set bomb explosion data
-            SystemAPI.SetComponent<ExplosionForce>(explosionEntity, new ExplosionForce
-            {
-                Value = 10.0f,
-            });
-            SystemAPI.SetComponent<ExplosionRadius>(explosionEntity, new ExplosionRadius
-            {
-                Value = 2.0f,
-            });
+            // SystemAPI.SetComponent<ExplosionForce>(explosionEntity, new ExplosionForce
+            // {
+            //     Value = 10.0f,
+            // });
+            // SystemAPI.SetComponent<ExplosionRadius>(explosionEntity, new ExplosionRadius
+            // {
+            //     Value = 2.0f,
+            // });
             SystemAPI.SetComponent<Explode>(explosionEntity, new Explode
             {
                 LandmineEntity = landmineEntity,
@@ -191,6 +191,7 @@ public partial struct ExplosionVfxSystem : ISystem
             SystemAPI.GetSingletonEntity<ExplosionVfxPoolSingleton>()
         );
 
+        EntityManager manager = state.EntityManager;
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
         foreach (
@@ -208,20 +209,46 @@ public partial struct ExplosionVfxSystem : ISystem
             SystemAPI.GetComponentRW<Timer>(vfxEntity).ValueRW.Reset();
         }
 
+        commands.Playback(manager);
+    }
+}
+
+[UpdateInGroup(typeof(ExplosionProgressSystemGroup))]
+public partial struct ExplosionVfxTimerFunction : ISystem
+{
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<ExplosionVfxPoolSingleton>();
+    }
+
+    public void OnUpdate(ref SystemState state)
+    {
+        EntityManager manager = state.EntityManager;
+        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
         foreach (
-            var (timer, vfxEntity) in
-            SystemAPI.Query<RefRW<Timer>>()
+            var (timer, vfx, vfxEntity) in
+            SystemAPI.Query<RefRW<Timer>, RefRO<ExplosionVfx>>()
             .WithEntityAccess()
-            .WithAll<Tag_ExplosionVfx>()
         )
         {
+            UnityEngine.Light light = manager.GetComponentObject<UnityEngine.Light>(vfxEntity);
+
             if (timer.ValueRW.Update(SystemAPI.Time.DeltaTime))
             {
                 commands.SetEnabled(vfxEntity, false);
             }
+
+            light.intensity = math.lerp(
+                vfx.ValueRO.LightBrightness, 0.0f,
+                timer.ValueRO.ElapsedTime / (timer.ValueRO.TotalTime * 0.5f)
+            );
+            // Prevent from going below 0
+            light.intensity = math.max(light.intensity, 0.0f);
         }
 
-        commands.Playback(state.EntityManager);
+        commands.Playback(manager);
     }
 }
 
