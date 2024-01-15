@@ -3,6 +3,7 @@ using Unity.Collections;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
+using Unity.Physics;
 
 public partial struct EnemySetupSystem : ISystem, ISystemStartStop //for onstartrunning & stoprunning
 {
@@ -70,5 +71,21 @@ public partial struct EnemySpawnerSystem : ISystem
 
         commands.Playback(state.EntityManager);
     }
+}
 
+public partial struct EnemyChaseSystem : ISystem
+{
+    public void OnUpdate(ref SystemState state)
+    {
+        LocalTransform playerTransform = SystemAPI.GetComponent<LocalTransform>(SystemAPI.GetSingletonEntity<Tag_Player>());
+
+        foreach (
+            var (transform, physics) in
+            SystemAPI.Query<RefRO<LocalTransform>, RefRW<PhysicsVelocity>>()
+            .WithAll<Tag_Enemy>()
+        )
+        {
+            float3 direction = math.normalizesafe(transform.ValueRO.Position - playerTransform.Position);
+        }
+    }
 }
