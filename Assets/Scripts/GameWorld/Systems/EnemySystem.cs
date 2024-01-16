@@ -77,13 +77,13 @@ public partial struct EnemyFollowSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
     {
-        state.RequireForUpdate<Tag_Player>();
+        state.RequireForUpdate<Tag_PlayerSingleton>();
     }
 
     public void OnUpdate(ref SystemState state)
     {
         LocalTransform playerTransform = SystemAPI.GetComponent<LocalTransform>(
-            SystemAPI.GetSingletonEntity<Tag_Player>()
+            SystemAPI.GetSingletonEntity<Tag_PlayerSingleton>()
         );
 
         foreach (

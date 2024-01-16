@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnRadius: 5
-  RoundInterval: 0.1
+  RoundInterval: 1
   PoolCount: 10000
   EnemyPrefab: {fileID: 2220557661821601698, guid: f69fe12422aff4f4ca2aa783a9d8791b,
     type: 3}
@@ -297,9 +297,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Count: 10
-  ExplosionTimer: 3
   ShakeAmplitude: 1
   ShakeFrequency: 2
+  ExplosionTimer: 3
+  ExplosionRadius: 5
+  ExplosionForce: 10
 --- !u!1 &817416417
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,12 +314,13 @@ GameObject:
   - component: {fileID: 817416422}
   - component: {fileID: 817416421}
   - component: {fileID: 817416419}
+  - component: {fileID: 817416424}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!114 &817416419
 MonoBehaviour:
@@ -482,7 +485,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1ebca7e065886f944acbef6507a71e22, type: 2}
+  - {fileID: -876546973899608171, guid: 542848ddbb55e9647a1e93b62fdcce38, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -527,6 +530,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &817416424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817416417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a24e1d854f9a94b9c51a6c4cd1d078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &998779657
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,11 +877,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8468667202625000940, guid: bb55aacec914ddf48bed32eec5119c23,
-        type: 3}
-      propertyPath: m_GravityFactor
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

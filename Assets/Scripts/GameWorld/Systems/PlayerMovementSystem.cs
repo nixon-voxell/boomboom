@@ -8,12 +8,12 @@ public partial class PlayerTargetSystem : SystemBase
 {
     protected override void OnCreate()
     {
-        this.RequireForUpdate<Tag_Player>();
+        this.RequireForUpdate<Tag_PlayerSingleton>();
     }
 
     protected override void OnUpdate()
     {
-        Entity playerEntity = SystemAPI.GetSingletonEntity<Tag_Player>();
+        Entity playerEntity = SystemAPI.GetSingletonEntity<Tag_PlayerSingleton>();
 
         LocalTransform transform = SystemAPI.GetComponent<LocalTransform>(playerEntity);
         PlayerTargetMono.TargetPosition = transform.Position;
@@ -42,7 +42,7 @@ public partial struct PlayerMovementSystem : ISystem
                 RefRO<Speed>,
                 RefRW<Dash>,
                 RefRO<LocalTransform>
-            >().WithAll<Tag_Player>()
+            >().WithAll<Tag_PlayerSingleton>()
         )
         {
             float3 forward = transform.ValueRO.Forward();
@@ -54,8 +54,7 @@ public partial struct PlayerMovementSystem : ISystem
             if (userInput.IsMoving)
             {
                 // Overwrite velocity with the user's MoveAxis input
-                velocity.ValueRW.Linear.x = userInput.MoveAxis.x * speed.ValueRO.Value;
-                velocity.ValueRW.Linear.z = userInput.MoveAxis.y * speed.ValueRO.Value;
+                velocity.ValueRW.Linear.xz = userInput.MoveAxis * speed.ValueRO.Value;
             }
 
             float3 v = secondaryVelocity.ValueRW.Value;
@@ -101,7 +100,7 @@ public partial struct LookRotationSystem : ISystem
         foreach (
             var (speed, transform) in
             SystemAPI.Query<RefRO<LookSpeed>, RefRW<LocalTransform>>()
-            .WithAll<Tag_Player>()
+            .WithAll<Tag_PlayerSingleton>()
         )
         {
             quaternion targetRotation = quaternion.LookRotation(
@@ -124,7 +123,7 @@ public partial struct FixPlayerXZRotation : ISystem
         foreach (
             RefRW<LocalTransform> transform in
             SystemAPI.Query<RefRW<LocalTransform>>()
-            .WithAll<Tag_Player>()
+            .WithAll<Tag_PlayerSingleton>()
         )
         {
             transform.ValueRW.Rotation.value.x = 0.0f;

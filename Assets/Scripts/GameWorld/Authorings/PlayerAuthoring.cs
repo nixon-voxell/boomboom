@@ -14,7 +14,7 @@ class PlayerBaker : Baker<PlayerAuthoring>
     {
         Entity entity = this.GetEntity(TransformUsageFlags.Dynamic);
 
-        this.AddComponent<Tag_Player>(entity);
+        this.AddComponent<Tag_PlayerSingleton>(entity);
         this.AddComponent<SecondaryVelocity>(entity, new SecondaryVelocity { Value = 0.0f, });
         this.AddComponent<Speed>(entity, new Speed { Value = authoring.Speed, });
         this.AddComponent<Dash>(entity, new Dash { Value = authoring.Dash, });
