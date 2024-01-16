@@ -73,19 +73,33 @@ public partial struct EnemySpawnerSystem : ISystem
     }
 }
 
-public partial struct EnemyChaseSystem : ISystem
+public partial struct EnemyFollowSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<Tag_Player>();
+    }
+
     public void OnUpdate(ref SystemState state)
     {
-        LocalTransform playerTransform = SystemAPI.GetComponent<LocalTransform>(SystemAPI.GetSingletonEntity<Tag_Player>());
+        LocalTransform playerTransform = SystemAPI.GetComponent<LocalTransform>(
+            SystemAPI.GetSingletonEntity<Tag_Player>()
+        );
 
         foreach (
-            var (transform, physics) in
+            var (transform, velocity) in
             SystemAPI.Query<RefRO<LocalTransform>, RefRW<PhysicsVelocity>>()
             .WithAll<Tag_Enemy>()
         )
         {
-            float3 direction = math.normalizesafe(transform.ValueRO.Position - playerTransform.Position);
+            float3 v = velocity.ValueRO.Linear;
+            float3 direction = math.normalizesafe(playerTransform.Position - transform.ValueRO.Position);
+
+            float followSpeed = 8.0f;
+            float3 followVelocity = direction * followSpeed;
+
+            v += followVelocity * SystemAPI.Time.DeltaTime;
+            velocity.ValueRW.Linear = v;
         }
     }
 }
