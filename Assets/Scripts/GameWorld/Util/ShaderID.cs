@@ -9,4 +9,6 @@ public static class ShaderID
 
     public static readonly int _Eye1Center = Shader.PropertyToID("_Eye1Center");
     public static readonly int _Eye1Size = Shader.PropertyToID("_Eye1Size");
+
+    public static readonly int _Position = Shader.PropertyToID("_Position");
 }
