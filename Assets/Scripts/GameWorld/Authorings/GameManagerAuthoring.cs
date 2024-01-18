@@ -24,11 +24,9 @@ class GameManagerBaker : Baker<GameManagerAuthoring>
 
         this.AddComponent<GameManagerSingleton>(entity, new GameManagerSingleton
         {
-            GameWorld = new EntitySceneReference(authoring.GameWorld),
-            GameWorldEntity = Entity.Null,
+            GameWorld = SceneLoader.From(authoring.GameWorld),
 
-            EnvironmentWorld = new EntitySceneReference(authoring.EnvironmentWorld),
-            EnvironmentWorldEntity = Entity.Null,
+            EnvironmentWorld = SceneLoader.From(authoring.EnvironmentWorld),
         });
     }
 }

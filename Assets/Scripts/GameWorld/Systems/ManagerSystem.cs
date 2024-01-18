@@ -12,9 +12,7 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
     {
         RefRW<GameManagerSingleton> gameManager = SystemAPI.GetSingletonRW<GameManagerSingleton>();
 
-        gameManager.ValueRW.EnvironmentWorldEntity = SceneSystem.LoadSceneAsync(
-            state.WorldUnmanaged, gameManager.ValueRO.EnvironmentWorld
-        );
+        gameManager.ValueRW.EnvironmentWorld.LoadScene(ref state);
 
         AudioManager.Instance.PlayBgm("Theme");
     }
