@@ -468,7 +468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _SceneAsset: {fileID: 102900000, guid: 8c02fe9ba157d7a4e8dc3edfc487267c, type: 3}
   _HierarchyColor: {r: 0, g: 1, b: 0.68835044, a: 1}
-  AutoLoadScene: 1
+  AutoLoadScene: 0
   _SceneGUID:
     Value:
       x: 3119456456
@@ -1183,17 +1183,17 @@ PrefabInstance:
     - target: {fileID: 308503046288092104, guid: e2c057fd8a566d043aa27438b8232123,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.022404
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 308503046288092104, guid: e2c057fd8a566d043aa27438b8232123,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.7575283
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 308503046288092104, guid: e2c057fd8a566d043aa27438b8232123,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.487392
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 308503046288092104, guid: e2c057fd8a566d043aa27438b8232123,
         type: 3}

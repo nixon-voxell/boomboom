@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameWorld: {fileID: 102900000, guid: 03e6b3f50b1272c47b5a6f1a684b51d4, type: 3}
+  EnvironmentWorld: {fileID: 102900000, guid: 8c02fe9ba157d7a4e8dc3edfc487267c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
