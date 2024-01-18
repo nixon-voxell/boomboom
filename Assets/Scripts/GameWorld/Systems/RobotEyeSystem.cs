@@ -1,33 +1,73 @@
-using UnityEngine;
 using Unity.Mathematics;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
+using Unity.Transforms;
 
-public partial struct RobotEyeSystem : ISystem
+public partial struct RobotEyeSystem : ISystem, ISystemStartStop
 {
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
-        state.RequireForUpdate<RobotBase>();
+        state.RequireForUpdate(
+            SystemAPI.QueryBuilder()
+            .WithAll<Child, RobotBase, RobotEyes>()
+            .Build()
+        );
     }
 
+    [BurstCompile]
+    public void OnStartRunning(ref SystemState state)
+    {
+        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
+        foreach (
+            var (children, eyes) in
+            SystemAPI.Query<DynamicBuffer<Child>, RefRO<RobotEyes>>()
+            .WithAll<RobotBase>()
+        )
+        {
+            foreach (Child child in children)
+            {
+                commands.AddComponent<_EyeColor>(child.Value, new _EyeColor { Value = eyes.ValueRO.OriginColor });
+
+                commands.AddComponent<_Eye0Center>(child.Value, new _Eye0Center { Value = eyes.ValueRO.OriginLeftEye.Center });
+                commands.AddComponent<_Eye0Size>(child.Value, new _Eye0Size { Value = eyes.ValueRO.OriginLeftEye.Size });
+
+                commands.AddComponent<_Eye1Center>(child.Value, new _Eye1Center { Value = eyes.ValueRO.OriginRightEye.Center });
+                commands.AddComponent<_Eye1Size>(child.Value, new _Eye1Size { Value = eyes.ValueRO.OriginLeftEye.Size });
+            }
+        }
+
+        commands.Playback(state.EntityManager);
+    }
+
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         // Update material
         foreach (
-            var (robotBase, eyes) in
-            SystemAPI.Query<RobotBase, RefRO<RobotEyes>>()
+            var (children, eyes) in
+            SystemAPI.Query<DynamicBuffer<Child>, RefRO<RobotEyes>>()
+            .WithAll<RobotBase>()
         )
         {
-            Material material = robotBase.Material;
+            foreach (Child child in children)
+            {
+                RefRW<_EyeColor> eyeColor = SystemAPI.GetComponentRW<_EyeColor>(child.Value);
+                RefRW<_Eye0Center> eye0Center = SystemAPI.GetComponentRW<_Eye0Center>(child.Value);
+                RefRW<_Eye0Size> eye0Size = SystemAPI.GetComponentRW<_Eye0Size>(child.Value);
+                RefRW<_Eye1Center> eye1Center = SystemAPI.GetComponentRW<_Eye1Center>(child.Value);
+                RefRW<_Eye1Size> eye1Size = SystemAPI.GetComponentRW<_Eye1Size>(child.Value);
 
-            material.SetVector(ShaderID._EyeColor, eyes.ValueRO.Color);
+                eyeColor.ValueRW.Value = eyes.ValueRO.Color;
 
-            material.SetVector(ShaderID._Eye0Center, (Vector2)eyes.ValueRO.LeftEye.Center);
-            material.SetVector(ShaderID._Eye0Size, (Vector2)eyes.ValueRO.LeftEye.Size);
+                eye0Center.ValueRW.Value = eyes.ValueRO.LeftEye.Center;
+                eye0Size.ValueRW.Value = eyes.ValueRO.LeftEye.Size;
 
-            material.SetVector(ShaderID._Eye1Center, (Vector2)eyes.ValueRO.RightEye.Center);
-            material.SetVector(ShaderID._Eye1Size, (Vector2)eyes.ValueRO.RightEye.Size);
+                eye1Center.ValueRW.Value = eyes.ValueRO.RightEye.Center;
+                eye1Size.ValueRW.Value = eyes.ValueRO.RightEye.Size;
+            }
         }
 
         // Update value to target value
@@ -42,4 +82,6 @@ public partial struct RobotEyeSystem : ISystem
             eyes.ValueRW.RightEye = RobotEye.Lerp(eyes.ValueRO.RightEye, eyesTarget.ValueRO.RightEye, lerpTime);
         }
     }
+
+    public void OnStopRunning(ref SystemState state) { }
 }

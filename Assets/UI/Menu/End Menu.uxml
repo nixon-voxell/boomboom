@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/End%20Menu_Label.uss?fileID=7433441132597879392&amp;guid=5ddc47dc806b1f54ead8fc889c01f566&amp;type=3#End Menu_Label" />
+    <Style src="project://database/Assets/End%20Menu_Buttons.uss?fileID=7433441132597879392&amp;guid=f0fcbbeb519f92d4db298d45c5b4b621&amp;type=3#End Menu_Buttons" />
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgb(0, 0, 0); flex-direction: row; align-self: stretch;">
+        <ui:VisualElement name="Bar" style="flex-grow: 1; flex-direction: column; background-color: rgb(113, 113, 113); width: 396px; padding-top: 8px; padding-right: -99px; padding-bottom: -36px; padding-left: -140px; margin-top: 26px; margin-right: 75px; margin-bottom: 58px; margin-left: 38px;">
+            <ui:Label tabindex="-1" text="Game Score" parse-escape-sequences="true" display-tooltip-when-elided="true" name="GameScore" style="margin-top: 5px; margin-right: 14px; margin-bottom: 5px; padding-top: -60px; -unity-font-style: bold; font-size: 40px; padding-right: 17px; padding-bottom: 58px; padding-left: 48px; height: 33px;" />
+            <ui:Label tabindex="-1" text="????????&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExcactScore" style="-unity-text-align: upper-center; font-size: 46px; margin-bottom: -67px; padding-top: 10px; padding-left: 41px; padding-right: 71px; margin-left: 9px; margin-top: -7px; margin-right: 4px; padding-bottom: -13px; height: 134px;" />
+            <ui:Label tabindex="-1" text="A" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Rating" style="-unity-text-align: lower-center; font-size: 318px; margin-bottom: 173px; padding-bottom: -32px; padding-right: 20px; padding-top: 75px; padding-left: 17px; margin-right: 23px; margin-top: 21px; margin-left: 31px; width: 532px; height: 339px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ButtonBar" style="flex-grow: 1; width: 300px; flex-direction: column-reverse; align-self: center; justify-content: flex-end;">
+            <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Exit" class="button-main" />
+            <ui:Button text="Restart" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Restart" class="button-main" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

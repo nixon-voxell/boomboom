@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 526.7165, g: 471.92267, b: 498.80524, a: 1}
+  m_IndirectSpecularColor: {r: 526.5251, g: 471.73785, b: 498.6734, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -614,7 +614,7 @@ GameObject:
   - component: {fileID: 723731657}
   - component: {fileID: 723731658}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: StartMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -649,7 +649,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 2249f813158e76f48b6ae0ad8b234166, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 27c96caddc50f184db22a10d9b8bf412,
+    type: 3}
   m_SortingOrder: 0
 --- !u!1 &758310516
 GameObject:
@@ -1579,8 +1580,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1588125057}
   - {fileID: 723731657}
+  - {fileID: 1588125057}
   - {fileID: 618635679}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

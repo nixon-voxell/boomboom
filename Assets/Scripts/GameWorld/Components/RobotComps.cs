@@ -1,13 +1,9 @@
-using UnityEngine;
 using Unity.Mathematics;
 using Unity.Entities;
 
 using Random = Unity.Mathematics.Random;
 
-public class RobotBase : IComponentData
-{
-    public Material Material;
-}
+public struct RobotBase : IComponentData { }
 
 public struct RobotEyes : IComponentData
 {
