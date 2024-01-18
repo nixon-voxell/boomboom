@@ -1,2 +1,28 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:VisualElement style="flex-grow: 1;">
+                <ui:VisualElement style="flex-grow: 1; padding-bottom: 0; padding-right: 0; scale: 0.13 0.23; translate: -243px -98px; background-image: url(&apos;project://database/Assets/Material/setting_Logo-removebg-preview.png?fileID=2800000&amp;guid=4092a4d98deff174393028030798ff47&amp;type=3#setting_Logo-removebg-preview&apos;);" />
+                <ui:Label tabindex="-1" text="ESC" parse-escape-sequences="true" display-tooltip-when-elided="true" name="txtESC" style="font-size: 44px; translate: 62px -252px; scale: 1 1; width: 88px; -unity-font: url(&apos;project://database/Assets/Fonts/digital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#digital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#digital-7 SDF&apos;);" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1;" />
+            <ui:VisualElement style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:VisualElement style="flex-grow: 1;">
+                <ui:Label tabindex="-1" text="0:00:00" parse-escape-sequences="true" display-tooltip-when-elided="true" name="txtTimer" style="translate: 245px 45px; font-size: 60px; scale: 1 1; width: 229px; -unity-font: url(&apos;project://database/Assets/Fonts/digital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#digital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#digital-7 SDF&apos;);" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1;" />
+            <ui:VisualElement style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:VisualElement style="flex-grow: 1; margin-top: 25px; margin-right: 14px;">
+                <ui:ProgressBar value="81.9" name="pbLifebar" style="flex-direction: column-reverse; align-self: auto; -unity-text-align: upper-right; flex-wrap: nowrap; justify-content: flex-start; align-items: stretch; rotate: 180deg; border-top-width: 0; -unity-background-image-tint-color: rgb(238, 1, 1); background-color: rgb(241, 64, 64); border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0); background-image: none;" />
+                <ui:ProgressBar value="22" name="pbDashbar" style="rotate: 180deg; margin-top: 0; flex-direction: column-reverse; align-self: stretch; scale: 0.5 1; left: 135px;" />
+                <ui:ProgressBar value="22" name="pbTNTbar" style="rotate: 180deg; scale: 0.5 1; left: 135px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1;" />
+            <ui:VisualElement style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>
