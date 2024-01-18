@@ -1,5 +1,4 @@
 using Unity.Entities;
-using Unity.Scenes;
 
 public partial struct ManagerSystem : ISystem, ISystemStartStop
 {
