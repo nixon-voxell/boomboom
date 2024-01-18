@@ -30,7 +30,7 @@ class RobotEyeBaker : Baker<RobotEyeAuthoring>
         Entity entity = this.GetEntity(TransformUsageFlags.Renderable);
 
         // Robot material
-        this.AddComponent<RobotBase>(entity);
+        this.AddComponent<RobotInit>(entity);
 
         // Robot eyes
         RobotEyes eyes = new RobotEyes

@@ -2,9 +2,9 @@
     <Style src="project://database/Assets/UI/Menu/Start%20Page_Label.uss?fileID=7433441132597879392&amp;guid=caf92ec282485f34bae4aef22cfc1c4d&amp;type=3#Start Page_Label" />
     <Style src="project://database/Assets/UI/Menu/Start%20Page_%20Buttons.uss?fileID=7433441132597879392&amp;guid=0d4ca1007d2be4f45b0ca931182677de&amp;type=3#Start Page_ Buttons" />
     <ui:VisualElement name="side-bar" class="side-bar">
-        <ui:Label tabindex="-1" text="Boom&#10;Boom!" parse-escape-sequences="true" display-tooltip-when-elided="true" class="label-tittle" style="align-self: flex-end; -unity-text-align: middle-left; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 40px; padding-bottom: 0; padding-left: 0; text-shadow: 4px 4px 0 rgb(0, 0, 0); font-size: 65px;" />
+        <ui:Label tabindex="-1" text="BOOM&#10;BOOM!" parse-escape-sequences="true" display-tooltip-when-elided="true" class="label-tittle" style="align-self: flex-end; -unity-text-align: middle-left; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 40px; padding-bottom: 0; padding-left: 0; text-shadow: 4px 4px 0 rgb(0, 0, 0); font-size: 65px; -unity-font-definition: url(&apos;project://database/Assets/Fonts/HurmeGeometricSans4-Black%20SDF.asset?fileID=11400000&amp;guid=32337bc02cd0f3e4d8d63e79ee2e862f&amp;type=2#HurmeGeometricSans4-Black SDF&apos;);" />
         <ui:VisualElement style="align-self: flex-end; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px;">
-            <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="side-btn" class="button-tittle" />
+            <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="start-btn" class="button-tittle" />
             <ui:Button text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="settings-btn" class="button-tittle" />
             <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="quit-btn" class="button-tittle" />
         </ui:VisualElement>

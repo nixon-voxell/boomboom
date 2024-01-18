@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BgmSoundList:
   - SoundName: Theme
-    Clip: {fileID: 8300000, guid: aea17b21292058e49b427ffbe16fca7f, type: 3}
+    Clip: {fileID: 8300000, guid: 5e2d640909fb66b46b293a6c6d926cde, type: 3}
   - SoundName: Theme 2
     Clip: {fileID: 8300000, guid: c492da8717a1db442ab1cd863379d41b, type: 3}
   - SoundName: Theme 3

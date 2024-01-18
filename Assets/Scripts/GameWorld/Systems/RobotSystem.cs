@@ -4,27 +4,18 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
 
-public partial struct RobotEyeSystem : ISystem, ISystemStartStop
+public partial struct RobotInitSystem : ISystem
 {
     [BurstCompile]
-    public void OnCreate(ref SystemState state)
-    {
-        state.RequireForUpdate(
-            SystemAPI.QueryBuilder()
-            .WithAll<Child, RobotBase, RobotEyes>()
-            .Build()
-        );
-    }
-
-    [BurstCompile]
-    public void OnStartRunning(ref SystemState state)
+    public void OnUpdate(ref SystemState state)
     {
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
         foreach (
-            var (children, eyes) in
+            var (children, eyes, entity) in
             SystemAPI.Query<DynamicBuffer<Child>, RefRO<RobotEyes>>()
-            .WithAll<RobotBase>()
+            .WithEntityAccess()
+            .WithAll<RobotInit>()
         )
         {
             foreach (Child child in children)
@@ -37,11 +28,50 @@ public partial struct RobotEyeSystem : ISystem, ISystemStartStop
                 commands.AddComponent<_Eye1Center>(child.Value, new _Eye1Center { Value = eyes.ValueRO.OriginRightEye.Center });
                 commands.AddComponent<_Eye1Size>(child.Value, new _Eye1Size { Value = eyes.ValueRO.OriginLeftEye.Size });
             }
+
+            commands.RemoveComponent<RobotInit>(entity);
         }
 
         commands.Playback(state.EntityManager);
     }
+}
 
+public partial struct RobotEyeBlinkSystem : ISystem
+{
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<RobotEyeBlink>();
+        state.RequireForUpdate<RobotEyes>();
+    }
+
+    [BurstCompile]
+    public void OnUpdate(ref SystemState state)
+    {
+        foreach (
+            var (blink, eyes) in
+            SystemAPI.Query<RefRW<RobotEyeBlink>, RefRW<RobotEyes>>()
+        )
+        {
+            blink.ValueRW.TimeElapsed -= SystemAPI.Time.DeltaTime;
+
+            if (blink.ValueRO.TimeElapsed > 0.0)
+            {
+                continue;
+            }
+
+            eyes.ValueRW.LeftEye.Size.y = 0.0f;
+            eyes.ValueRW.RightEye.Size.y = 0.0f;
+
+            blink.ValueRW.TimeElapsed = blink.ValueRW.Random.NextFloat(
+                blink.ValueRO.IntervalMin, blink.ValueRO.IntervalMax
+            );
+        }
+    }
+}
+
+public partial struct RobotEyeUpdateSystem : ISystem
+{
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
@@ -49,7 +79,7 @@ public partial struct RobotEyeSystem : ISystem, ISystemStartStop
         foreach (
             var (children, eyes) in
             SystemAPI.Query<DynamicBuffer<Child>, RefRO<RobotEyes>>()
-            .WithAll<RobotBase>()
+            .WithAbsent<RobotInit>()
         )
         {
             foreach (Child child in children)
@@ -82,6 +112,4 @@ public partial struct RobotEyeSystem : ISystem, ISystemStartStop
             eyes.ValueRW.RightEye = RobotEye.Lerp(eyes.ValueRO.RightEye, eyesTarget.ValueRO.RightEye, lerpTime);
         }
     }
-
-    public void OnStopRunning(ref SystemState state) { }
 }

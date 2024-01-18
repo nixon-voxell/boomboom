@@ -17,6 +17,7 @@
     border-bottom-width: 5px;
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out-cubic;
+    -unity-font-definition: url('project://database/Assets/Fonts/HurmeGeometricSans4-Bold%20SDF.asset?fileID=11400000&guid=184123844a5d2694782eb48c9e680ec0&type=2#HurmeGeometricSans4-Bold SDF');
 }
 
 .button-tittle:hover {

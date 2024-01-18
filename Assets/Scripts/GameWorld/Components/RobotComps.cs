@@ -3,7 +3,7 @@ using Unity.Entities;
 
 using Random = Unity.Mathematics.Random;
 
-public struct RobotBase : IComponentData { }
+public struct RobotInit : IComponentData { }
 
 public struct RobotEyes : IComponentData
 {

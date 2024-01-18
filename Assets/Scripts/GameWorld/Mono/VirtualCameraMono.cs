@@ -35,6 +35,11 @@ public class VirtualCameraMono : SingletonMono<VirtualCameraMono>
         m_Noise.m_FrequencyGain = math.min(frequency, this.m_MaxFrequency);
     }
 
+    public void SetPriority(int priority)
+    {
+        this.m_VCam.Priority = priority;
+    }
+
     protected override void Awake()
     {
         base.Awake();
