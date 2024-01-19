@@ -301,7 +301,7 @@ MonoBehaviour:
   ShakeFrequency: 2
   ExplosionTimer: 3
   ExplosionRadius: 5
-  ExplosionForce: 10
+  ExplosionForce: 100
 --- !u!1 &1956875011
 GameObject:
   m_ObjectHideFlags: 0
