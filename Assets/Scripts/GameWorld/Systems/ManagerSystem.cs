@@ -1,10 +1,12 @@
 using Unity.Entities;
+using Unity.Transforms;
 
 public partial struct ManagerSystem : ISystem, ISystemStartStop
 {
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<GameManagerSingleton>();
+        state.RequireForUpdate<Tag_MascotSingleton>();
         state.RequireForUpdate(
             SystemAPI.QueryBuilder()
             .WithAll<GameCurrStateSingleton, GameTargetStateSingleton>()
@@ -27,24 +29,47 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
     {
         ref GameCurrStateSingleton currState = ref SystemAPI.GetSingletonRW<GameCurrStateSingleton>().ValueRW;
         GameTargetStateSingleton targetState = SystemAPI.GetSingleton<GameTargetStateSingleton>();
+        Entity mascotEntity = SystemAPI.GetSingletonEntity<Tag_MascotSingleton>();
 
         if (currState.Value == targetState.Value)
         {
             return;
         }
 
+        ref GameManagerSingleton gameManager = ref SystemAPI.GetSingletonRW<GameManagerSingleton>().ValueRW;
+        EntityManager entityManager = state.EntityManager;
+
         switch (targetState.Value)
         {
             case GameState.Start:
+                // Reload environmen world
+                gameManager.EnvironmentWorld.UnloadScene(ref state);
+                gameManager.EnvironmentWorld.LoadScene(ref state);
+
+                // Enable mascot entity
+                entityManager.SetEnabled(mascotEntity, true);
+                entityManager.SetComponentData<LocalTransform>(mascotEntity, LocalTransform.Identity);
+
+                // Reset target position
+                PlayerTargetMono.Instance.TargetPosition = 0.0f;
+
+                // Disable camera
+                VirtualCameraMono.Instance.SetPriority(9);
+                // Enable in start menu
+                UiManagerMono.Instance.SetOnlyVisible(typeof(StartMenuMono));
                 break;
 
             case GameState.InGame:
-                ref GameManagerSingleton gameManager = ref SystemAPI.GetSingletonRW<GameManagerSingleton>().ValueRW;
+                gameManager = ref SystemAPI.GetSingletonRW<GameManagerSingleton>().ValueRW;
                 gameManager.GameWorld.LoadScene(ref state);
 
+                // Disable mascot entity
+                entityManager.SetEnabled(mascotEntity, false);
+
+                // Make as main camera
                 VirtualCameraMono.Instance.SetPriority(11);
                 // Enable in game hud
-                UiManagerMono.Instance.SetOnlyEnable(typeof(InGameHudMono));
+                UiManagerMono.Instance.SetOnlyVisible(typeof(InGameHudMono));
                 break;
         }
 

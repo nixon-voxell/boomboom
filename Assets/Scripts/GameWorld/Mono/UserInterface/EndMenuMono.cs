@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public class EndMenuMono : SingletonMono<EndMenuMono>
+public class EndMenuMono : UiMono
 {
 }

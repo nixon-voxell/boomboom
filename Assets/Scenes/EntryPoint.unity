@@ -481,7 +481,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 2249f813158e76f48b6ae0ad8b234166, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 413d630af7c08404b85f6df8db2b60c7,
+    type: 3}
   m_SortingOrder: 0
 --- !u!114 &618635681
 MonoBehaviour:
@@ -495,6 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7048c7c5dbd37cb48a28ae94aa4ffbb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialVisibility: 0
 --- !u!1 &670554250
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,7 +725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec3bfc72b217e14faa1542d244058db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Doc: {fileID: 723731658}
+  InitialVisibility: 1
 --- !u!1 &758310516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,7 +1101,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572084056}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.44721362, y: -0.000000015389855, z: 0.000000007694927, w: 0.89442724}
+  m_LocalRotation: {x: 0.44721362, y: 0.000000015389857, z: -0.000000007694929, w: 0.89442724}
   m_LocalPosition: {x: 0, y: 8, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

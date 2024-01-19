@@ -2,7 +2,7 @@ public class UiManagerMono : SingletonMono<UiManagerMono>
 {
     public UiMono[] Uis;
 
-    public void SetOnlyEnable(System.Type type)
+    public void SetOnlyVisible(System.Type type)
     {
         foreach (UiMono ui in this.Uis)
         {
