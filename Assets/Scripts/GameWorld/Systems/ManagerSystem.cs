@@ -1,3 +1,4 @@
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
 
@@ -10,6 +11,12 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
         state.RequireForUpdate(
             SystemAPI.QueryBuilder()
             .WithAll<GameCurrStateSingleton, GameTargetStateSingleton>()
+            .Build()
+
+        );
+        state.RequireForUpdate(
+            SystemAPI.QueryBuilder()
+            .WithAll<Tag_MascotSingleton, Child>()
             .Build()
         );
     }
@@ -29,7 +36,9 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
     {
         ref GameCurrStateSingleton currState = ref SystemAPI.GetSingletonRW<GameCurrStateSingleton>().ValueRW;
         GameTargetStateSingleton targetState = SystemAPI.GetSingleton<GameTargetStateSingleton>();
+
         Entity mascotEntity = SystemAPI.GetSingletonEntity<Tag_MascotSingleton>();
+        DynamicBuffer<Child> mascotChildren = SystemAPI.GetBuffer<Child>(mascotEntity);
 
         if (currState.Value == targetState.Value)
         {
@@ -37,7 +46,7 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
         }
 
         ref GameManagerSingleton gameManager = ref SystemAPI.GetSingletonRW<GameManagerSingleton>().ValueRW;
-        EntityManager entityManager = state.EntityManager;
+        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
         switch (targetState.Value)
         {
@@ -47,8 +56,12 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                 gameManager.EnvironmentWorld.LoadScene(ref state);
 
                 // Enable mascot entity
-                entityManager.SetEnabled(mascotEntity, true);
-                entityManager.SetComponentData<LocalTransform>(mascotEntity, LocalTransform.Identity);
+                this.SetMascotEnable(
+                    ref commands,
+                    in mascotChildren,
+                    mascotEntity,
+                    true
+                );
 
                 // Reset target position
                 PlayerTargetMono.Instance.TargetPosition = 0.0f;
@@ -60,11 +73,16 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                 break;
 
             case GameState.InGame:
+                // Disable mascot entity
+                this.SetMascotEnable(
+                    ref commands,
+                    in mascotChildren,
+                    mascotEntity,
+                    false
+                );
+
                 gameManager = ref SystemAPI.GetSingletonRW<GameManagerSingleton>().ValueRW;
                 gameManager.GameWorld.LoadScene(ref state);
-
-                // Disable mascot entity
-                entityManager.SetEnabled(mascotEntity, false);
 
                 // Make as main camera
                 VirtualCameraMono.Instance.SetPriority(11);
@@ -73,7 +91,24 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                 break;
         }
 
+        commands.Playback(state.EntityManager);
+
         // Update state after completing all state change related tasks.
         currState.Value = targetState.Value;
+    }
+
+    private void SetMascotEnable(
+        ref EntityCommandBuffer commands,
+        in DynamicBuffer<Child> mascotChildren,
+        Entity entity,
+        bool enable
+    )
+    {
+        commands.SetEnabled(entity, enable);
+
+        foreach (Child child in mascotChildren)
+        {
+            commands.SetEnabled(child.Value, enable);
+        }
     }
 }
