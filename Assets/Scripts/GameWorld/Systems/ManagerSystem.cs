@@ -21,9 +21,7 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
         AudioManager.Instance.PlayBgm("MainMenu");
     }
 
-    public void OnStopRunning(ref SystemState state)
-    {
-    }
+    public void OnStopRunning(ref SystemState state) { }
 
     public void OnUpdate(ref SystemState state)
     {
@@ -37,11 +35,16 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
 
         switch (targetState.Value)
         {
+            case GameState.Start:
+                break;
+
             case GameState.InGame:
                 ref GameManagerSingleton gameManager = ref SystemAPI.GetSingletonRW<GameManagerSingleton>().ValueRW;
                 gameManager.GameWorld.LoadScene(ref state);
 
                 VirtualCameraMono.Instance.SetPriority(11);
+                // Enable in game hud
+                UiManagerMono.Instance.SetOnlyEnable(typeof(InGameHudMono));
                 break;
         }
 
