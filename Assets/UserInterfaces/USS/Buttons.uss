@@ -1,4 +1,4 @@
-.button-tittle {
+.button-menu {
     -unity-font-style: bold;
     font-size: 36px;
     background-color: rgb(175, 227, 255);
@@ -20,7 +20,7 @@
     -unity-font-definition: url('project://database/Assets/Fonts/HurmeGeometricSans4-Bold%20SDF.asset?fileID=11400000&guid=184123844a5d2694782eb48c9e680ec0&type=2#HurmeGeometricSans4-Bold SDF');
 }
 
-.button-tittle:hover {
+.button-menu:hover {
     text-shadow: 2px 2px 0.6px rgba(0, 0, 0, 0.65);
     translate: 20px 0;
     border-left-color: rgba(0, 0, 0, 0.5);

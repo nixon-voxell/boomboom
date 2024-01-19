@@ -1,0 +1,58 @@
+.label-tittle {
+    color: rgb(69, 159, 224);
+    -unity-font-style: bold;
+    font-size: 65px;
+    -unity-text-align: middle-left;
+    margin-top: 9px;
+    margin-right: -45px;
+    margin-bottom: 6px;
+    margin-left: 19px;
+    padding-top: 3px;
+    -unity-font-definition: url('project://database/Assets/Fonts/HurmeGeometricSans4-Black%20SDF.asset?fileID=11400000&guid=32337bc02cd0f3e4d8d63e79ee2e862f&type=2#HurmeGeometricSans4-Black SDF');
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+}
+
+.side-bar {
+    flex-grow: 1;
+    width: 400px;
+    justify-content: center;
+    align-items: flex-start;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.side-bar:hover {
+    scale: 1.5 1.5;
+    translate: 25% 0;
+}
+
+.menu-background {
+    background-color: rgba(32, 32, 32, 0.6);
+}
+
+.floating-menu {
+    align-self: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-sine;
+}
+
+.floating-menu:hover {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    scale: 1.1 1.1;
+}
