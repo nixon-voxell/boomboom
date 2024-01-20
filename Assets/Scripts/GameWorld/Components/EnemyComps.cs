@@ -74,3 +74,8 @@ public readonly partial struct EnemySpawnerAspect : IAspect
 }
 
 public struct EnemyInitialization : IComponentData, IEnableableComponent { }
+
+public struct EnemyFragment : IBufferElementData
+{
+    public Entity Value;
+}
