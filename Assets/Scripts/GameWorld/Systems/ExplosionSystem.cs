@@ -282,6 +282,8 @@ public partial struct ExplosionForceSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
         PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
         CollisionWorld collisionWorld = physicsWorld.PhysicsWorld.CollisionWorld;
 
@@ -303,8 +305,11 @@ public partial struct ExplosionForceSystem : ISystem
                 foreach (var hit in hits)
                 {
                     // Perform explosion on enemies
-                    if (SystemAPI.HasComponent<PhysicsVelocity>(hit.Entity))
+                    if (SystemAPI.HasComponent<Tag_Enemy>(hit.Entity))
                     {
+                        // Destroy enemies
+                        // commands.SetEnabled(hit.Entity, false);
+
                         ref readonly LocalTransform hitTransform = ref SystemAPI.GetComponentRO<LocalTransform>(hit.Entity).ValueRO;
                         ref PhysicsVelocity velocity = ref SystemAPI.GetComponentRW<PhysicsVelocity>(hit.Entity).ValueRW;
                         ref readonly PhysicsMass mass = ref SystemAPI.GetComponentRO<PhysicsMass>(hit.Entity).ValueRO;
@@ -319,6 +324,8 @@ public partial struct ExplosionForceSystem : ISystem
                 }
             }
         }
+
+        commands.Playback(state.EntityManager);
     }
 }
 

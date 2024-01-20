@@ -524,6 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3115b1334f2b743880a596c6aaa56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PoolCount: 100
   Fragments:
   - {fileID: 1475399395}
   - {fileID: 1050272026}
