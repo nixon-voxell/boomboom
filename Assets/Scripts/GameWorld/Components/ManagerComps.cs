@@ -48,9 +48,14 @@ public struct SceneLoader
     }
 }
 
-public struct GameStateSingleton : IComponentData
+public struct GameCurrStateSingleton : IComponentData
 {
-    public GameState State;
+    public GameState Value;
+}
+
+public struct GameTargetStateSingleton : IComponentData
+{
+    public GameState Value;
 }
 
 public enum GameState

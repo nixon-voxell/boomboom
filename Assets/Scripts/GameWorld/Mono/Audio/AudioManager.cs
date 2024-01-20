@@ -15,14 +15,14 @@ public class AudioManager : SingletonMono<AudioManager>
     #region Public Call Functions
     public void PlayBgm(string musicName)
     {
-        SoundElement ele = getMusic(BgmSoundList, musicName);
-        playBgm(ele, BgmSource);
+        SoundElement ele = GetMusic(BgmSoundList, musicName);
+        PlayBgm(ele, BgmSource);
     }
 
     public void PlaySfx(string musicName)
     {
-        SoundElement ele = getMusic(SfxSoundList, musicName);
-        playSfx(ele, SfxSource);
+        SoundElement ele = GetMusic(SfxSoundList, musicName);
+        PlaySfx(ele, SfxSource);
     }
 
     #region Only UI
@@ -49,14 +49,14 @@ public class AudioManager : SingletonMono<AudioManager>
     #endregion
 
     #region Private Quick Functions
-    private SoundElement getMusic(SoundElement[] list, string musicName)
+    private SoundElement GetMusic(SoundElement[] list, string musicName)
     {
         SoundElement ele = Array.Find(list, x => x.SoundName == musicName);
 
         return ele;
     }
 
-    private void playBgm(SoundElement ele, AudioSource source)
+    private void PlayBgm(SoundElement ele, AudioSource source)
     {
         if (!ele.Equals(default(SoundElement)))
         {
@@ -66,7 +66,7 @@ public class AudioManager : SingletonMono<AudioManager>
         else { return; }
     }
 
-    private void playSfx(SoundElement ele, AudioSource source)
+    private void PlaySfx(SoundElement ele, AudioSource source)
     {
         if (!ele.Equals(default(SoundElement)))
         {

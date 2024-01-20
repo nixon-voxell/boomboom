@@ -1,9 +1,8 @@
-using UnityEngine;
 using Unity.Mathematics;
 
-public class PlayerTargetMono : MonoBehaviour
+public class PlayerTargetMono : SingletonMono<PlayerTargetMono>
 {
-    public static float3 TargetPosition;
+    public float3 TargetPosition;
 
     private void Update()
     {

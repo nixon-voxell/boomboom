@@ -305,14 +305,16 @@ public partial struct ExplosionForceSystem : ISystem
                     // Perform explosion on enemies
                     if (SystemAPI.HasComponent<PhysicsVelocity>(hit.Entity))
                     {
-                        LocalTransform hitTransform = SystemAPI.GetComponent<LocalTransform>(hit.Entity);
-                        RefRW<PhysicsVelocity> velocity = SystemAPI.GetComponentRW<PhysicsVelocity>(hit.Entity);
+                        ref readonly LocalTransform hitTransform = ref SystemAPI.GetComponentRO<LocalTransform>(hit.Entity).ValueRO;
+                        ref PhysicsVelocity velocity = ref SystemAPI.GetComponentRW<PhysicsVelocity>(hit.Entity).ValueRW;
+                        ref readonly PhysicsMass mass = ref SystemAPI.GetComponentRO<PhysicsMass>(hit.Entity).ValueRO;
 
                         float3 direction = math.normalizesafe(hitTransform.Position - transform.Position);
                         float3 angularDirection = -math.normalizesafe(math.cross(direction, math.up()));
 
-                        velocity.ValueRW.Linear += direction * explosion.ForceRW;
-                        velocity.ValueRW.Angular += angularDirection * explosion.ForceRW * 1.5f;
+                        float force = explosion.ForceRW * mass.InverseMass;
+                        velocity.Linear += direction * force;
+                        velocity.Angular += angularDirection * force * 1.5f;
                     }
                 }
             }

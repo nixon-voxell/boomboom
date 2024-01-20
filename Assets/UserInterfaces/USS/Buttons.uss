@@ -1,0 +1,31 @@
+.button-menu {
+    -unity-font-style: bold;
+    font-size: 36px;
+    background-color: rgb(175, 227, 255);
+    color: rgb(0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out-cubic;
+    -unity-font-definition: url('project://database/Assets/Fonts/HurmeGeometricSans4-Bold%20SDF.asset?fileID=11400000&guid=184123844a5d2694782eb48c9e680ec0&type=2#HurmeGeometricSans4-Bold SDF');
+}
+
+.button-menu:hover {
+    text-shadow: 2px 2px 0.6px rgba(0, 0, 0, 0.65);
+    translate: 20px 0;
+    border-left-color: rgba(0, 0, 0, 0.5);
+    border-right-color: rgba(0, 0, 0, 0.5);
+    border-top-color: rgba(0, 0, 0, 0.5);
+    border-bottom-color: rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 20px;
+}

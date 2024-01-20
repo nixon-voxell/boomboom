@@ -15,8 +15,8 @@ public partial class PlayerTargetSystem : SystemBase
     {
         Entity playerEntity = SystemAPI.GetSingletonEntity<Tag_PlayerSingleton>();
 
-        LocalTransform transform = SystemAPI.GetComponent<LocalTransform>(playerEntity);
-        PlayerTargetMono.TargetPosition = transform.Position;
+        ref readonly LocalTransform transform = ref SystemAPI.GetComponentRO<LocalTransform>(playerEntity).ValueRO;
+        PlayerTargetMono.Instance.TargetPosition = transform.Position;
     }
 }
 
