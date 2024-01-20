@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 526.5319, g: 471.7503, b: 498.6949, a: 1}
+  m_IndirectSpecularColor: {r: 526.5251, g: 471.73785, b: 498.6734, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -772,7 +772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition:
     x: 0
-    y: 0
+    y: 0.25
     z: 0
 --- !u!1 &1093882973
 GameObject:
@@ -1101,7 +1101,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572084056}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.44721362, y: 0.000000015389857, z: -0.000000007694929, w: 0.89442724}
+  m_LocalRotation: {x: 0.44721362, y: -0.000000015389857, z: 0.000000007694929, w: 0.89442724}
   m_LocalPosition: {x: 0, y: 8, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1257,7 +1257,7 @@ Transform:
   m_GameObject: {fileID: 1607722231}
   serializedVersion: 2
   m_LocalRotation: {x: 0.024228187, y: 0.97518057, z: -0.13160224, w: 0.17639956}
-  m_LocalPosition: {x: 0.16308868, y: 0.8, z: 2.3710501}
+  m_LocalPosition: {x: 0.16308868, y: 1, z: 2.3710501}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1529,7 +1529,7 @@ Transform:
   m_GameObject: {fileID: 1823688464}
   serializedVersion: 2
   m_LocalRotation: {x: 0.024228187, y: 0.97518057, z: -0.13160224, w: 0.17639956}
-  m_LocalPosition: {x: 0.16308868, y: 0.8, z: 2.3710501}
+  m_LocalPosition: {x: 0.16308868, y: 1, z: 2.3710501}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1806,6 +1806,26 @@ PrefabInstance:
     - target: {fileID: 2169985951928168673, guid: c65556622cbb44744a5fde677aa1891f,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Name
+      value: _Position
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Overridden
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4726567410800907988, guid: c65556622cbb44744a5fde677aa1891f,

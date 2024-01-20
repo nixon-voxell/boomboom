@@ -37,16 +37,18 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
         ref GameCurrStateSingleton currState = ref SystemAPI.GetSingletonRW<GameCurrStateSingleton>().ValueRW;
         GameTargetStateSingleton targetState = SystemAPI.GetSingleton<GameTargetStateSingleton>();
 
-        Entity mascotEntity = SystemAPI.GetSingletonEntity<Tag_MascotSingleton>();
-        DynamicBuffer<Child> mascotChildren = SystemAPI.GetBuffer<Child>(mascotEntity);
-
         if (currState.Value == targetState.Value)
         {
             return;
         }
 
-        ref GameManagerSingleton gameManager = ref SystemAPI.GetSingletonRW<GameManagerSingleton>().ValueRW;
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
+        ref GameManagerSingleton gameManager = ref SystemAPI.GetSingletonRW<GameManagerSingleton>().ValueRW;
+
+        Entity mascotEntity = SystemAPI.GetSingletonEntity<Tag_MascotSingleton>();
+        DynamicBuffer<Child> mascotChildren = SystemAPI.GetBuffer<Child>(mascotEntity);
+        ref readonly LocalTransform mascotTransform = ref SystemAPI.GetComponentRO<LocalTransform>(mascotEntity).ValueRO;
 
         switch (targetState.Value)
         {
@@ -64,7 +66,7 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                 );
 
                 // Reset target position
-                PlayerTargetMono.Instance.TargetPosition = 0.0f;
+                PlayerTargetMono.Instance.TargetPosition = mascotTransform.Position;
 
                 // Disable camera
                 VirtualCameraMono.Instance.SetPriority(9);
