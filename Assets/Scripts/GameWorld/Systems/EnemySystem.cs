@@ -41,11 +41,26 @@ public partial struct EnemyFragmentSetupSystem : ISystem, ISystemStartStop
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
-        state.RequireForUpdate<Tag_EnemyFragmentsSingleton>();
+        state.RequireForUpdate<EnemyFragmentPool>();
     }
 
     public void OnStartRunning(ref SystemState state)
     {
+        DynamicBuffer<EnemyFragmentPool> fragmentPools = SystemAPI.GetSingletonBuffer<EnemyFragmentPool>();
+
+        EntityManager manager = state.EntityManager;
+
+        foreach (EnemyFragmentPool fragmentPool in fragmentPools)
+        {
+            DynamicBuffer<Pool.Element> poolBuffer = SystemAPI.GetBuffer<Pool.Element>(fragmentPool.PoolEntity);
+            for (int p = 0; p < fragmentPool.PoolCount; p++)
+            {
+                poolBuffer.Add(new Pool.Element
+                {
+                    Entity = manager.Instantiate(fragmentPool.FragmentPrefab),
+                });
+            }
+        }
     }
 
     public void OnStopRunning(ref SystemState state) { }

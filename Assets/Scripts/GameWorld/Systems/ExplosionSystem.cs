@@ -137,7 +137,7 @@ public partial struct ExplosionPlacementSystem : ISystem
             Entity landmineEntity;
             Pool.GetNextEntity(ref landmineAspect, out landmineEntity);
 
-            SystemAPI.SetComponent<LocalTransform>(landmineEntity, transform);
+            SystemAPI.SetComponent<LocalTransform>(landmineEntity, transform.WithPosition(transform.Position + math.down() * 0.5f));
             commands.SetEnabled(landmineEntity, true);
 
             // Create an explosion at the player's position
@@ -147,22 +147,14 @@ public partial struct ExplosionPlacementSystem : ISystem
             commands.SetEnabled(explosionEntity, true);
             // Set bomb transform
             SystemAPI.SetComponent<LocalTransform>(explosionEntity, transform);
-            // Set bomb explosion data
-            // SystemAPI.SetComponent<ExplosionForce>(explosionEntity, new ExplosionForce
-            // {
-            //     Value = 10.0f,
-            // });
-            // SystemAPI.SetComponent<ExplosionRadius>(explosionEntity, new ExplosionRadius
-            // {
-            //     Value = 2.0f,
-            // });
+            // Set landmine reference
             SystemAPI.SetComponent<Explode>(explosionEntity, new Explode
             {
                 LandmineEntity = landmineEntity,
             });
             SystemAPI.SetComponentEnabled<Explode>(explosionEntity, false);
 
-            // Set bomb timer
+            // Reset bomb timer
             RefRW<Timer> timer = SystemAPI.GetComponentRW<Timer>(explosionEntity);
             timer.ValueRW.Reset();
         }
@@ -280,12 +272,22 @@ public partial struct ExplosionCamShakeSystem : ISystem
 public partial struct ExplosionForceSystem : ISystem
 {
     [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<EnemyFragmentPool>();
+    }
+
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
+        // Physics world for collision
         PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
         CollisionWorld collisionWorld = physicsWorld.PhysicsWorld.CollisionWorld;
+
+        // Enemy fragment pool
+        DynamicBuffer<EnemyFragmentPool> fragmentPools = SystemAPI.GetSingletonBuffer<EnemyFragmentPool>();
 
         NativeList<DistanceHit> hits = new NativeList<DistanceHit>(Allocator.Temp);
 
@@ -300,32 +302,66 @@ public partial struct ExplosionForceSystem : ISystem
                 transform.Position, explosion.Radius.ValueRO.Value, ref hits, CollisionFilter.Default
             );
 
+            ref float explosionForce = ref explosion.ForceRW;
+            float3 explosionPosition = transform.Position;
+
             if (hasHits)
             {
                 foreach (var hit in hits)
                 {
                     // Perform explosion on enemies
-                    if (SystemAPI.HasComponent<Tag_Enemy>(hit.Entity))
+                    if (SystemAPI.HasComponent<PhysicsVelocity>(hit.Entity))
                     {
-                        // Destroy enemies
-                        // commands.SetEnabled(hit.Entity, false);
+                        if (SystemAPI.HasComponent<Tag_Enemy>(hit.Entity))
+                        {
+                            ref readonly LocalTransform enemyTransform =
+                                ref SystemAPI.GetComponentRO<LocalTransform>(hit.Entity).ValueRO;
 
-                        ref readonly LocalTransform hitTransform = ref SystemAPI.GetComponentRO<LocalTransform>(hit.Entity).ValueRO;
-                        ref PhysicsVelocity velocity = ref SystemAPI.GetComponentRW<PhysicsVelocity>(hit.Entity).ValueRW;
-                        ref readonly PhysicsMass mass = ref SystemAPI.GetComponentRO<PhysicsMass>(hit.Entity).ValueRO;
+                            // Destroy enemies
+                            commands.SetEnabled(hit.Entity, false);
 
-                        float3 direction = math.normalizesafe(hitTransform.Position - transform.Position);
-                        float3 angularDirection = -math.normalizesafe(math.cross(direction, math.up()));
+                            for (int p = 0; p < fragmentPools.Length; p++)
+                            {
+                                Pool.Aspect poolAspect = SystemAPI.GetAspect<Pool.Aspect>(fragmentPools[p].PoolEntity);
 
-                        float force = explosion.ForceRW * mass.InverseMass;
-                        velocity.Linear += direction * force;
-                        velocity.Angular += angularDirection * force * 1.5f;
+                                Entity fragmentEntity;
+                                Pool.GetNextEntity(ref poolAspect, out fragmentEntity);
+
+                                SystemAPI.SetComponent<LocalTransform>(fragmentEntity, enemyTransform);
+                                commands.SetEnabled(fragmentEntity, true);
+
+                                PerformExplosionForce(ref state, explosionForce, explosionPosition, fragmentEntity);
+                            }
+                        }
+                        else
+                        {
+                            PerformExplosionForce(ref state, explosionForce, explosionPosition, hit.Entity);
+                        }
                     }
                 }
             }
         }
 
         commands.Playback(state.EntityManager);
+    }
+
+    private void PerformExplosionForce(
+        ref SystemState state,
+        float explosionForce,
+        float3 explosionPosition,
+        Entity hitEntity
+    )
+    {
+        ref readonly LocalTransform hitTransform = ref SystemAPI.GetComponentRO<LocalTransform>(hitEntity).ValueRO;
+        ref PhysicsVelocity velocity = ref SystemAPI.GetComponentRW<PhysicsVelocity>(hitEntity).ValueRW;
+        ref readonly PhysicsMass mass = ref SystemAPI.GetComponentRO<PhysicsMass>(hitEntity).ValueRO;
+
+        float3 direction = math.normalizesafe(hitTransform.Position - explosionPosition);
+        float3 angularDirection = -math.normalizesafe(math.cross(direction, math.up()));
+
+        float force = explosionForce * mass.InverseMass;
+        velocity.Linear += direction * force;
+        velocity.Angular += angularDirection * force * 1.5f;
     }
 }
 

@@ -13,7 +13,6 @@ class EnemyFragmentsBaker : Baker<EnemyFragmentsAuthoring>
     {
         Entity entity = this.GetEntity(TransformUsageFlags.None);
 
-        this.AddComponent<Tag_EnemyFragmentsSingleton>(entity);
         DynamicBuffer<EnemyFragmentPool> fragmentPools = this.AddBuffer<EnemyFragmentPool>(entity);
 
         foreach (GameObject fragment in authoring.Fragments)
