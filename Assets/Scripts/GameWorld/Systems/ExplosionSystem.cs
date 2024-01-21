@@ -276,6 +276,7 @@ public partial struct ExplosionForceSystem : ISystem
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<EnemyFragmentPool>();
+        state.RequireForUpdate<EnemySpawnerSingleton>();
     }
 
     [BurstCompile]

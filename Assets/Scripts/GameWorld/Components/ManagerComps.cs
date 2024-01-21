@@ -65,3 +65,9 @@ public enum GameState
     End,
     Pause,
 }
+
+public struct GameStatSingleton : IComponentData
+{
+    public int KillCount;
+    public float SurvivalTime;
+}

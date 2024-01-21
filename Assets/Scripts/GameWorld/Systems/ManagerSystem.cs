@@ -1,4 +1,5 @@
 using Unity.Collections;
+using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
 
@@ -8,12 +9,13 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
     {
         state.RequireForUpdate<GameManagerSingleton>();
         state.RequireForUpdate<Tag_MascotSingleton>();
+
         state.RequireForUpdate(
             SystemAPI.QueryBuilder()
             .WithAll<GameCurrStateSingleton, GameTargetStateSingleton>()
             .Build()
-
         );
+
         state.RequireForUpdate(
             SystemAPI.QueryBuilder()
             .WithAll<Tag_MascotSingleton, Child>()
@@ -112,26 +114,5 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
         {
             commands.SetEnabled(child.Value, enable);
         }
-    }
-}
-
-/// <summary>Disable or despawn entities when they fall too low.</summary>
-public partial struct FallDeathSystem : ISystem
-{
-    public const float DEATH_HEIGHT = -100.0f;
-
-    public void OnUpdate(ref SystemState state)
-    {
-        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
-
-        foreach (LocalTransform transform in SystemAPI.Query<LocalTransform>())
-        {
-            if (transform.Position.y < DEATH_HEIGHT)
-            {
-                // DEATH!!!
-            }
-        }
-
-        commands.Playback(state.EntityManager);
     }
 }

@@ -7,3 +7,5 @@ public struct Tag_Enemy : IComponentData { }
 public struct Tag_GroundSingleton : IComponentData { }
 
 public struct Tag_MascotSingleton : IComponentData { }
+
+public struct Tag_GameOverSingleton : IComponentData { }
