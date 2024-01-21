@@ -35,6 +35,7 @@ public partial struct DefaultFallDeathSystem : ISystem
     }
 }
 
+/// <summary>Kill enemies when they fall too much.</summary>
 [UpdateInGroup(typeof(SpecialFallDeathSystem))]
 public partial struct EnemyFallDeathSystem : ISystem
 {
@@ -72,6 +73,7 @@ public partial struct EnemyFallDeathSystem : ISystem
     }
 }
 
+/// <summary>Game over when player falls too much.</summary>
 [UpdateInGroup(typeof(SpecialFallDeathSystem))]
 public partial struct PlayerFallDeathSystem : ISystem
 {
