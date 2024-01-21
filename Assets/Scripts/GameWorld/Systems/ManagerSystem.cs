@@ -114,3 +114,24 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
         }
     }
 }
+
+/// <summary>Disable or despawn entities when they fall too low.</summary>
+public partial struct FallDeathSystem : ISystem
+{
+    public const float DEATH_HEIGHT = -100.0f;
+
+    public void OnUpdate(ref SystemState state)
+    {
+        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
+        foreach (LocalTransform transform in SystemAPI.Query<LocalTransform>())
+        {
+            if (transform.Position.y < DEATH_HEIGHT)
+            {
+                // DEATH!!!
+            }
+        }
+
+        commands.Playback(state.EntityManager);
+    }
+}

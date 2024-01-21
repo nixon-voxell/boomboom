@@ -49,14 +49,6 @@ public readonly partial struct EnemySpawnerAspect : IAspect
         );
     }
 
-    public void AddEntity(Entity entity)
-    {
-        this.DisabledEnemies.Add(new DisabledEnemy
-        {
-            Entity = entity
-        });
-    }
-
     private float3 GetRandomPosition()
     {
         float2 direction = this.SpawnerRW.Randomizer.NextFloat2Direction();

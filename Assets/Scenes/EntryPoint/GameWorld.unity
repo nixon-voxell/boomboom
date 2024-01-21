@@ -215,7 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnRadius: 5
   RoundInterval: 1
-  PoolCount: 100
+  PoolCount: 10
   EnemyPrefab: {fileID: 2220557661821601698, guid: f69fe12422aff4f4ca2aa783a9d8791b,
     type: 3}
 --- !u!1 &685496937

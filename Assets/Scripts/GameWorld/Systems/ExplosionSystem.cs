@@ -268,6 +268,7 @@ public partial struct ExplosionCamShakeSystem : ISystem
     }
 }
 
+/// <summary>Exert force on surrounding physics bodies and kill enemies within it.</summary>
 [UpdateInGroup(typeof(ExplosionProgressSystemGroup))]
 public partial struct ExplosionForceSystem : ISystem
 {
@@ -289,6 +290,11 @@ public partial struct ExplosionForceSystem : ISystem
         // Enemy fragment pool
         DynamicBuffer<EnemyFragmentPool> fragmentPools = SystemAPI.GetSingletonBuffer<EnemyFragmentPool>();
 
+        // Disabled enemy buffer
+        DynamicBuffer<DisabledEnemy> disabledEnemies = SystemAPI.GetBuffer<DisabledEnemy>(
+            SystemAPI.GetSingletonEntity<EnemySpawnerSingleton>()
+        );
+
         NativeList<DistanceHit> hits = new NativeList<DistanceHit>(Allocator.Temp);
 
         foreach (
@@ -309,16 +315,18 @@ public partial struct ExplosionForceSystem : ISystem
             {
                 foreach (var hit in hits)
                 {
+                    Entity hitEntity = hit.Entity;
+
                     // Perform explosion on enemies
-                    if (SystemAPI.HasComponent<PhysicsVelocity>(hit.Entity))
+                    if (SystemAPI.HasComponent<PhysicsVelocity>(hitEntity))
                     {
-                        if (SystemAPI.HasComponent<Tag_Enemy>(hit.Entity))
+                        if (SystemAPI.HasComponent<Tag_Enemy>(hitEntity))
                         {
                             ref readonly LocalTransform enemyTransform =
-                                ref SystemAPI.GetComponentRO<LocalTransform>(hit.Entity).ValueRO;
+                                ref SystemAPI.GetComponentRO<LocalTransform>(hitEntity).ValueRO;
 
                             // Destroy enemies
-                            commands.SetEnabled(hit.Entity, false);
+                            GameUtil.KillEnemy(ref commands, ref disabledEnemies, in hitEntity);
 
                             for (int p = 0; p < fragmentPools.Length; p++)
                             {
@@ -335,7 +343,7 @@ public partial struct ExplosionForceSystem : ISystem
                         }
                         else
                         {
-                            PerformExplosionForce(ref state, explosionForce, explosionPosition, hit.Entity);
+                            PerformExplosionForce(ref state, explosionForce, explosionPosition, hitEntity);
                         }
                     }
                 }
