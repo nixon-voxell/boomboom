@@ -1,13 +1,7 @@
 .label-tittle {
-    color: rgb(69, 159, 224);
     -unity-font-style: bold;
     font-size: 65px;
     -unity-text-align: middle-left;
-    margin-top: 9px;
-    margin-right: -45px;
-    margin-bottom: 6px;
-    margin-left: 19px;
-    padding-top: 3px;
     -unity-font-definition: url('project://database/Assets/Fonts/HurmeGeometricSans4-Black%20SDF.asset?fileID=11400000&guid=32337bc02cd0f3e4d8d63e79ee2e862f&type=2#HurmeGeometricSans4-Black SDF');
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
 }

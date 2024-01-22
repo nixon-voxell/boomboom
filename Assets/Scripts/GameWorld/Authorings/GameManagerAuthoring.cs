@@ -1,5 +1,4 @@
 using Unity.Entities;
-using Unity.Entities.Serialization;
 
 #if UNITY_EDITOR
 using UnityEngine;
@@ -28,5 +27,7 @@ class GameManagerBaker : Baker<GameManagerAuthoring>
 
             EnvironmentWorld = SceneLoader.From(authoring.EnvironmentWorld),
         });
+
+        this.AddComponent<GameStatSingleton>(entity, GameStatSingleton.Default());
     }
 }

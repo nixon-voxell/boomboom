@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public class InGameHudMono : SingletonMono<InGameHudMono>
+public class InGameHudMono : UiMono
 {
 }

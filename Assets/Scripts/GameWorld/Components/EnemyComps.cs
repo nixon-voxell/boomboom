@@ -65,8 +65,7 @@ public readonly partial struct EnemySpawnerAspect : IAspect
     }
 }
 
-public struct EnemyInitialization : IComponentData, IEnableableComponent { }
-
+[InternalBufferCapacity(8)]
 public struct EnemyFragmentPool : IBufferElementData
 {
     public Entity PoolEntity;

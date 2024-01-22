@@ -46,8 +46,13 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
 
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
+        // Game manager
         ref GameManagerSingleton gameManager = ref SystemAPI.GetSingletonRW<GameManagerSingleton>().ValueRW;
 
+        // Game stat
+        ref GameStatSingleton gameStat = ref SystemAPI.GetSingletonRW<GameStatSingleton>().ValueRW;
+
+        // Mascot
         Entity mascotEntity = SystemAPI.GetSingletonEntity<Tag_MascotSingleton>();
         DynamicBuffer<Child> mascotChildren = SystemAPI.GetBuffer<Child>(mascotEntity);
         ref readonly LocalTransform mascotTransform = ref SystemAPI.GetComponentRO<LocalTransform>(mascotEntity).ValueRO;
@@ -55,7 +60,7 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
         switch (targetState.Value)
         {
             case GameState.Start:
-                // Reload environmen world
+                // Reload environment world
                 gameManager.EnvironmentWorld.UnloadScene(ref state);
                 gameManager.EnvironmentWorld.LoadScene(ref state);
 
@@ -92,6 +97,13 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                 VirtualCameraMono.Instance.SetPriority(11);
                 // Enable in game hud
                 UiManagerMono.Instance.SetOnlyVisible(typeof(InGameHudMono));
+                break;
+
+            case GameState.End:
+                // Immediate slowdown of game
+                UnityEngine.Time.timeScale = 0.1f;
+                // Enable end menu to display game stat
+                UiManagerMono.Instance.SetOnlyVisible(typeof(EndMenuMono));
                 break;
         }
 

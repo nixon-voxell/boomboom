@@ -365,7 +365,7 @@ public partial struct ExplosionForceSystem : ISystem
         ref PhysicsVelocity velocity = ref SystemAPI.GetComponentRW<PhysicsVelocity>(hitEntity).ValueRW;
         ref readonly PhysicsMass mass = ref SystemAPI.GetComponentRO<PhysicsMass>(hitEntity).ValueRO;
 
-        float3 direction = math.normalizesafe(hitTransform.Position - explosionPosition);
+        float3 direction = math.normalizesafe(hitTransform.Position + mass.CenterOfMass - explosionPosition);
         float3 angularDirection = -math.normalizesafe(math.cross(direction, math.up()));
 
         float force = explosionForce * mass.InverseMass;

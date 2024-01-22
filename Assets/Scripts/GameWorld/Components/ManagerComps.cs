@@ -63,11 +63,19 @@ public enum GameState
     Start,
     InGame,
     End,
-    Pause,
 }
 
 public struct GameStatSingleton : IComponentData
 {
     public int KillCount;
     public float SurvivalTime;
+
+    public static GameStatSingleton Default()
+    {
+        return new GameStatSingleton
+        {
+            KillCount = 0,
+            SurvivalTime = 0.0f,
+        };
+    }
 }

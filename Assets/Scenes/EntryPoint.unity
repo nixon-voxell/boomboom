@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 526.8017, g: 472.01276, b: 498.91998, a: 1}
+  m_IndirectSpecularColor: {r: 515.28046, g: 450.30133, b: 431.65192, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 1588125058}
   - component: {fileID: 1588125059}
   m_Layer: 5
-  m_Name: InGame
+  m_Name: InGameHud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1171,7 +1171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 2249f813158e76f48b6ae0ad8b234166, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 6b131a0b3786d7248a185bc452280806,
+    type: 3}
   m_SortingOrder: 0
 --- !u!114 &1588125059
 MonoBehaviour:
@@ -1185,6 +1186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac26e7f12017ae40a1a757ede004083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialVisibility: 0
 --- !u!1 &1607722231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,6 +1749,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Uis:
   - {fileID: 723731659}
+  - {fileID: 1588125059}
+  - {fileID: 618635681}
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1
