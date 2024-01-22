@@ -164,6 +164,8 @@ public partial struct EnemyProgressionSystem : ISystem
 
         // Update progression based on survival time
         float t = gameStat.SurvivalTime / progression.EndTime;
+        t = math.clamp(t, 0.0f, 1.0f);
+
         progression.CurrSpeed = math.lerp(progression.StartSpeed, progression.EndSpeed, t);
         progression.CurrSpawnRate = math.lerp(progression.StartSpawnRate, progression.EndSpawnRate, t);
 
