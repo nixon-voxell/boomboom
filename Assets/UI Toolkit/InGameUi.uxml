@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-        <ui:VisualElement style="flex-grow: 1;">
+    <Style src="project://database/Assets/UI%20Toolkit/Ui%20StyleSheet/InGameStyle.uss?fileID=7433441132597879392&amp;guid=4765e50d19655fd48944d82d6619436f&amp;type=3#InGameStyle" />
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row; background-color: rgba(0, 0, 0, 0);">
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
             <ui:VisualElement style="flex-grow: 1;">
                 <ui:VisualElement style="flex-grow: 1; padding-bottom: 0; padding-right: 0; scale: 0.13 0.23; translate: -243px -98px; background-image: url(&apos;project://database/Assets/Material/UI%20Sprite/setting_Logo-removebg-preview.png?fileID=2800000&amp;guid=4092a4d98deff174393028030798ff47&amp;type=3#setting_Logo-removebg-preview&apos;);" />
                 <ui:Label tabindex="-1" text="ESC" parse-escape-sequences="true" display-tooltip-when-elided="true" name="txtESC" style="font-size: 44px; translate: 62px -252px; scale: 1 1; width: 88px; -unity-font: url(&apos;project://database/Assets/Fonts/digital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#digital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#digital-7 SDF&apos;);" />
@@ -15,13 +16,11 @@
             <ui:VisualElement style="flex-grow: 1;" />
             <ui:VisualElement style="flex-grow: 1;" />
         </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1;">
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
             <ui:VisualElement style="flex-grow: 1; margin-top: 25px; margin-right: 14px; background-color: rgba(0, 0, 0, 0);">
-                <ui:ProgressBar value="91.3" name="pbLifebar" usage-hints="None" style="flex-direction: column; align-self: auto; -unity-text-align: upper-right; flex-wrap: nowrap; justify-content: flex-start; align-items: stretch; rotate: 180deg; border-top-width: 0; -unity-background-image-tint-color: rgba(255, 255, 255, 0); background-color: rgb(255, 0, 0); border-left-color: rgb(255, 0, 0); border-right-color: rgb(255, 0, 0); border-top-color: rgb(255, 0, 0); border-bottom-color: rgb(255, 0, 0); background-image: none; -unity-text-outline-color: rgba(255, 0, 0, 0.97); -unity-background-scale-mode: stretch-to-fill; color: rgb(255, 3, 3); text-shadow: 0 0 0 rgb(255, 0, 0);" />
+                <ui:ProgressBar value="57.3" name="pbLifeBar" style="background-image: none; overflow: visible; rotate: 0; scale: -1 1;" />
                 <ui:ProgressBar value="22" name="pbDashbar" style="rotate: 180deg; margin-top: 0; flex-direction: column-reverse; align-self: stretch; scale: 0.5 1; left: 135px;" />
                 <ui:ProgressBar value="22" name="pbTNTbar" style="rotate: 180deg; scale: 0.5 1; left: 135px;" />
-                <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Material/UI%20Sprite/Dash%20icon.png?fileID=21300000&amp;guid=3ee15621cbbc4a24ca25bfe817615b57&amp;type=3#Dash icon&apos;); height: 34px; -unity-text-outline-color: rgba(255, 0, 0, 0); color: rgba(255, 3, 3, 0); width: 45px; margin-bottom: 0; position: absolute; top: 28px; left: 248px;" />
-                <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; position: absolute; background-image: url(&apos;project://database/Assets/Material/UI%20Sprite/Life%20bar%20icon.png?fileID=21300000&amp;guid=e89d477413d22ce4a9b8eb9e1f8d3e39&amp;type=3#Life bar icon&apos;); height: 52px; width: 58px; top: -8px; left: -28px;" />
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1;" />
             <ui:VisualElement style="flex-grow: 1;" />
