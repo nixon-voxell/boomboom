@@ -20,6 +20,7 @@ public partial class PlayerTargetSystem : SystemBase
     }
 }
 
+[UpdateBefore(typeof(FixXZRotation))]
 public partial struct PlayerMovementSystem : ISystem
 {
     [BurstCompile]
@@ -115,7 +116,8 @@ public partial struct LookRotationSystem : ISystem
     }
 }
 
-public partial struct FixPlayerXZRotation : ISystem
+[UpdateBefore(typeof(TransformSystemGroup))]
+public partial struct FixXZRotation : ISystem
 {
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
@@ -123,7 +125,7 @@ public partial struct FixPlayerXZRotation : ISystem
         foreach (
             RefRW<LocalTransform> transform in
             SystemAPI.Query<RefRW<LocalTransform>>()
-            .WithAll<Tag_PlayerSingleton>()
+            .WithAll<Tag_FixXZRotation>()
         )
         {
             transform.ValueRW.Rotation.value.x = 0.0f;

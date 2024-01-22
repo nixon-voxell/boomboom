@@ -72,3 +72,9 @@ public struct EnemyFragmentPool : IBufferElementData
     public Entity FragmentPrefab;
     public int PoolCount;
 }
+
+public struct EnemyProgressionSingleton : IComponentData
+{
+    public float SpawnRate;
+    public float Speed;
+}

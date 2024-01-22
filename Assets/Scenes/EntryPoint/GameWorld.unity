@@ -214,7 +214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnRadius: 30
-  RoundInterval: 1
+  SpawnRate: 3
+  Speed: 1
   PoolCount: 10000
   EnemyPrefab: {fileID: 2220557661821601698, guid: f69fe12422aff4f4ca2aa783a9d8791b,
     type: 3}
@@ -440,6 +441,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9175648172940925024, guid: bb55aacec914ddf48bed32eec5119c23,
+        type: 3}
+      propertyPath: m_ColorTemperature
+      value: 1547
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -66,7 +66,8 @@ public partial struct EnemyFragmentSetupSystem : ISystem, ISystemStartStop
     public void OnStopRunning(ref SystemState state) { }
 }
 
-[UpdateAfter(typeof(EnemySetupSystem)), UpdateBefore(typeof(TransformSystemGroup))]
+[UpdateAfter(typeof(EnemySetupSystem))]
+[UpdateBefore(typeof(TransformSystemGroup))]
 public partial struct EnemySpawnerSystem : ISystem
 {
     [BurstCompile]

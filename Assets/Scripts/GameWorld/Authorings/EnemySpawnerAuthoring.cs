@@ -7,8 +7,9 @@ class EnemySpawner : MonoBehaviour
 {
     [Tooltip("Enemies will spawn outside this radius.")]
     public float SpawnRadius = 40.0f;
-    [Tooltip("Time between each round. New enemies will be spawned after the end of a round.")]
-    public float RoundInterval;
+    [Tooltip("Time interval between each enemy spawn.")]
+    public float SpawnRate = 3.0f;
+    public float Speed = 1.0f;
     public int PoolCount;
     public GameObject EnemyPrefab;
 }
@@ -34,9 +35,15 @@ class EnemySpawnerBaker : Baker<EnemySpawner>
 
         this.AddComponent<Timer>(entity, new Timer
         {
-            TotalTime = authoring.RoundInterval,
+            TotalTime = authoring.SpawnRate,
             // Make sure to have enemies spawned in the first round.
-            ElapsedTime = authoring.RoundInterval + 1.0f,
+            ElapsedTime = authoring.SpawnRate + 1.0f,
+        });
+
+        this.AddComponent<EnemyProgressionSingleton>(entity, new EnemyProgressionSingleton
+        {
+            SpawnRate = authoring.SpawnRate,
+            Speed = authoring.Speed,
         });
     }
 }

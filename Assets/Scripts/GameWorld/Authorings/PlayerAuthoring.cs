@@ -19,5 +19,7 @@ class PlayerBaker : Baker<PlayerAuthoring>
         this.AddComponent<Speed>(entity, new Speed { Value = authoring.Speed, });
         this.AddComponent<Dash>(entity, new Dash { Value = authoring.Dash, });
         this.AddComponent<LookSpeed>(entity, new LookSpeed { Value = authoring.LookSpeed });
+
+        this.AddComponent<Tag_FixXZRotation>(entity);
     }
 }

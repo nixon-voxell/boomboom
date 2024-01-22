@@ -5,10 +5,10 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Physics;
 
-[UpdateBefore(typeof(TransformSystemGroup))]
 public partial class ExplosionPreparationSystemGroup : ComponentSystemGroup { }
 
 [UpdateAfter(typeof(ExplosionPreparationSystemGroup))]
+[UpdateBefore(typeof(TransformSystemGroup))]
 public partial class ExplosionProgressSystemGroup : ComponentSystemGroup { }
 
 [UpdateAfter(typeof(ExplosionPreparationSystemGroup))]
