@@ -9,7 +9,7 @@ class MascotBaker : Baker<MascotAuthoring>
 {
     public override void Bake(MascotAuthoring authoring)
     {
-        Entity entity = this.GetEntity(TransformUsageFlags.Renderable);
+        Entity entity = this.GetEntity(TransformUsageFlags.Dynamic);
 
         this.AddComponent<Tag_MascotSingleton>(entity);
     }

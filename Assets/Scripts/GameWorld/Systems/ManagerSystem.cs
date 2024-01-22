@@ -63,10 +63,8 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
         switch (targetState.Value)
         {
             case GameState.Start:
-                // Reload environment world
-                gameManager.EnvironmentWorld.UnloadScene(ref state);
-                gameManager.EnvironmentWorld.LoadScene(ref state);
-
+                // Revert to normal time scale
+                UnityEngine.Time.timeScale = 1.0f;
                 // Enable mascot entity
                 this.SetMascotEnable(
                     ref commands,
@@ -75,6 +73,11 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                     true
                 );
 
+                // Reload environment world
+                gameManager.GameWorld.UnloadScene(ref state);
+                gameManager.EnvironmentWorld.UnloadScene(ref state);
+                gameManager.EnvironmentWorld.LoadScene(ref state);
+
                 // Reset target position
                 PlayerTargetMono.Instance.TargetPosition = mascotTransform.Position;
 
@@ -82,6 +85,8 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                 VirtualCameraMono.Instance.SetPriority(9);
                 // Enable in start menu
                 UiManagerMono.Instance.SetOnlyVisible(typeof(StartMenuMono));
+                // Reset game stat
+                gameStat = GameStatSingleton.Default();
                 break;
 
             case GameState.InGame:
@@ -107,6 +112,14 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                 UnityEngine.Time.timeScale = 0.1f;
                 // Enable end menu to display game stat
                 UiManagerMono.Instance.SetOnlyVisible(typeof(EndMenuMono));
+                EndMenuMono endMenu = UiManagerMono.Instance.GetUi<EndMenuMono>();
+
+                int hours, minutes, seconds;
+                GameUtil.CalculateTimeFromSeconds((int)gameStat.SurvivalTime, out hours, out minutes, out seconds);
+
+                endMenu.SurvivalTimeLbl.text = $"{hours:00}:{minutes:00}:{seconds:00}";
+                endMenu.KillCountLbl.text = gameStat.KillCount.ToString();
+
                 break;
         }
 
@@ -123,8 +136,6 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
         bool enable
     )
     {
-        commands.SetEnabled(entity, enable);
-
         foreach (Child child in mascotChildren)
         {
             commands.SetEnabled(child.Value, enable);

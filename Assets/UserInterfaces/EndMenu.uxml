@@ -2,20 +2,19 @@
     <Style src="project://database/Assets/UserInterfaces/USS/Label.uss?fileID=7433441132597879392&amp;guid=caf92ec282485f34bae4aef22cfc1c4d&amp;type=3#Label" />
     <Style src="project://database/Assets/UserInterfaces/USS/Buttons.uss?fileID=7433441132597879392&amp;guid=0d4ca1007d2be4f45b0ca931182677de&amp;type=3#Buttons" />
     <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; justify-content: center;">
-        <ui:VisualElement class="menu-background floating-menu" style="width: 600px;">
+        <ui:VisualElement class="menu-background floating-menu" style="width: 700px;">
             <ui:VisualElement style="flex-direction: row; flex-grow: 1;">
                 <ui:VisualElement style="flex-grow: 1;">
                     <ui:Label text="Time: " class="label-tittle" style="color: rgb(69, 159, 224); -unity-font-style: normal;" />
                     <ui:Label text="Kills: " class="label-tittle" style="color: rgb(224, 69, 104); -unity-font-style: normal;" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-grow: 1;">
-                    <ui:Label text="10:31" name="survival-time-lbl" class="label-tittle" style="color: rgb(69, 159, 224); -unity-text-align: middle-right;" />
-                    <ui:Label text="100" name="kill-count-lbl" class="label-tittle" style="color: rgb(224, 69, 104); -unity-text-align: middle-right;" />
+                    <ui:Label text="00:00:00" name="survival-time-lbl" class="label-tittle" style="color: rgb(69, 159, 224); -unity-text-align: middle-right;" />
+                    <ui:Label text="0" name="kill-count-lbl" class="label-tittle" style="color: rgb(224, 69, 104); -unity-text-align: middle-right;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement style="flex-grow: 1; height: 65px;" />
+            <ui:VisualElement style="height: 100px;" />
             <ui:VisualElement style="align-self: flex-end;">
-                <ui:Button text="Restart" name="restart-btn" class="button-menu" />
                 <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exit-btn" class="button-menu" />
             </ui:VisualElement>
         </ui:VisualElement>

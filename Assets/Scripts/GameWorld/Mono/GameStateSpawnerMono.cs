@@ -1,5 +1,4 @@
 using UnityEngine;
-using Unity.Collections;
 using Unity.Entities;
 
 public class GameStateSpawnerMono : SingletonMono<GameStateSpawnerMono>

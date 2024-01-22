@@ -33,11 +33,11 @@ public struct SceneLoader
 
     public void UnloadScene(ref SystemState state)
     {
-        this.Entity = Entity.Null;
-
         SceneSystem.UnloadScene(
             state.WorldUnmanaged, this.Entity
         );
+
+        this.Entity = Entity.Null;
     }
 
     public bool HasSceneLoaded(ref SystemState state)

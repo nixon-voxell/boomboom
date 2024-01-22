@@ -16,4 +16,17 @@ public class UiManagerMono : SingletonMono<UiManagerMono>
             }
         }
     }
+
+    public T GetUi<T>() where T : UiMono
+    {
+        foreach (UiMono ui in this.Uis)
+        {
+            if (ui.GetType() == typeof(T))
+            {
+                return ui as T;
+            }
+        }
+
+        return null;
+    }
 }

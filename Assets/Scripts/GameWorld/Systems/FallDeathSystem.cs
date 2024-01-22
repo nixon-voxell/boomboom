@@ -19,7 +19,7 @@ public partial struct DefaultFallDeathSystem : ISystem
         foreach (
             var (worldTransform, entity) in
             SystemAPI.Query<LocalToWorld>()
-            // .WithAbsent<Tag_Enemy, Tag_PlayerSingleton>()
+            .WithAbsent<Tag_Enemy, Tag_PlayerSingleton>()
             .WithEntityAccess()
         )
         {
@@ -92,6 +92,8 @@ public partial struct PlayerFallDeathSystem : ISystem
     {
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
+        ref GameTargetStateSingleton targetState = ref SystemAPI.GetSingletonRW<GameTargetStateSingleton>().ValueRW;
+
         foreach (
             var (worldTransform, entity) in
             SystemAPI.Query<LocalToWorld>()
@@ -102,6 +104,8 @@ public partial struct PlayerFallDeathSystem : ISystem
             if (worldTransform.Position.y < DefaultFallDeathSystem.DEATH_HEIGHT)
             {
                 // Game over
+                targetState.Value = GameState.End;
+                commands.SetEnabled(entity, false);
             }
         }
 
