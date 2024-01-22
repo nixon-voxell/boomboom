@@ -278,12 +278,16 @@ public partial struct ExplosionForceSystem : ISystem
     {
         state.RequireForUpdate<EnemyFragmentPool>();
         state.RequireForUpdate<EnemySpawnerSingleton>();
+        state.RequireForUpdate<GameStatSingleton>();
     }
 
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
+        // Get game stats
+        ref GameStatSingleton gameStat = ref SystemAPI.GetSingletonRW<GameStatSingleton>().ValueRW;
 
         // Physics world for collision
         PhysicsWorld physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>().PhysicsWorld;
@@ -330,6 +334,7 @@ public partial struct ExplosionForceSystem : ISystem
 
                             // Destroy enemies
                             GameUtil.KillEnemy(ref commands, ref disabledEnemies, in hitEntity);
+                            gameStat.KillCount += 1;
 
                             for (int p = 0; p < fragmentPools.Length; p++)
                             {

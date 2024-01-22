@@ -5,6 +5,7 @@ using Unity.Transforms;
 
 public partial struct ManagerSystem : ISystem, ISystemStartStop
 {
+    [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<GameManagerSingleton>();
@@ -21,6 +22,8 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
             .WithAll<Tag_MascotSingleton, Child>()
             .Build()
         );
+
+        state.RequireForUpdate<GameStatSingleton>();
     }
 
     public void OnStartRunning(ref SystemState state)
@@ -126,5 +129,29 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
         {
             commands.SetEnabled(child.Value, enable);
         }
+    }
+}
+
+public partial struct GameTimeUpdate : ISystem
+{
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameStatSingleton>();
+        state.RequireForUpdate<GameCurrStateSingleton>();
+    }
+
+    public void OnUpdate(ref SystemState state)
+    {
+        GameCurrStateSingleton currState = SystemAPI.GetSingleton<GameCurrStateSingleton>();
+
+        if (currState.Value != GameState.InGame)
+        {
+            return;
+        }
+
+        ref GameStatSingleton gameStat = ref SystemAPI.GetSingletonRW<GameStatSingleton>().ValueRW;
+
+        gameStat.SurvivalTime += SystemAPI.Time.DeltaTime;
     }
 }

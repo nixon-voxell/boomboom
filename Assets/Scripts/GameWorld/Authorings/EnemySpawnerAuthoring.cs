@@ -3,21 +3,31 @@ using Unity.Entities;
 
 using Random = Unity.Mathematics.Random;
 
-class EnemySpawner : MonoBehaviour
+class EnemySpawnerAuthoring : MonoBehaviour
 {
-    [Tooltip("Enemies will spawn outside this radius.")]
-    public float SpawnRadius = 40.0f;
-    [Tooltip("Time interval between each enemy spawn.")]
-    public float SpawnRate = 3.0f;
-    public float Speed = 1.0f;
-    public int PoolCount;
+    [Header("Pool Config")]
     public GameObject EnemyPrefab;
+    public int PoolCount;
+
+    [Space]
+    [Header("Spawn Config")]
+    [Tooltip("Enemies will spawn outside this radius.")]
+    public float SpawnRadius = 20.0f;
+    [Header("Spawn Rate")]
+    [Tooltip("Time interval between each enemy spawn.")]
+    public float StartSpawnRate = 3.0f;
+    public float EndSpawnRate = 0.3f;
+    [Header("Speed")]
+    public float StartSpeed = 1.0f;
+    public float EndSpeed = 8.0f;
+    [Tooltip("The time (in seconds) where all values will reach their ending values.")]
+    public float EndTime = 30.0f * 60.0f;
 }
 
 // Bake mono values above to component values
-class EnemySpawnerBaker : Baker<EnemySpawner>
+class EnemySpawnerBaker : Baker<EnemySpawnerAuthoring>
 {
-    public override void Bake(EnemySpawner authoring)
+    public override void Bake(EnemySpawnerAuthoring authoring)
     {
         Entity entity = this.GetEntity(TransformUsageFlags.Dynamic);
         Entity prefabEnt = this.GetEntity(authoring.EnemyPrefab, TransformUsageFlags.Dynamic);
@@ -35,15 +45,22 @@ class EnemySpawnerBaker : Baker<EnemySpawner>
 
         this.AddComponent<Timer>(entity, new Timer
         {
-            TotalTime = authoring.SpawnRate,
+            TotalTime = authoring.StartSpawnRate,
             // Make sure to have enemies spawned in the first round.
-            ElapsedTime = authoring.SpawnRate + 1.0f,
+            ElapsedTime = 0.0f,
         });
 
         this.AddComponent<EnemyProgressionSingleton>(entity, new EnemyProgressionSingleton
         {
-            SpawnRate = authoring.SpawnRate,
-            Speed = authoring.Speed,
+            StartSpawnRate = authoring.StartSpawnRate,
+            EndSpawnRate = authoring.EndSpawnRate,
+            StartSpeed = authoring.StartSpeed,
+            EndSpeed = authoring.EndSpeed,
+
+            EndTime = authoring.EndTime,
+
+            CurrSpeed = authoring.StartSpeed,
+            CurrSpawnRate = authoring.StartSpawnRate,
         });
     }
 }

@@ -75,6 +75,13 @@ public struct EnemyFragmentPool : IBufferElementData
 
 public struct EnemyProgressionSingleton : IComponentData
 {
-    public float SpawnRate;
-    public float Speed;
+    public float StartSpawnRate;
+    public float EndSpawnRate;
+    public float StartSpeed;
+    public float EndSpeed;
+
+    public float EndTime;
+
+    public float CurrSpeed;
+    public float CurrSpawnRate;
 }

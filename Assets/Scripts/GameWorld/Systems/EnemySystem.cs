@@ -73,7 +73,6 @@ public partial struct EnemySpawnerSystem : ISystem
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
-        // state.RequireForUpdate<EnemySpawnerSingleton>();
         state.RequireForUpdate<EnemySpawnerSingleton>();
     }
 
@@ -132,7 +131,7 @@ public partial struct EnemyFollowSystem : ISystem
             float2 direction = math.normalizesafe(playerTransform.Position - transform.ValueRO.Position).xz;
             direction = math.normalizesafe(direction);
 
-            v.xz = direction * progression.Speed;
+            v.xz = direction * progression.CurrSpeed;
             velocity.ValueRW.Linear = v;
 
             quaternion targetRotation = quaternion.LookRotation(
@@ -141,8 +140,35 @@ public partial struct EnemyFollowSystem : ISystem
 
             transform.ValueRW.Rotation = math.slerp(
                 transform.ValueRO.Rotation, targetRotation,
-                SystemAPI.Time.DeltaTime * progression.Speed
+                SystemAPI.Time.DeltaTime * progression.CurrSpeed
             );
         }
+    }
+}
+
+public partial struct EnemyProgressionSystem : ISystem
+{
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameStatSingleton>();
+        state.RequireForUpdate<EnemyProgressionSingleton>();
+    }
+
+    [BurstCompile]
+    public void OnUpdate(ref SystemState state)
+    {
+        GameStatSingleton gameStat = SystemAPI.GetSingleton<GameStatSingleton>();
+        Entity entity = SystemAPI.GetSingletonEntity<EnemyProgressionSingleton>();
+        ref EnemyProgressionSingleton progression = ref SystemAPI.GetComponentRW<EnemyProgressionSingleton>(entity).ValueRW;
+
+        // Update progression based on survival time
+        float t = gameStat.SurvivalTime / progression.EndTime;
+        progression.CurrSpeed = math.lerp(progression.StartSpeed, progression.EndSpeed, t);
+        progression.CurrSpawnRate = math.lerp(progression.StartSpawnRate, progression.EndSpawnRate, t);
+
+        // Set timer to current spawn rate
+        ref Timer timer = ref SystemAPI.GetComponentRW<Timer>(entity).ValueRW;
+        timer.TotalTime = progression.CurrSpawnRate;
     }
 }
