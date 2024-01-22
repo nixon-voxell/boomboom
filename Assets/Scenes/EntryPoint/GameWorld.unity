@@ -213,9 +213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240171ff78ed76b45bed7897fa9b0b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnRadius: 5
+  SpawnRadius: 30
   RoundInterval: 1
-  PoolCount: 10
+  PoolCount: 10000
   EnemyPrefab: {fileID: 2220557661821601698, guid: f69fe12422aff4f4ca2aa783a9d8791b,
     type: 3}
 --- !u!1 &685496937
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3115b1334f2b743880a596c6aaa56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PoolCount: 10
+  PoolCount: 1000
   Fragments:
   - {fileID: 2084540785900326444, guid: 15e2a11da5f7914438689db4a134a39e, type: 3}
   - {fileID: 8386530874038199625, guid: 002b8efb9974bc04fa80b55824f4d825, type: 3}

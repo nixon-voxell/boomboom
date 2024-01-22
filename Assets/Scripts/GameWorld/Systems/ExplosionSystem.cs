@@ -5,9 +5,10 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Physics;
 
+[UpdateBefore(typeof(TransformSystemGroup))]
 public partial class ExplosionPreparationSystemGroup : ComponentSystemGroup { }
 
-[UpdateBefore(typeof(TransformSystemGroup)), UpdateAfter(typeof(ExplosionPreparationSystemGroup))]
+[UpdateAfter(typeof(ExplosionPreparationSystemGroup))]
 public partial class ExplosionProgressSystemGroup : ComponentSystemGroup { }
 
 [UpdateAfter(typeof(ExplosionPreparationSystemGroup))]
@@ -285,8 +286,8 @@ public partial struct ExplosionForceSystem : ISystem
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
         // Physics world for collision
-        PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
-        CollisionWorld collisionWorld = physicsWorld.PhysicsWorld.CollisionWorld;
+        PhysicsWorld physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>().PhysicsWorld;
+        NativeList<DistanceHit> hits = new NativeList<DistanceHit>(Allocator.Temp);
 
         // Enemy fragment pool
         DynamicBuffer<EnemyFragmentPool> fragmentPools = SystemAPI.GetSingletonBuffer<EnemyFragmentPool>();
@@ -296,8 +297,6 @@ public partial struct ExplosionForceSystem : ISystem
             SystemAPI.GetSingletonEntity<EnemySpawnerSingleton>()
         );
 
-        NativeList<DistanceHit> hits = new NativeList<DistanceHit>(Allocator.Temp);
-
         foreach (
             var (explosion, explode, transform, entity) in
             SystemAPI.Query<ExplosionAspect, Explode, LocalTransform>()
@@ -306,7 +305,10 @@ public partial struct ExplosionForceSystem : ISystem
         {
             hits.Clear();
             bool hasHits = physicsWorld.OverlapSphere(
-                transform.Position, explosion.Radius.ValueRO.Value, ref hits, CollisionFilter.Default
+                transform.Position,
+                explosion.Radius.ValueRO.Value,
+                ref hits,
+                CollisionFilter.Default
             );
 
             ref float explosionForce = ref explosion.ForceRW;
@@ -387,8 +389,8 @@ public partial struct ExplosionCompleteSystem : ISystem
         EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
 
         foreach (
-            var (explosion, explode, transform, entity) in
-            SystemAPI.Query<ExplosionAspect, Explode, LocalTransform>()
+            var (explosion, explode, entity) in
+            SystemAPI.Query<ExplosionAspect, Explode>()
             .WithEntityAccess()
         )
         {
