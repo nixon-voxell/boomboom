@@ -106,31 +106,43 @@ public partial struct EnemySpawnerSystem : ISystem
 
 public partial struct EnemyFollowSystem : ISystem
 {
+    [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<Tag_PlayerSingleton>();
+        state.RequireForUpdate<EnemyProgressionSingleton>();
     }
 
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         LocalTransform playerTransform = SystemAPI.GetComponent<LocalTransform>(
             SystemAPI.GetSingletonEntity<Tag_PlayerSingleton>()
         );
 
+        EnemyProgressionSingleton progression = SystemAPI.GetSingleton<EnemyProgressionSingleton>();
+
         foreach (
             var (transform, velocity) in
-            SystemAPI.Query<RefRO<LocalTransform>, RefRW<PhysicsVelocity>>()
+            SystemAPI.Query<RefRW<LocalTransform>, RefRW<PhysicsVelocity>>()
             .WithAll<Tag_Enemy>()
         )
         {
             float3 v = velocity.ValueRO.Linear;
-            float3 direction = math.normalizesafe(playerTransform.Position - transform.ValueRO.Position);
+            float2 direction = math.normalizesafe(playerTransform.Position - transform.ValueRO.Position).xz;
+            direction = math.normalizesafe(direction);
 
-            float followSpeed = 8.0f;
-            float3 followVelocity = direction * followSpeed;
-
-            v += followVelocity * SystemAPI.Time.DeltaTime;
+            v.xz = direction * progression.Speed;
             velocity.ValueRW.Linear = v;
+
+            quaternion targetRotation = quaternion.LookRotation(
+                new float3(direction.x, 0.0f, direction.y), math.up()
+            );
+
+            transform.ValueRW.Rotation = math.slerp(
+                transform.ValueRO.Rotation, targetRotation,
+                SystemAPI.Time.DeltaTime * progression.Speed
+            );
         }
     }
 }

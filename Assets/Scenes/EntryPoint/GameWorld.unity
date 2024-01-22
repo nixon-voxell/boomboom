@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240171ff78ed76b45bed7897fa9b0b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnRadius: 30
+  SpawnRadius: 20
   SpawnRate: 3
   Speed: 1
   PoolCount: 10000

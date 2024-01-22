@@ -38,7 +38,6 @@ public readonly partial struct EnemySpawnerAspect : IAspect
 
         Entity entity = this.GetNextEntity();
 
-        commands.SetEnabled(entity, true);
         commands.SetComponent<LocalTransform>(
             entity, new LocalTransform
             {
@@ -47,6 +46,7 @@ public readonly partial struct EnemySpawnerAspect : IAspect
                 Scale = 1.0f,
             }
         );
+        commands.SetEnabled(entity, true);
     }
 
     private float3 GetRandomPosition()

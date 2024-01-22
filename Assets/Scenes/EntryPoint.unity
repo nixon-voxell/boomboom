@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 528.32294, g: 474.2088, b: 503.56403, a: 1}
+  m_IndirectSpecularColor: {r: 526.5251, g: 471.73785, b: 498.67242, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -772,7 +772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition:
     x: 0
-    y: 0.25
+    y: 0.08
     z: 0
 --- !u!1 &1093882973
 GameObject:
@@ -1815,7 +1815,7 @@ PrefabInstance:
     - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
         type: 3}
@@ -1824,12 +1824,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
         type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Name
+      value: _Scale
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
+        type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.y
-      value: 0.25
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.z
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Overridden
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4726567410800907988, guid: c65556622cbb44744a5fde677aa1891f,
