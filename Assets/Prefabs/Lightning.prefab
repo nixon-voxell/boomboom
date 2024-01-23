@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4726567410800907988}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -64,6 +64,12 @@ VisualEffect:
         m_Overridden: 0
       - m_Value: {x: 0, y: 0, z: 0}
         m_Name: CurrPosition
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 0.08, z: 0}
+        m_Name: _Position
+        m_Overridden: 1
+      - m_Value: {x: 0.7, y: 0.7, z: 0.7}
+        m_Name: _Scale
         m_Overridden: 1
     m_Vector4f:
       m_Array: []
@@ -135,3 +141,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowTransform: {fileID: 0}
   Effect: {fileID: 4324011269130000244}
+  PlayRate: 3
