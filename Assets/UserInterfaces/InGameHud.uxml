@@ -3,25 +3,30 @@
     <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; padding-top: 40px; padding-right: 40px; padding-bottom: 40px; padding-left: 40px;">
         <ui:VisualElement style="flex-grow: 1;">
             <ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Material/UI%20Sprite/setting_Logo-removebg-preview.png?fileID=2800000&amp;guid=4092a4d98deff174393028030798ff47&amp;type=3#setting_Logo-removebg-preview&apos;); width: 40px; height: 40px;" />
-                <ui:Label tabindex="-1" text="ESC" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 44px; -unity-font: url(&apos;project://database/Assets/Fonts/digital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#digital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#digital-7 SDF&apos;);" />
+                <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/setting_Logo-removebg-preview.png?fileID=2800000&amp;guid=4092a4d98deff174393028030798ff47&amp;type=3#setting_Logo-removebg-preview&apos;); width: 40px; height: 40px;" />
+                <ui:Label tabindex="-1" text="ESC" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 44px; -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); color: rgb(255, 255, 255);" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1;">
-            <ui:Label text="0:00:00" name="time-lbl" picking-mode="Ignore" style="font-size: 60px; -unity-font: url(&apos;project://database/Assets/Fonts/digital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#digital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#digital-7 SDF&apos;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-self: center;" />
+            <ui:Label text="0:00:00" name="time-lbl" picking-mode="Ignore" style="font-size: 60px; -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-self: center; color: rgb(255, 255, 255);" />
+            <ui:VisualElement style="flex-grow: 1;">
+                <ui:VisualElement style="flex-grow: 1;" />
+                <ui:VisualElement style="flex-direction: row; -unity-text-align: upper-left; align-self: center; margin-top: 0; margin-bottom: 30px;">
+                    <ui:VisualElement picking-mode="Ignore" style="background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/DashIcon.png?fileID=2800000&amp;guid=c7358a1e3fb29b943b5612452ab33f46&amp;type=3#DashIcon&apos;); height: 100px; flex-shrink: 0; width: 150px; -unity-background-scale-mode: scale-to-fit; flex-direction: column-reverse;">
+                        <ui:Label tabindex="-1" text="2&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="dash-count-lbl" style="font-size: 50px; color: rgb(255, 255, 255); -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); align-self: center; top: 100px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/TnT_Icon%20(3).png?fileID=2800000&amp;guid=08dcd55f37016ea46a1cc78cd13aa5bd&amp;type=3#TnT_Icon (3)&apos;); flex-shrink: 0; width: 120px; height: 100px; -unity-background-scale-mode: scale-to-fit; flex-direction: column-reverse;">
+                        <ui:Label tabindex="-1" text="5&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tnt-count-lbl" style="-unity-text-align: upper-center; font-size: 50px; align-self: center; top: 100px; -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); color: rgb(255, 255, 255);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1;">
             <ui:VisualElement style="flex-direction: row-reverse;">
                 <ui:ProgressBar value="57.8" name="health-bar" usage-hints="None" class="game-progress-bar" />
-                <ui:VisualElement picking-mode="Ignore" class="left-icon" style="background-image: url(&apos;project://database/Assets/Material/UI%20Sprite/Life%20bar%20icon.png?fileID=21300000&amp;guid=e89d477413d22ce4a9b8eb9e1f8d3e39&amp;type=3#Life bar icon&apos;);" />
+                <ui:VisualElement picking-mode="Ignore" class="left-icon" style="background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/Life%20bar%20icon%201.png?fileID=2800000&amp;guid=da4308e392147404da056d0f3c9143b1&amp;type=3#Life bar icon 1&apos;);" />
             </ui:VisualElement>
-            <ui:VisualElement style="flex-direction: row-reverse;">
-                <ui:ProgressBar value="22" name="dash-bar" class="game-progress-bar" />
-                <ui:VisualElement picking-mode="Ignore" class="left-icon" style="background-image: url(&apos;project://database/Assets/Material/UI%20Sprite/Dash%20icon.png?fileID=21300000&amp;guid=3ee15621cbbc4a24ca25bfe817615b57&amp;type=3#Dash icon&apos;); -unity-background-scale-mode: scale-to-fit;" />
-            </ui:VisualElement>
-            <ui:VisualElement style="flex-direction: row;">
-                <ui:ProgressBar value="22" name="tnt-bar" class="game-progress-bar" />
-            </ui:VisualElement>
+            <ui:VisualElement style="flex-direction: row-reverse;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
