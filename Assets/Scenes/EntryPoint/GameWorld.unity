@@ -213,12 +213,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240171ff78ed76b45bed7897fa9b0b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnRadius: 20
-  SpawnRate: 3
-  Speed: 1
-  PoolCount: 10000
   EnemyPrefab: {fileID: 2220557661821601698, guid: f69fe12422aff4f4ca2aa783a9d8791b,
     type: 3}
+  PoolCount: 10000
+  SpawnRadius: 20
+  StartSpawnRate: 3
+  EndSpawnRate: 0.3
+  StartSpeed: 1
+  EndSpeed: 8
+  EndTime: 1800
+  Damage: 5
+  Force: 100
 --- !u!1 &685496937
 GameObject:
   m_ObjectHideFlags: 0

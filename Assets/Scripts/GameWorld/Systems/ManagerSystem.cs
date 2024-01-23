@@ -166,3 +166,41 @@ public partial struct GameTimeUpdate : ISystem
         gameStat.SurvivalTime += SystemAPI.Time.DeltaTime;
     }
 }
+
+public partial struct PlayerDeathSystem : ISystem
+{
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<Tag_PlayerSingleton>();
+        state.RequireForUpdate(
+            SystemAPI.QueryBuilder()
+            .WithAll<GameCurrStateSingleton, GameTargetStateSingleton>()
+            .Build()
+        );
+    }
+
+    [BurstCompile]
+    public void OnUpdate(ref SystemState state)
+    {
+        GameCurrStateSingleton currState = SystemAPI.GetSingleton<GameCurrStateSingleton>();
+
+        // Game already ended, no point in checking
+        if (currState.Value == GameState.End)
+        {
+            return;
+        }
+
+        // Player's health
+        ref Health health = ref SystemAPI.GetComponentRW<Health>(
+            SystemAPI.GetSingletonEntity<Tag_PlayerSingleton>()
+        ).ValueRW;
+
+        ref GameTargetStateSingleton targetState = ref SystemAPI.GetSingletonRW<GameTargetStateSingleton>().ValueRW;
+
+        if (health.Value <= 0.0f)
+        {
+            targetState.Value = GameState.End;
+        }
+    }
+}

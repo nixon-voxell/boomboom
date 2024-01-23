@@ -140,7 +140,7 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 0
-      m_Value: 0
+      m_Value: 1
     m_Friction:
       m_Override: 0
       m_Value:
@@ -149,7 +149,7 @@ MonoBehaviour:
     m_Restitution:
       m_Override: 0
       m_Value:
-        Value: 0
+        Value: 0.3
         CombineMode: 2
     m_BelongsToCategories:
       m_Override: 0
@@ -297,4 +297,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e86e381c55d5a44aafc793ac6bb10ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 5
+  AttackCoolDown: 2

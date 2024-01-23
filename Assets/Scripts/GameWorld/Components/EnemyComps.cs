@@ -84,4 +84,9 @@ public struct EnemyProgressionSingleton : IComponentData
 
     public float CurrSpeed;
     public float CurrSpawnRate;
+
+    public float CurrDamage;
+    public float Force;
 }
+
+public struct EnemyCanAttack : IComponentData, IEnableableComponent { }

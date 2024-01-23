@@ -279,6 +279,7 @@ public partial struct ExplosionForceSystem : ISystem
         state.RequireForUpdate<EnemyFragmentPool>();
         state.RequireForUpdate<EnemySpawnerSingleton>();
         state.RequireForUpdate<GameStatSingleton>();
+        state.RequireForUpdate<Tag_PlayerSingleton>();
     }
 
     [BurstCompile]
@@ -300,6 +301,9 @@ public partial struct ExplosionForceSystem : ISystem
         DynamicBuffer<DisabledEnemy> disabledEnemies = SystemAPI.GetBuffer<DisabledEnemy>(
             SystemAPI.GetSingletonEntity<EnemySpawnerSingleton>()
         );
+
+        // Player's health
+        ref Health health = ref SystemAPI.GetComponentRW<Health>(SystemAPI.GetSingletonEntity<Tag_PlayerSingleton>()).ValueRW;
 
         foreach (
             var (explosion, explode, transform, entity) in
@@ -335,6 +339,9 @@ public partial struct ExplosionForceSystem : ISystem
                             // Destroy enemies
                             GameUtil.KillEnemy(ref commands, ref disabledEnemies, in hitEntity);
                             gameStat.KillCount += 1;
+
+                            // Each kill heals 1 health for the player
+                            health.Value = math.min(health.Value + 1, 100.0f);
 
                             for (int p = 0; p < fragmentPools.Length; p++)
                             {

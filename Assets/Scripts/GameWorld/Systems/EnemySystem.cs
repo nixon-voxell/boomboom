@@ -4,8 +4,9 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Physics;
+using Unity.Physics.Systems;
 
-public partial struct EnemySetupSystem : ISystem, ISystemStartStop //for onstartrunning & stoprunning
+public partial struct EnemySetupSystem : ISystem, ISystemStartStop
 {
     [BurstCompile]
     public void OnCreate(ref SystemState state)
@@ -143,6 +144,151 @@ public partial struct EnemyFollowSystem : ISystem
                 SystemAPI.Time.DeltaTime * progression.CurrSpeed
             );
         }
+    }
+}
+
+[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
+[UpdateBefore(typeof(PhysicsSystemGroup))]
+public partial struct EnemyDamageSystem : ISystem
+{
+    [BurstCompile]
+    public partial struct EnemyDamageEvents : ICollisionEventsJob
+    {
+        public float EnemyDamage;
+        public float EnemyForce;
+
+        public NativeReference<float> TotalDamage;
+        public NativeReference<float2> TotalForce;
+
+        [ReadOnly] public Entity PlayerEntity;
+        [ReadOnly] public ComponentLookup<Tag_Enemy> EnemyLookup;
+        [ReadOnly] public ComponentLookup<LocalTransform> TransformLookup;
+        public ComponentLookup<EnemyCanAttack> EnemyAttackLookup;
+        public ComponentLookup<Timer> TimerLookup;
+
+        public void Execute(CollisionEvent evt)
+        {
+            Entity playerEntity = Entity.Null;
+            Entity enemyEntity = Entity.Null;
+
+            // Find player and enemy entity
+            if (evt.EntityA == this.PlayerEntity)
+            {
+                playerEntity = evt.EntityA;
+            }
+            else if (evt.EntityB == this.PlayerEntity)
+            {
+                playerEntity = evt.EntityB;
+            }
+
+            if (this.EnemyLookup.HasComponent(evt.EntityA))
+            {
+                enemyEntity = evt.EntityA;
+            }
+            else if (this.EnemyLookup.HasComponent(evt.EntityB))
+            {
+                enemyEntity = evt.EntityB;
+            }
+
+            if (playerEntity == Entity.Null || enemyEntity == Entity.Null)
+            {
+                return;
+            }
+
+            if (this.EnemyAttackLookup.IsComponentEnabled(enemyEntity) == false)
+            {
+                return;
+            }
+
+            // Perform attack
+            ref readonly LocalTransform playerTransform = ref TransformLookup.GetRefRO(playerEntity).ValueRO;
+            ref readonly LocalTransform enemyTransform = ref TransformLookup.GetRefRO(enemyEntity).ValueRO;
+            ref Timer timer = ref TimerLookup.GetRefRW(enemyEntity).ValueRW;
+
+            float2 direction = math.normalize((playerTransform.Position - enemyTransform.Position).xz);
+
+            this.TotalForce.Value += direction * this.EnemyForce;
+            this.TotalDamage.Value += this.EnemyDamage;
+
+            // Reset attack
+            timer.Reset();
+            this.EnemyAttackLookup.SetComponentEnabled(enemyEntity, false);
+        }
+    }
+
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<EnemyProgressionSingleton>();
+        state.RequireForUpdate<Tag_PlayerSingleton>();
+        state.RequireForUpdate<SimulationSingleton>();
+    }
+
+    [BurstCompile]
+    public void OnUpdate(ref SystemState state)
+    {
+        EnemyProgressionSingleton progression = SystemAPI.GetSingleton<EnemyProgressionSingleton>();
+
+        Entity playerEntity = SystemAPI.GetSingletonEntity<Tag_PlayerSingleton>();
+
+        ComponentLookup<Tag_Enemy> enemyLookup = SystemAPI.GetComponentLookup<Tag_Enemy>(true);
+        ComponentLookup<LocalTransform> transformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
+        ComponentLookup<EnemyCanAttack> enemyAttackLookup = SystemAPI.GetComponentLookup<EnemyCanAttack>();
+        ComponentLookup<Timer> timerLookup = SystemAPI.GetComponentLookup<Timer>();
+
+        NativeReference<float> totalDamage = new NativeReference<float>(0.0f, Allocator.TempJob);
+        NativeReference<float2> totalForce = new NativeReference<float2>(0.0f, Allocator.TempJob);
+
+        state.Dependency = new EnemyDamageEvents
+        {
+            EnemyDamage = progression.CurrDamage,
+            EnemyForce = progression.Force,
+
+            TotalDamage = totalDamage,
+            TotalForce = totalForce,
+
+            PlayerEntity = playerEntity,
+            EnemyLookup = enemyLookup,
+            TransformLookup = transformLookup,
+            EnemyAttackLookup = enemyAttackLookup,
+            TimerLookup = timerLookup,
+        }.Schedule(SystemAPI.GetSingleton<SimulationSingleton>(), state.Dependency);
+
+        ref PhysicsVelocity velocity = ref SystemAPI.GetComponentRW<PhysicsVelocity>(playerEntity).ValueRW;
+        ref Health health = ref SystemAPI.GetComponentRW<Health>(playerEntity).ValueRW;
+
+        state.CompleteDependency();
+
+        velocity.Linear.xz += totalForce.Value;
+        health.Value = math.max(health.Value - totalDamage.Value, 0.0f);
+
+        totalDamage.Dispose();
+        totalForce.Dispose();
+    }
+}
+
+public partial struct EnemyAttackCooldownSystem : ISystem
+{
+    [BurstCompile]
+    public void OnUpdate(ref SystemState state)
+    {
+        EntityCommandBuffer commands = new EntityCommandBuffer(Allocator.Temp);
+
+        foreach (
+            var (timer, entity) in
+            SystemAPI.Query<RefRW<Timer>>()
+            .WithAll<Tag_Enemy>()
+            .WithDisabled<EnemyCanAttack>()
+            .WithEntityAccess()
+        )
+        {
+            if (timer.ValueRW.Update(SystemAPI.Time.DeltaTime))
+            {
+                SystemAPI.SetComponentEnabled<EnemyCanAttack>(entity, true);
+            }
+        }
+
+        commands.Playback(state.EntityManager);
     }
 }
 

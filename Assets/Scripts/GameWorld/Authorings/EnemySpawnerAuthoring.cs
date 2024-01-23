@@ -22,6 +22,9 @@ class EnemySpawnerAuthoring : MonoBehaviour
     public float EndSpeed = 8.0f;
     [Tooltip("The time (in seconds) where all values will reach their ending values.")]
     public float EndTime = 30.0f * 60.0f;
+
+    public float Damage = 5.0f;
+    public float Force = 1.0f;
 }
 
 // Bake mono values above to component values
@@ -61,6 +64,9 @@ class EnemySpawnerBaker : Baker<EnemySpawnerAuthoring>
 
             CurrSpeed = authoring.StartSpeed,
             CurrSpawnRate = authoring.StartSpawnRate,
+
+            CurrDamage = authoring.Damage,
+            Force = authoring.Force,
         });
     }
 }

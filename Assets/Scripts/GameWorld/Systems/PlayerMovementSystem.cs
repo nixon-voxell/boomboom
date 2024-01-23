@@ -66,14 +66,31 @@ public partial struct PlayerMovementSystem : ISystem
                 v += forward * dash.ValueRO.Value;
             }
 
-            // TODO: Move this computation out of this system (it can be independant)
+            // Update velocity value for the next frame
+            secondaryVelocity.ValueRW.Value = v;
+            // Add the resultant secondary velocity to the physics linear velocity
+            velocity.ValueRW.Linear += v;
+        }
+    }
+}
+
+public partial struct SecondaryVelocityDampingSystem : ISystem
+{
+    [BurstCompile]
+    public void OnUpdate(ref SystemState state)
+    {
+        foreach (
+            var (secondaryVelocity, damping) in
+            SystemAPI.Query<RefRW<SecondaryVelocity>, RefRO<PhysicsDamping>>()
+        )
+        {
+            float3 v = secondaryVelocity.ValueRW.Value;
+
             // Manually damp secondary velocity
             v -= v * math.min(1.0f, damping.ValueRO.Linear * SystemAPI.Time.DeltaTime);
 
             // Update velocity value for the next frame
             secondaryVelocity.ValueRW.Value = v;
-            // Add the resultant secondary velocity to the physics linear velocity
-            velocity.ValueRW.Linear += v;
         }
     }
 }

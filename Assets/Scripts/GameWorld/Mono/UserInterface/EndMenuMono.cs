@@ -1,5 +1,4 @@
 using UnityEngine.UIElements;
-using Unity.Entities;
 
 public class EndMenuMono : UiMono
 {
