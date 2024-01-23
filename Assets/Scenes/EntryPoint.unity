@@ -1045,7 +1045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1462249194
 Transform:
   m_ObjectHideFlags: 0
@@ -1377,6 +1377,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1234819338088509356, guid: e2c057fd8a566d043aa27438b8232123,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3224703724143916545, guid: e2c057fd8a566d043aa27438b8232123,
         type: 3}
       propertyPath: Loop
@@ -1388,10 +1393,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 24300002, guid: f8217ee563b0b5d45ac76031e8a4b8f0,
         type: 2}
+    - target: {fileID: 4598292162587523202, guid: e2c057fd8a566d043aa27438b8232123,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
         type: 3}
       propertyPath: BgmSoundList.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
+        type: 3}
+      propertyPath: SfxSoundList.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
         type: 3}
@@ -1408,6 +1423,21 @@ PrefabInstance:
       propertyPath: BgmSoundList.Array.data[4].Clip
       value: 
       objectReference: {fileID: 8300000, guid: 16e040f45c54a8a45ae788e67323226e, type: 3}
+    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
+        type: 3}
+      propertyPath: SfxSoundList.Array.data[0].Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 81e6bccbebd1a9e41bf69b5e33015c4a, type: 3}
+    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
+        type: 3}
+      propertyPath: SfxSoundList.Array.data[1].Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8375bc83918d3f840abfac434f4efc75, type: 3}
+    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
+        type: 3}
+      propertyPath: SfxSoundList.Array.data[2].Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e1bd3e5de9569044cae7caad94080d1a, type: 3}
     - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
         type: 3}
       propertyPath: BgmSoundList.Array.data[0].SoundName
@@ -1432,6 +1462,26 @@ PrefabInstance:
         type: 3}
       propertyPath: BgmSoundList.Array.data[4].SoundName
       value: Theme 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
+        type: 3}
+      propertyPath: SfxSoundList.Array.data[0].SoundName
+      value: Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
+        type: 3}
+      propertyPath: SfxSoundList.Array.data[1].SoundName
+      value: PlaceBomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
+        type: 3}
+      propertyPath: SfxSoundList.Array.data[2].SoundName
+      value: Bomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 6412165515675966434, guid: e2c057fd8a566d043aa27438b8232123,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
