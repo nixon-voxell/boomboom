@@ -47,39 +47,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BgmSoundList:
-  - SoundName: Theme
+  - SoundName: MainMenu
     Clip: {fileID: 8300000, guid: 5e2d640909fb66b46b293a6c6d926cde, type: 3}
-  - SoundName: Theme 2
+  - SoundName: InGame
     Clip: {fileID: 8300000, guid: c492da8717a1db442ab1cd863379d41b, type: 3}
-  - SoundName: Theme 3
-    Clip: {fileID: 8300000, guid: 5e2d640909fb66b46b293a6c6d926cde, type: 3}
-  - SoundName: Theme 4
-    Clip: {fileID: 8300000, guid: 5443fde8ffac87246aad471a172b016a, type: 3}
-  - SoundName: Theme 5
-    Clip: {fileID: 8300000, guid: 1f59b1bb38a0ea84b9f2f0d6419ecb01, type: 3}
-  - SoundName: Theme 6
-    Clip: {fileID: 8300000, guid: 16e040f45c54a8a45ae788e67323226e, type: 3}
   SfxSoundList:
-  - SoundName: Big Bomb Explode Sound
-    Clip: {fileID: 8300000, guid: f095b528eae96be4ea26561e144aaa75, type: 3}
-  - SoundName: Bomb Beeping Sound
-    Clip: {fileID: 8300000, guid: 811c7098dea762c4eb8b52b1231788df, type: 3}
-  - SoundName: Player Dash Sound
-    Clip: {fileID: 8300000, guid: fb60a3a462ddac24d9a043c3204b59e8, type: 3}
-  - SoundName: Electric Sound 2
-    Clip: {fileID: 8300000, guid: ecdd6c9dc91af18488a848af66a05079, type: 3}
-  - SoundName: Bomb Placing Sound
-    Clip: {fileID: 8300000, guid: b1e4a0db846914b4292a079e7f4f5de6, type: 3}
-  - SoundName: Small Bomb Explode Sound
-    Clip: {fileID: 8300000, guid: 5484df5edc5e3274387848d072312b7d, type: 3}
-  - SoundName: UI Menu Show Sound
-    Clip: {fileID: 8300000, guid: d7ac0b174dca78d4fae82a0b3ad13bc2, type: 3}
-  - SoundName: UI Mouse Click Sound
-    Clip: {fileID: 8300000, guid: 0ba9d92b2131cdc4f8a910ff6471b6cd, type: 3}
-  - SoundName: UI Mouse Click Sound 2
-    Clip: {fileID: 8300000, guid: 20d2c8b3ee0653f49ab922cf759dfce6, type: 3}
-  - SoundName: UI Mouse Hover Sound
-    Clip: {fileID: 8300000, guid: 5366b139f52eef74ba10ea49b5cbbc39, type: 3}
+  - SoundName: Dash
+    Clip: {fileID: 8300000, guid: 81e6bccbebd1a9e41bf69b5e33015c4a, type: 3}
+  - SoundName: PlaceBomb
+    Clip: {fileID: 8300000, guid: 8375bc83918d3f840abfac434f4efc75, type: 3}
+  - SoundName: Bomb
+    Clip: {fileID: 8300000, guid: e1bd3e5de9569044cae7caad94080d1a, type: 3}
   BgmSource: {fileID: 3224703724143916545}
   SfxSource: {fileID: 6329814537299897050}
 --- !u!1 &4598292162587523202
@@ -123,12 +101,13 @@ AudioSource:
   m_GameObject: {fileID: 4598292162587523202}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: f8217ee563b0b5d45ac76031e8a4b8f0,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
