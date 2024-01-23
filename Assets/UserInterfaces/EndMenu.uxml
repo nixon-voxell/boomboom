@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UserInterfaces/USS/Label.uss?fileID=7433441132597879392&amp;guid=caf92ec282485f34bae4aef22cfc1c4d&amp;type=3#Label" />
+    <Style src="project://database/Assets/UserInterfaces/USS/Buttons.uss?fileID=7433441132597879392&amp;guid=0d4ca1007d2be4f45b0ca931182677de&amp;type=3#Buttons" />
+    <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; justify-content: center;">
+        <ui:VisualElement class="menu-background floating-menu" style="width: 500px;">
+            <ui:Label text="10:31" name="game-score-lbl" class="label-tittle" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+            <ui:VisualElement style="flex-grow: 1; height: 65px;" />
+            <ui:VisualElement style="align-self: flex-end;">
+                <ui:Button text="Restart" name="restart-btn" class="button-menu" />
+                <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exit-btn" class="button-menu" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

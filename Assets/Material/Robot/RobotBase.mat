@@ -107,9 +107,9 @@ Material:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Eye0Center: {r: 0.4, g: 0.4, b: 0, a: 0}
-    - _Eye0Size: {r: 0.1, g: 0.15, b: 0, a: 0}
+    - _Eye0Size: {r: 0.1, g: 0.14999612, b: 0, a: 0}
     - _Eye1Center: {r: 0.6, g: 0.4, b: 0, a: 0}
-    - _Eye1Size: {r: 0.1, g: 0.15, b: 0, a: 0}
+    - _Eye1Size: {r: 0.1, g: 0.14999612, b: 0, a: 0}
     - _EyeColor: {r: 0.13725491, g: 0.8352941, b: 1, a: 0}
     - _FaceColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

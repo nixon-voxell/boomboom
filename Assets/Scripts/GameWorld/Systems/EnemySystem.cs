@@ -36,6 +36,21 @@ public partial struct EnemySetupSystem : ISystem, ISystemStartStop //for onstart
     public void OnStopRunning(ref SystemState state) { }
 }
 
+public partial struct EnemyFragmentSetupSystem : ISystem, ISystemStartStop
+{
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<Tag_EnemyFragmentsSingleton>();
+    }
+
+    public void OnStartRunning(ref SystemState state)
+    {
+    }
+
+    public void OnStopRunning(ref SystemState state) { }
+}
+
 [UpdateAfter(typeof(EnemySetupSystem)), UpdateBefore(typeof(TransformSystemGroup))]
 public partial struct EnemySpawnerSystem : ISystem
 {
