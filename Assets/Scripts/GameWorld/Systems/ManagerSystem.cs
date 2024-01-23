@@ -87,6 +87,8 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                 UiManagerMono.Instance.SetOnlyVisible(typeof(StartMenuMono));
                 // Reset game stat
                 gameStat = GameStatSingleton.Default();
+                // Muffle audio
+                AudioManager.Instance.SetBgmMuffled(true);
                 break;
 
             case GameState.InGame:
@@ -105,6 +107,8 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                 VirtualCameraMono.Instance.SetPriority(11);
                 // Enable in game hud
                 UiManagerMono.Instance.SetOnlyVisible(typeof(InGameHudMono));
+                // Unmuffle audio
+                AudioManager.Instance.SetBgmMuffled(false);
                 break;
 
             case GameState.End:
@@ -119,6 +123,9 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
 
                 endMenu.SurvivalTimeLbl.text = $"{hours:00}:{minutes:00}:{seconds:00}";
                 endMenu.KillCountLbl.text = gameStat.KillCount.ToString();
+
+                // Muffle audio
+                AudioManager.Instance.SetBgmMuffled(true);
 
                 break;
         }

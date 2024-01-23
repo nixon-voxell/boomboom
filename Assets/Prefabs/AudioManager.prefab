@@ -46,12 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbf48078c8530344b79004f4b183e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BgmSoundList:
+  Mixer: {fileID: 24100000, guid: f8217ee563b0b5d45ac76031e8a4b8f0, type: 2}
+  m_BgmCutoffFreqIncrement: 40
+  m_BgmCutoffFreqDecrement: 100
+  m_BgmMuffledFreq: 400
+  m_BgmNormalFreq: 20000
+  m_BgmSoundList:
   - SoundName: MainMenu
     Clip: {fileID: 8300000, guid: 5e2d640909fb66b46b293a6c6d926cde, type: 3}
-  - SoundName: InGame
-    Clip: {fileID: 8300000, guid: c492da8717a1db442ab1cd863379d41b, type: 3}
-  SfxSoundList:
+  m_SfxSoundList:
   - SoundName: Dash
     Clip: {fileID: 8300000, guid: 81e6bccbebd1a9e41bf69b5e33015c4a, type: 3}
   - SoundName: PlaceBomb
@@ -101,7 +104,7 @@ AudioSource:
   m_GameObject: {fileID: 4598292162587523202}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: f8217ee563b0b5d45ac76031e8a4b8f0,
+  OutputAudioMixerGroup: {fileID: -6879850510645532125, guid: f8217ee563b0b5d45ac76031e8a4b8f0,
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
@@ -230,7 +233,8 @@ AudioSource:
   m_GameObject: {fileID: 6412165515675966434}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1397605390907438165, guid: f8217ee563b0b5d45ac76031e8a4b8f0,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

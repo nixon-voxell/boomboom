@@ -1377,112 +1377,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 1234819338088509356, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3224703724143916545, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: Loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3224703724143916545, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 24300002, guid: f8217ee563b0b5d45ac76031e8a4b8f0,
-        type: 2}
-    - target: {fileID: 4598292162587523202, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: BgmSoundList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: SfxSoundList.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: BgmSoundList.Array.data[2].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 5443fde8ffac87246aad471a172b016a, type: 3}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: BgmSoundList.Array.data[3].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 1f59b1bb38a0ea84b9f2f0d6419ecb01, type: 3}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: BgmSoundList.Array.data[4].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 16e040f45c54a8a45ae788e67323226e, type: 3}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: SfxSoundList.Array.data[0].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 81e6bccbebd1a9e41bf69b5e33015c4a, type: 3}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: SfxSoundList.Array.data[1].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 8375bc83918d3f840abfac434f4efc75, type: 3}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: SfxSoundList.Array.data[2].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: e1bd3e5de9569044cae7caad94080d1a, type: 3}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: BgmSoundList.Array.data[0].SoundName
-      value: MainMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: BgmSoundList.Array.data[1].SoundName
-      value: InGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: BgmSoundList.Array.data[2].SoundName
-      value: Theme 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: BgmSoundList.Array.data[3].SoundName
-      value: Theme 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: BgmSoundList.Array.data[4].SoundName
-      value: Theme 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: SfxSoundList.Array.data[0].SoundName
-      value: Dash
-      objectReference: {fileID: 0}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: SfxSoundList.Array.data[1].SoundName
-      value: PlaceBomb
-      objectReference: {fileID: 0}
-    - target: {fileID: 5776398086514612178, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: SfxSoundList.Array.data[2].SoundName
-      value: Bomb
-      objectReference: {fileID: 0}
-    - target: {fileID: 6412165515675966434, guid: e2c057fd8a566d043aa27438b8232123,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1905,65 +1799,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2169985951928168673, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Name
-      value: _Position
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Name
-      value: _Scale
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.y
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.y
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.z
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324011269130000244, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4726567410800907988, guid: c65556622cbb44744a5fde677aa1891f,
         type: 3}
       propertyPath: m_Name
       value: Lightning
-      objectReference: {fileID: 0}
-    - target: {fileID: 4726567410800907988, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5081668465840444097, guid: c65556622cbb44744a5fde677aa1891f,
         type: 3}
@@ -2014,11 +1853,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6574323029600989138, guid: c65556622cbb44744a5fde677aa1891f,
-        type: 3}
-      propertyPath: PlayRate
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6574323029600989138, guid: c65556622cbb44744a5fde677aa1891f,
         type: 3}
