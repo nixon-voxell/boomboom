@@ -7,8 +7,8 @@
                 <ui:Label tabindex="-1" text="ESC" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 44px; -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); color: rgb(255, 255, 255);" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1;">
-            <ui:Label text="0:00:00" name="time-lbl" picking-mode="Ignore" style="font-size: 60px; -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-self: center; color: rgb(255, 255, 255);" />
+        <ui:VisualElement style="flex-grow: 1; flex-direction: column;">
+            <ui:Label text="0:00:00" name="time-lbl" picking-mode="Ignore" class="text-font" />
             <ui:VisualElement style="flex-grow: 1;">
                 <ui:VisualElement style="flex-grow: 1;" />
                 <ui:VisualElement style="flex-direction: row; -unity-text-align: upper-left; align-self: center; margin-top: 0; margin-bottom: 30px;">
