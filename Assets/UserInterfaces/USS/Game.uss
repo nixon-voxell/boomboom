@@ -4,37 +4,79 @@
 }
 
 .left-icon {
-    margin-right: -21px;
-    width: 40px;
-    height: 40px;
+    margin-right: -40px;
+    width: 80px;
     -unity-background-scale-mode: scale-to-fit;
     padding-top: 40px;
     padding-right: 40px;
     padding-bottom: 40px;
     padding-left: 40px;
-}
-
-.text-font {
-    font-size: 60px;
-    -unity-font: url('project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&guid=8959f588b315eec438daa513f7c709f6&type=3#Ddigital-7');
-    -unity-font-definition: url('project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&guid=6683a06746ef149478afe15178c53106&type=2#Digital-7 SDF');
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    align-self: center;
-    color: rgb(255, 255, 255);
+    height: 80px;
 }
 
 .unity-progress-bar__progress {
-    background-color: rgb(0, 236, 209);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: rgba(146, 227, 236, 0.8);
 }
 
 .unity-progress-bar__background {
     background-image: none;
-    background-color: rgba(255, 255, 255, 0.33);
+    background-color: rgba(0, 64, 56, 0.1);
+    margin-top: -15px;
+    margin-bottom: -15px;
+    border-left-width: 8px;
+    border-right-width: 8px;
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-left-radius: -80px;
+    border-top-right-radius: -80px;
+    border-bottom-right-radius: -80px;
+    border-bottom-left-radius: -80px;
+}
+
+.digital-centered-lbl {
+    text-shadow: 0.5px 0.25px 5px rgba(110, 218, 243, 0.7);
+    -unity-font-definition: url('project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&guid=6683a06746ef149478afe15178c53106&type=2#Digital-7 SDF');
+    font-size: 60px;
+    -unity-text-align: upper-center;
+    color: rgb(189, 255, 247);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-outline-color: rgba(110, 218, 243, 0.45);
+    -unity-text-outline-width: 1px;
+}
+
+.keybind-hint {
+    -unity-text-align: upper-left;
+    -unity-font-definition: url('project://database/Assets/Fonts/HurmeGeometricSans4-Black%20SDF.asset?fileID=11400000&guid=32337bc02cd0f3e4d8d63e79ee2e862f&type=2#HurmeGeometricSans4-Black SDF');
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.4);
+    font-size: 24px;
+    align-self: flex-start;
+    padding-top: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    translate: 50px 60px;
 }

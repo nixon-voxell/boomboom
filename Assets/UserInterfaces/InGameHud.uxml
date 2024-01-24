@@ -3,29 +3,33 @@
     <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; padding-top: 40px; padding-right: 40px; padding-bottom: 40px; padding-left: 40px;">
         <ui:VisualElement style="flex-grow: 1;">
             <ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/setting_Logo-removebg-preview.png?fileID=2800000&amp;guid=4092a4d98deff174393028030798ff47&amp;type=3#setting_Logo-removebg-preview&apos;); width: 40px; height: 40px;" />
-                <ui:Label tabindex="-1" text="ESC" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 44px; -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); color: rgb(255, 255, 255);" />
+                <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Textures/Icons/SettingsIcon.png?fileID=2800000&amp;guid=4092a4d98deff174393028030798ff47&amp;type=3#SettingsIcon&apos;); width: 40px; height: 40px;" />
+                <ui:Label text="ESC" class="digital-centered-lbl" style="-unity-text-align: upper-left;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1; flex-direction: column;">
-            <ui:Label text="0:00:00" name="time-lbl" picking-mode="Ignore" class="text-font" style="text-shadow: 0.5px 0.25px 15px rgba(0, 243, 217, 0.7);" />
+            <ui:Label text="0:00:00" name="time-lbl" picking-mode="Ignore" class="digital-centered-lbl" />
             <ui:VisualElement style="flex-grow: 1;" />
             <ui:VisualElement style="flex-direction: row; justify-content: space-around; align-self: center;">
                 <ui:VisualElement>
-                    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/TnT_Icon%20(3).png?fileID=2800000&amp;guid=08dcd55f37016ea46a1cc78cd13aa5bd&amp;type=3#TnT_Icon (3)&apos;); width: 100px; height: 100px; -unity-background-scale-mode: scale-to-fit;" />
-                    <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tnt-count-lbl" style="font-size: 50px; -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); color: rgb(255, 255, 255); -unity-text-align: upper-center;" />
+                    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Textures/Icons/TntIcon.png?fileID=2800000&amp;guid=24fefc4d2668eb149b5e8191c478cc8a&amp;type=3#TntIcon&apos;); width: 100px; height: 100px;">
+                        <ui:Label text="SPACE" class="keybind-hint" />
+                    </ui:VisualElement>
+                    <ui:Label text="5" name="tnt-count-lbl" class="digital-centered-lbl" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-grow: 1; width: 100px;" />
                 <ui:VisualElement style="align-self: center;">
-                    <ui:VisualElement picking-mode="Ignore" style="background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/DashIcon.png?fileID=2800000&amp;guid=c7358a1e3fb29b943b5612452ab33f46&amp;type=3#DashIcon&apos;); height: 100px; width: 100px; -unity-background-scale-mode: scale-to-fit;" />
-                    <ui:Label tabindex="-1" text="2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="dash-count-lbl" style="font-size: 50px; color: rgb(255, 255, 255); -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); -unity-text-align: upper-center;" />
+                    <ui:VisualElement picking-mode="Ignore" style="background-image: url(&apos;project://database/Assets/Textures/Icons/DashIcon.png?fileID=2800000&amp;guid=db99fba848b96ca45b37eae44e38ec7a&amp;type=3#DashIcon&apos;); height: 100px; width: 100px; -unity-background-scale-mode: scale-to-fit;">
+                        <ui:Label tabindex="-1" text="J" parse-escape-sequences="true" display-tooltip-when-elided="true" class="keybind-hint" />
+                    </ui:VisualElement>
+                    <ui:Label text="2" name="dash-count-lbl" class="digital-centered-lbl" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1;">
             <ui:VisualElement style="flex-direction: row-reverse;">
-                <ui:ProgressBar value="57.8" name="health-bar" usage-hints="None" class="game-progress-bar" />
-                <ui:VisualElement picking-mode="Ignore" class="left-icon" style="background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/Life%20bar%20icon%201.png?fileID=2800000&amp;guid=da4308e392147404da056d0f3c9143b1&amp;type=3#Life bar icon 1&apos;);" />
+                <ui:ProgressBar name="health-bar" usage-hints="None" value="100" class="game-progress-bar" />
+                <ui:VisualElement picking-mode="Ignore" class="left-icon" style="background-image: url(&apos;project://database/Assets/Textures/Icons/HealthIcon.png?fileID=2800000&amp;guid=35a20c04280eb9c4b9006deeb2bf3e64&amp;type=3#HealthIcon&apos;); -unity-background-scale-mode: scale-to-fit;" />
             </ui:VisualElement>
             <ui:VisualElement style="flex-direction: row-reverse;" />
         </ui:VisualElement>
