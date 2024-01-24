@@ -1,0 +1,17 @@
+.unity-base-slider__dragger {
+    width: 24px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    background-color: rgb(255, 255, 255);
+}
+
+.unity-slider__label {
+    -unity-font-style: bold;
+    font-size: 65px;
+    -unity-text-align: middle-left;
+    -unity-font-definition: url('project://database/Assets/Fonts/HurmeGeometricSans4-Black%20SDF.asset?fileID=11400000&guid=32337bc02cd0f3e4d8d63e79ee2e862f&type=2#HurmeGeometricSans4-Black SDF');
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    color: rgb(69, 159, 224);
+}
