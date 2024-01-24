@@ -13,14 +13,14 @@
             <ui:VisualElement style="flex-direction: row; justify-content: space-around; align-self: center;">
                 <ui:VisualElement>
                     <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Textures/Icons/TntIcon.png?fileID=2800000&amp;guid=24fefc4d2668eb149b5e8191c478cc8a&amp;type=3#TntIcon&apos;); width: 100px; height: 100px;">
-                        <ui:Label text="SPACE" class="keybind-hint" />
+                        <ui:Label text="SPACE" class="keybind-hint hint-lbl" />
                     </ui:VisualElement>
-                    <ui:Label text="5" name="tnt-count-lbl" class="digital-centered-lbl" />
+                    <ui:Label text="5" name="bomb-count-lbl" class="digital-centered-lbl" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-grow: 1; width: 100px;" />
                 <ui:VisualElement style="align-self: center;">
                     <ui:VisualElement picking-mode="Ignore" style="background-image: url(&apos;project://database/Assets/Textures/Icons/DashIcon.png?fileID=2800000&amp;guid=db99fba848b96ca45b37eae44e38ec7a&amp;type=3#DashIcon&apos;); height: 100px; width: 100px; -unity-background-scale-mode: scale-to-fit;">
-                        <ui:Label tabindex="-1" text="J" parse-escape-sequences="true" display-tooltip-when-elided="true" class="keybind-hint" />
+                        <ui:Label tabindex="-1" text="J" parse-escape-sequences="true" display-tooltip-when-elided="true" class="keybind-hint hint-lbl" />
                     </ui:VisualElement>
                     <ui:Label text="2" name="dash-count-lbl" class="digital-centered-lbl" />
                 </ui:VisualElement>
@@ -31,7 +31,12 @@
                 <ui:ProgressBar name="health-bar" usage-hints="None" value="100" class="game-progress-bar" />
                 <ui:VisualElement picking-mode="Ignore" class="left-icon" style="background-image: url(&apos;project://database/Assets/Textures/Icons/HealthIcon.png?fileID=2800000&amp;guid=35a20c04280eb9c4b9006deeb2bf3e64&amp;type=3#HealthIcon&apos;); -unity-background-scale-mode: scale-to-fit;" />
             </ui:VisualElement>
-            <ui:VisualElement style="flex-direction: row-reverse;" />
+            <ui:VisualElement style="flex-grow: 1;" />
+            <ui:VisualElement style="flex-direction: row-reverse;">
+                <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="kill-count-lbl" class="digital-centered-lbl" style="translate: -43px -57px;">
+                    <ui:Label tabindex="-1" text="KILLS" parse-escape-sequences="true" display-tooltip-when-elided="true" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; translate: 40px 60px; -unity-font-definition: url(&apos;project://database/Assets/Fonts/HurmeGeometricSans4-Black%20SDF.asset?fileID=11400000&amp;guid=32337bc02cd0f3e4d8d63e79ee2e862f&amp;type=2#HurmeGeometricSans4-Black SDF&apos;); font-size: 28px; -unity-text-outline-width: 0; -unity-text-outline-color: rgba(0, 0, 0, 0); text-shadow: 0 0 0 rgba(0, 0, 0, 0); color: rgb(255, 255, 255);" />
+                </ui:Label>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

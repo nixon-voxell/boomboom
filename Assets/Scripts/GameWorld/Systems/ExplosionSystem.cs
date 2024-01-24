@@ -353,12 +353,24 @@ public partial struct ExplosionForceSystem : ISystem
                                 SystemAPI.SetComponent<LocalTransform>(fragmentEntity, enemyTransform);
                                 commands.SetEnabled(fragmentEntity, true);
 
-                                PerformExplosionForce(ref state, explosionForce, explosionPosition, fragmentEntity);
+                                PerformExplosionForce(
+                                    ref state,
+                                    explosionForce,
+                                    explosionPosition,
+                                    fragmentEntity,
+                                    hit.Position
+                                );
                             }
                         }
                         else
                         {
-                            PerformExplosionForce(ref state, explosionForce, explosionPosition, hitEntity);
+                            PerformExplosionForce(
+                                ref state,
+                                explosionForce,
+                                explosionPosition,
+                                hitEntity,
+                                hit.Position
+                            );
                         }
                     }
                 }
@@ -372,14 +384,14 @@ public partial struct ExplosionForceSystem : ISystem
         ref SystemState state,
         float explosionForce,
         float3 explosionPosition,
-        Entity hitEntity
+        Entity hitEntity,
+        float3 hitPosition
     )
     {
-        ref readonly LocalTransform hitTransform = ref SystemAPI.GetComponentRO<LocalTransform>(hitEntity).ValueRO;
         ref PhysicsVelocity velocity = ref SystemAPI.GetComponentRW<PhysicsVelocity>(hitEntity).ValueRW;
         ref readonly PhysicsMass mass = ref SystemAPI.GetComponentRO<PhysicsMass>(hitEntity).ValueRO;
 
-        float3 direction = math.normalizesafe(hitTransform.Position + mass.CenterOfMass - explosionPosition);
+        float3 direction = math.normalizesafe(hitPosition - explosionPosition);
         float3 angularDirection = -math.normalizesafe(math.cross(direction, math.up()));
 
         float force = explosionForce * mass.InverseMass;

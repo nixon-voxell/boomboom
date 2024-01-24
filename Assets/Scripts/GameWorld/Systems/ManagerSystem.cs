@@ -234,6 +234,7 @@ public partial struct InGameHudUpdateSystem : ISystem
         GameUtil.CalculateTimeFromSeconds((int)gameStat.SurvivalTime, out hours, out minutes, out seconds);
 
         inGameHud.TimeLbl.text = $"{hours:00}:{minutes:00}:{seconds:00}";
+        inGameHud.KillCountLbl.text = gameStat.KillCount.ToString();
         inGameHud.HealthBar.value = health.Value;
     }
 }
