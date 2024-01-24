@@ -211,3 +211,29 @@ public partial struct PlayerDeathSystem : ISystem
         }
     }
 }
+
+public partial struct InGameHudUpdateSystem : ISystem
+{
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameStatSingleton>();
+        state.RequireForUpdate<Tag_PlayerSingleton>();
+    }
+
+    public void OnUpdate(ref SystemState state)
+    {
+        GameStatSingleton gameStat = SystemAPI.GetSingleton<GameStatSingleton>();
+        ref readonly Health health = ref SystemAPI.GetComponentRO<Health>(
+            SystemAPI.GetSingletonEntity<Tag_PlayerSingleton>()
+        ).ValueRO;
+
+        InGameHudMono inGameHud = UiManagerMono.Instance.GetUi<InGameHudMono>();
+
+        int hours, minutes, seconds;
+        GameUtil.CalculateTimeFromSeconds((int)gameStat.SurvivalTime, out hours, out minutes, out seconds);
+
+        inGameHud.TimeLbl.text = $"{hours:00}:{minutes:00}:{seconds:00}";
+        inGameHud.HealthBar.value = health.Value;
+    }
+}

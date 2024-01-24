@@ -8,16 +8,17 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1; flex-direction: column;">
-            <ui:Label text="0:00:00" name="time-lbl" picking-mode="Ignore" class="text-font" />
-            <ui:VisualElement style="flex-grow: 1;">
-                <ui:VisualElement style="flex-grow: 1;" />
-                <ui:VisualElement style="flex-direction: row; -unity-text-align: upper-left; align-self: center; margin-top: 0; margin-bottom: 30px;">
-                    <ui:VisualElement picking-mode="Ignore" style="background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/DashIcon.png?fileID=2800000&amp;guid=c7358a1e3fb29b943b5612452ab33f46&amp;type=3#DashIcon&apos;); height: 100px; flex-shrink: 0; width: 150px; -unity-background-scale-mode: scale-to-fit; flex-direction: column-reverse;">
-                        <ui:Label tabindex="-1" text="2&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="dash-count-lbl" style="font-size: 50px; color: rgb(255, 255, 255); -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); align-self: center; top: 100px;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/TnT_Icon%20(3).png?fileID=2800000&amp;guid=08dcd55f37016ea46a1cc78cd13aa5bd&amp;type=3#TnT_Icon (3)&apos;); flex-shrink: 0; width: 120px; height: 100px; -unity-background-scale-mode: scale-to-fit; flex-direction: column-reverse;">
-                        <ui:Label tabindex="-1" text="5&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tnt-count-lbl" style="-unity-text-align: upper-center; font-size: 50px; align-self: center; top: 100px; -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); color: rgb(255, 255, 255);" />
-                    </ui:VisualElement>
+            <ui:Label text="0:00:00" name="time-lbl" picking-mode="Ignore" class="text-font" style="text-shadow: 0.5px 0.25px 15px rgba(0, 243, 217, 0.7);" />
+            <ui:VisualElement style="flex-grow: 1;" />
+            <ui:VisualElement style="flex-direction: row; justify-content: space-around; align-self: center;">
+                <ui:VisualElement>
+                    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/TnT_Icon%20(3).png?fileID=2800000&amp;guid=08dcd55f37016ea46a1cc78cd13aa5bd&amp;type=3#TnT_Icon (3)&apos;); width: 100px; height: 100px; -unity-background-scale-mode: scale-to-fit;" />
+                    <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tnt-count-lbl" style="font-size: 50px; -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); color: rgb(255, 255, 255); -unity-text-align: upper-center;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-grow: 1; width: 100px;" />
+                <ui:VisualElement style="align-self: center;">
+                    <ui:VisualElement picking-mode="Ignore" style="background-image: url(&apos;project://database/Assets/_ThirdParty/PolygonPrototype/Textures/DashIcon.png?fileID=2800000&amp;guid=c7358a1e3fb29b943b5612452ab33f46&amp;type=3#DashIcon&apos;); height: 100px; width: 100px; -unity-background-scale-mode: scale-to-fit;" />
+                    <ui:Label tabindex="-1" text="2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="dash-count-lbl" style="font-size: 50px; color: rgb(255, 255, 255); -unity-font: url(&apos;project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&amp;guid=8959f588b315eec438daa513f7c709f6&amp;type=3#Ddigital-7&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&amp;guid=6683a06746ef149478afe15178c53106&amp;type=2#Digital-7 SDF&apos;); -unity-text-align: upper-center;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
