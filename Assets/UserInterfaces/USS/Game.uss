@@ -8,3 +8,19 @@
     width: 40px;
     height: 40px;
 }
+
+.text-font {
+    font-size: 60px;
+    -unity-font: url('project://database/Assets/Fonts/Ddigital-7.ttf?fileID=12800000&guid=8959f588b315eec438daa513f7c709f6&type=3#Ddigital-7');
+    -unity-font-definition: url('project://database/Assets/Fonts/digital-7%20SDF.asset?fileID=11400000&guid=6683a06746ef149478afe15178c53106&type=2#Digital-7 SDF');
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    align-self: center;
+    color: rgb(255, 255, 255);
+}
