@@ -60,6 +60,9 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
         DynamicBuffer<Child> mascotChildren = SystemAPI.GetBuffer<Child>(mascotEntity);
         ref readonly LocalTransform mascotTransform = ref SystemAPI.GetComponentRO<LocalTransform>(mascotEntity).ValueRO;
 
+        // Settings ui
+        SettingsMono settings = UiManagerMono.Instance.GetUi<SettingsMono>();
+
         switch (targetState.Value)
         {
             case GameState.Start:
@@ -89,6 +92,8 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                 gameStat = GameStatSingleton.Default();
                 // Muffle audio
                 AudioManager.Instance.SetBgmMuffled(true);
+                // Disable exit to menu button
+                settings.MainMenuBtn.SetEnabled(false);
                 break;
 
             case GameState.InGame:
@@ -109,6 +114,8 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
                 UiManagerMono.Instance.SetOnlyVisible(typeof(InGameHudMono));
                 // Unmuffle audio
                 AudioManager.Instance.SetBgmMuffled(false);
+                // Enable exit to menu button
+                settings.MainMenuBtn.SetEnabled(true);
                 break;
 
             case GameState.End:
@@ -126,6 +133,8 @@ public partial struct ManagerSystem : ISystem, ISystemStartStop
 
                 // Muffle audio
                 AudioManager.Instance.SetBgmMuffled(true);
+                // Disable exit to menu button
+                settings.MainMenuBtn.SetEnabled(false);
 
                 break;
         }
@@ -236,5 +245,39 @@ public partial struct InGameHudUpdateSystem : ISystem
         inGameHud.TimeLbl.text = $"{hours:00}:{minutes:00}:{seconds:00}";
         inGameHud.KillCountLbl.text = gameStat.KillCount.ToString();
         inGameHud.HealthBar.value = health.Value;
+    }
+}
+
+public partial struct SettingsMenuEnableSystem : ISystem
+{
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate(
+            SystemAPI.QueryBuilder()
+            .WithAll<GameCurrStateSingleton, GameTargetStateSingleton>()
+            .Build()
+        );
+        state.RequireForUpdate<UserInputSingleton>();
+    }
+
+    public void OnUpdate(ref SystemState state)
+    {
+        GameCurrStateSingleton currState = SystemAPI.GetSingleton<GameCurrStateSingleton>();
+
+        // Settings menu can only be enabled through keybind in game
+        if (currState.Value != GameState.InGame)
+        {
+            return;
+        }
+
+        UserInputSingleton userInput = SystemAPI.GetSingleton<UserInputSingleton>();
+
+        if (userInput.Pause)
+        {
+            SettingsMono settings = UiManagerMono.Instance.GetUi<SettingsMono>();
+            settings.Root.visible = true;
+            UnityEngine.Time.timeScale = 0.0f;
+        }
     }
 }

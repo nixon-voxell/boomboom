@@ -7,11 +7,13 @@ public struct UserInputSingleton : IComponentData
     public bool IsMoving;
     public bool Dash;
     public bool Bomb;
+    public bool Pause;
 
     public static readonly UserInputSingleton Default = new UserInputSingleton
     {
         MoveAxis = 0.0f,
         IsMoving = false,
         Dash = false,
+        Pause = false,
     };
 }

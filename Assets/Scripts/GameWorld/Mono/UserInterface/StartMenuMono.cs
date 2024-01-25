@@ -14,29 +14,23 @@ public class StartMenuMono : UiMono
         this.m_SettingsBtn = this.Root.Query<Button>("settings-btn");
         this.m_QuitBtn = this.Root.Query<Button>("quit-btn");
 
-        this.m_StartBtn.clicked += this.StartGame;
-        this.m_SettingsBtn.clicked += this.OpenSettings;
-        this.m_QuitBtn.clicked += this.QuitGame;
-    }
+        this.m_StartBtn.clicked += () =>
+        {
+            GameStateSpawnerMono.Instance.SetTargetState(GameState.InGame);
+        };
 
-    private void StartGame()
-    {
-        GameStateSpawnerMono.Instance.SetTargetState(GameState.InGame);
-    }
+        this.m_SettingsBtn.clicked += () =>
+        {
+            SettingsMono settings = UiManagerMono.Instance.GetUi<SettingsMono>();
+            settings.Root.visible = true;
+        };
 
-    private void OpenSettings()
-    {
-        /* SetOnlyVisible: alr include hide other ui, and only show the ui mentioned,
-         so no need to add "this.Root.visible = false;" */
-
-        UiManagerMono.Instance.SetOnlyVisible(typeof(SettingsMono));   //show settings menu only, and hide other ui
-    }
-
-    private void QuitGame()
-    {
-        Application.Quit();
+        this.m_QuitBtn.clicked += () =>
+        {
+            Application.Quit();
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
 #endif
+        };
     }
 }

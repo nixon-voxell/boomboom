@@ -2,14 +2,16 @@
     <Style src="project://database/Assets/UserInterfaces/USS/Slider.uss?fileID=7433441132597879392&amp;guid=c7f433ff70096834182f45eb4870c54f&amp;type=3#Slider" />
     <Style src="project://database/Assets/UserInterfaces/USS/Label.uss?fileID=7433441132597879392&amp;guid=caf92ec282485f34bae4aef22cfc1c4d&amp;type=3#Label" />
     <Style src="project://database/Assets/UserInterfaces/USS/Buttons.uss?fileID=7433441132597879392&amp;guid=0d4ca1007d2be4f45b0ca931182677de&amp;type=3#Buttons" />
-    <ui:VisualElement picking-mode="Ignore" name="SettingsManager" style="flex-grow: 1; justify-content: center;">
-        <ui:VisualElement name="Screen" class="menu-background floating-menu" style="width: 700px;">
-            <ui:VisualElement name="Audio" style="padding-top: 43px; margin-bottom: 0; margin-top: 0;">
-                <ui:Slider picking-mode="Ignore" label="BGM" value="42" name="bgm-slider" high-value="1" style="width: 418px; padding-bottom: 48px;" />
+    <ui:VisualElement name="SettingsManager" style="flex-grow: 1; justify-content: center; background-color: rgba(0, 0, 0, 0.4);">
+        <ui:VisualElement name="Screen" class="menu-background floating-menu" style="width: 700px; align-items: stretch;">
+            <ui:VisualElement name="Audio" style="margin-bottom: 0; margin-top: 0; padding-top: 40px; padding-right: 40px; padding-bottom: 40px; padding-left: 40px;">
+                <ui:Slider picking-mode="Ignore" label="BGM" value="42" name="bgm-slider" high-value="1" style="padding-bottom: 48px;" />
                 <ui:Slider picking-mode="Ignore" label="SFX" name="sfx-slider" high-value="1" value="1" />
             </ui:VisualElement>
-            <ui:VisualElement name="Back" style="align-self: flex-end; padding-top: 20px;">
+            <ui:VisualElement style="flex-grow: 1; height: 100px;" />
+            <ui:VisualElement name="Back" style="align-items: flex-end;">
                 <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="back-btn" class="button-menu" />
+                <ui:Button text="Quit to Main Menu" name="exit-to-menu-btn" class="button-menu" style="background-color: rgb(255, 182, 175);" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

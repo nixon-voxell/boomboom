@@ -32,6 +32,7 @@ public partial class InputSystem : SystemBase
         input.IsMoving = this.m_Input.Player.Move.IsPressed();
         input.Dash = this.m_Input.Player.Dash.WasPressedThisFrame();
         input.Bomb = this.m_Input.Player.Bomb.WasPressedThisFrame();
+        input.Pause = this.m_Input.Player.Pause.WasPerformedThisFrame();
 
         SystemAPI.SetSingleton<UserInputSingleton>(input);
     }
