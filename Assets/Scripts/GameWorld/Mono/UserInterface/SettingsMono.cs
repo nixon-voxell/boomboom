@@ -19,20 +19,18 @@ public class SettingsMono : UiMono
 
     private void Update()
     {
-        SetSliderVolume(m_BgmSlider, "BgmSource");
-        SetSliderVolume(m_SfxSlider, "SfxSource");
+        SetSliderVolume(m_BgmSlider, AudioManager.Instance.BgmSource);
+        SetSliderVolume(m_SfxSlider, AudioManager.Instance.SfxSource);
     }
 
-    private void SetSliderVolume(Slider slider, string sourceName)
+    private void SetSliderVolume(Slider slider, AudioSource source)
     {
         slider.lowValue = 0;
         slider.highValue = 1;
 
-        AudioSource source = FindAnyObjectByType<AudioSource>();
-
-        if (source != null && source.name == sourceName)
+        if (source != null)
         {
-            slider.RegisterValueChangedCallback((v) => AudioManager.Instance.ToggleVolume(source, slider.value));
+            slider.RegisterValueChangedCallback((v) => source.volume = slider.value);
         }
     }
 
