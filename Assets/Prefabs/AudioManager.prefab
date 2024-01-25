@@ -61,6 +61,8 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 8375bc83918d3f840abfac434f4efc75, type: 3}
   - SoundName: Bomb
     Clip: {fileID: 8300000, guid: e1bd3e5de9569044cae7caad94080d1a, type: 3}
+  - SoundName: Glitch
+    Clip: {fileID: 8300000, guid: c6794c2881b17cb4e9880c64d291be02, type: 3}
   BgmSource: {fileID: 3224703724143916545}
   SfxSource: {fileID: 6329814537299897050}
 --- !u!1 &4598292162587523202

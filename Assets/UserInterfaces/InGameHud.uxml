@@ -15,14 +15,14 @@
                     <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Textures/Icons/TntIcon.png?fileID=2800000&amp;guid=24fefc4d2668eb149b5e8191c478cc8a&amp;type=3#TntIcon&apos;); width: 100px; height: 100px;">
                         <ui:Label text="SPACE" class="keybind-hint hint-lbl" />
                     </ui:VisualElement>
-                    <ui:Label text="5" name="bomb-count-lbl" class="digital-centered-lbl" />
+                    <ui:Label text="5" name="bomb-count-lbl" class="digital-centered-lbl" style="display: none;" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-grow: 1; width: 100px;" />
                 <ui:VisualElement style="align-self: center;">
                     <ui:VisualElement picking-mode="Ignore" style="background-image: url(&apos;project://database/Assets/Textures/Icons/DashIcon.png?fileID=2800000&amp;guid=db99fba848b96ca45b37eae44e38ec7a&amp;type=3#DashIcon&apos;); height: 100px; width: 100px; -unity-background-scale-mode: scale-to-fit;">
                         <ui:Label tabindex="-1" text="J" parse-escape-sequences="true" display-tooltip-when-elided="true" class="keybind-hint hint-lbl" />
                     </ui:VisualElement>
-                    <ui:Label text="2" name="dash-count-lbl" class="digital-centered-lbl" />
+                    <ui:Label text="2" name="dash-count-lbl" class="digital-centered-lbl" style="display: none;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

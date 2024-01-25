@@ -263,11 +263,14 @@ public partial struct EnemyDamageSystem : ISystem
         // Damage player health
         health.Value = math.max(health.Value - totalDamage.Value, 0.0f);
 
-        // Perform damage effect
         if (totalDamage.Value > 0.0f)
         {
+            // Perform damage effect
             PostProcessEffect.Instance.ChromaticIntensity = 1.0f;
-            PostProcessEffect.Instance.DistortIntensity = 0.4f;
+            PostProcessEffect.Instance.DistortIntensity = 0.6f;
+
+            // Play damage audio
+            AudioManager.Instance.PlaySfx("Glitch");
         }
 
         totalDamage.Dispose();
