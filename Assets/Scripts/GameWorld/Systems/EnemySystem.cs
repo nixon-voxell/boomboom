@@ -224,7 +224,6 @@ public partial struct EnemyDamageSystem : ISystem
         state.RequireForUpdate<SimulationSingleton>();
     }
 
-    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         EnemyProgressionSingleton progression = SystemAPI.GetSingleton<EnemyProgressionSingleton>();
@@ -259,8 +258,17 @@ public partial struct EnemyDamageSystem : ISystem
 
         state.CompleteDependency();
 
+        // Knockback
         velocity.Linear.xz += totalForce.Value;
+        // Damage player health
         health.Value = math.max(health.Value - totalDamage.Value, 0.0f);
+
+        // Perform damage effect
+        if (totalDamage.Value > 0.0f)
+        {
+            PostProcessEffect.Instance.ChromaticIntensity = 1.0f;
+            PostProcessEffect.Instance.DistortIntensity = 0.4f;
+        }
 
         totalDamage.Dispose();
         totalForce.Dispose();

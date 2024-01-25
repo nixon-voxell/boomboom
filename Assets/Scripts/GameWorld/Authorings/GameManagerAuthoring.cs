@@ -8,7 +8,6 @@ class GameManagerAuthoring : MonoBehaviour
     public UnityEditor.SceneAsset GameWorld;
     public UnityEditor.SceneAsset EnvironmentWorld;
 }
-#endif
 
 class GameManagerBaker : Baker<GameManagerAuthoring>
 {
@@ -31,3 +30,4 @@ class GameManagerBaker : Baker<GameManagerAuthoring>
         this.AddComponent<GameStatSingleton>(entity, GameStatSingleton.Default());
     }
 }
+#endif
