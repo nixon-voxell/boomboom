@@ -15,19 +15,18 @@ public class SettingsMono : UiMono
         this.m_SfxSlider = this.Root.Query<Slider>("sfx-slider");
 
         this.m_BackBtn.clicked += this.BackMenu;
-    }
 
-    private void Update()
-    {
+        this.m_BgmSlider.lowValue = 0.0f;
+        this.m_BgmSlider.highValue = 1.0f;
+        this.m_SfxSlider.lowValue = 0.0f;
+        this.m_SfxSlider.highValue = 1.0f;
+
         SetSliderVolume(m_BgmSlider, "BgmSource");
         SetSliderVolume(m_SfxSlider, "SfxSource");
     }
 
     private void SetSliderVolume(Slider slider, string sourceName)
     {
-        slider.lowValue = 0;
-        slider.highValue = 1;
-
         AudioSource source = FindAnyObjectByType<AudioSource>();
 
         if (source != null && source.name == sourceName)

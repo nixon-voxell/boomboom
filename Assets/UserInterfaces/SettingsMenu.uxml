@@ -5,8 +5,8 @@
     <ui:VisualElement picking-mode="Ignore" name="SettingsManager" style="flex-grow: 1; justify-content: center;">
         <ui:VisualElement name="Screen" class="menu-background floating-menu" style="width: 700px;">
             <ui:VisualElement name="Audio" style="padding-top: 43px; margin-bottom: 0; margin-top: 0;">
-                <ui:Slider picking-mode="Ignore" label="BGM" value="42" high-value="100" name="bgm-slider" style="width: 418px; padding-bottom: 48px;" />
-                <ui:Slider picking-mode="Ignore" label="SFX" value="42" high-value="100" name="sfx-slider" />
+                <ui:Slider picking-mode="Ignore" label="BGM" value="42" name="bgm-slider" high-value="1" style="width: 418px; padding-bottom: 48px;" />
+                <ui:Slider picking-mode="Ignore" label="SFX" name="sfx-slider" high-value="1" value="1" />
             </ui:VisualElement>
             <ui:VisualElement name="Back" style="align-self: flex-end; padding-top: 20px;">
                 <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="back-btn" class="button-menu" />
