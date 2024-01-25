@@ -76,20 +76,6 @@ public class AudioManager : SingletonMono<AudioManager>
         source.mute = !source.mute;
     }
 
-    /* in ui script, create a void function to manage, like example below:
-    * 
-    * public void ToggleMusic()
-    * {
-    *      AudioManager.Instance.ToggleMute(AudioManager.Instance.BgmSource)
-    *  }
-    *  
-    *  why create void function? it is for later click button event use
-    */
-
-    public void ToggleVolume(AudioSource source, float newVolume)
-    {
-        source.volume = newVolume;
-    }
     #endregion
     #endregion
 
