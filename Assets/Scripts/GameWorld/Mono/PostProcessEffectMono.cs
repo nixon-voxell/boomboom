@@ -29,7 +29,8 @@ public class PostProcessEffect : SingletonMono<PostProcessEffect>
     private void Update()
     {
         this.m_Chromatic.intensity.value = this.ChromaticIntensity;
-        this.m_Distort.intensity.value = this.DistortIntensity;
+        this.m_Distort.xMultiplier.value = this.DistortIntensity;
+        this.m_Distort.yMultiplier.value = this.DistortIntensity;
 
         this.ChromaticIntensity = math.lerp(
             this.ChromaticIntensity, this.m_ChromaticDefault,

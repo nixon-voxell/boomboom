@@ -267,7 +267,7 @@ public partial struct EnemyDamageSystem : ISystem
         {
             // Perform damage effect
             PostProcessEffect.Instance.ChromaticIntensity = 1.0f;
-            PostProcessEffect.Instance.DistortIntensity = 0.6f;
+            PostProcessEffect.Instance.DistortIntensity = 1.0f;
 
             // Play damage audio
             AudioManager.Instance.PlaySfx("Glitch");

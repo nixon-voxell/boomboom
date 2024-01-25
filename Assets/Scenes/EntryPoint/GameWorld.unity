@@ -221,7 +221,7 @@ MonoBehaviour:
   EndSpawnRate: 0.1
   StartSpeed: 1
   EndSpeed: 5
-  EndTime: 1800
+  EndTime: 900
   Damage: 5
   Force: 100
 --- !u!1 &685496937
