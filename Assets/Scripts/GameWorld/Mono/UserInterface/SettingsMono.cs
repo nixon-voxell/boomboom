@@ -25,6 +25,9 @@ public class SettingsMono : UiMono
 
     private void SetSliderVolume(Slider slider, string sourceName)
     {
+        slider.lowValue = 0;
+        slider.highValue = 1;
+
         AudioSource source = FindAnyObjectByType<AudioSource>();
 
         if (source != null && source.name == sourceName)
