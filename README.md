@@ -15,8 +15,6 @@ Booom Boom is a single player bombing game made in Unity3D.
 
 ![boom0](./Gameplay/Boom0.png)
 
-![boom1](./Gameplay/Boom1.png)
-
 ## Death
 
 ![death-menu0](./Gameplay/DeathMenu0.png)
